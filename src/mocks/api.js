@@ -1,4 +1,4 @@
-const MOCK_ENABLED = import.meta.env.DEV && !import.meta.env.VITE_BACKEND_URL;
+const MOCK_ENABLED = !import.meta.env.VITE_BACKEND_URL;
 
 // Test data store
 const TEST_USERS = {

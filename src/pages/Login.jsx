@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useI18n } from "../i18n/I18nProvider";
+import { mockFetch } from "../mocks/api";
 
 export default function Login() {
   const { t } = useI18n();
@@ -21,7 +22,7 @@ export default function Login() {
     (async () => {
       setLoading(true);
       try {
-        const res = await fetch(`/auth/verify?token=${token}`);
+        const res = await mockFetch(`/auth/verify?token=${token}`);
         const data = await res.json();
         if (res.ok && data.token) {
           localStorage.setItem("jwt", data.token);
@@ -59,7 +60,7 @@ export default function Login() {
     setLoading(true);
     setMsg(null);
     try {
-      const res = await fetch("/auth/login", {
+      const res = await mockFetch("/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
