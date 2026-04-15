@@ -97,18 +97,21 @@ make docker-run            # Run container (standalone)
 ```
 
 ### Docker Compose (full stack)
+
+**⚠️ Requires `oql-api` repository in `packages/oql-api` for full stack.**
+
 ```bash
 # Development: Traefik + API + Portal + Mailpit
-make docker-dev
+make dev-docker
 # → oqlos.localhost, api.oqlos.localhost, mail.oqlos.localhost
 
 # Production: HTTPS + Let's Encrypt + Postgres + Redis
-make docker-prod
+make prod
 # → oqlos.com, api.oqlos.com (TLS)
 
 # Stop stacks
-make docker-dev-down
-make docker-prod-down
+make dev-docker-down
+make prod-down
 ```
 
 ## Project Structure
@@ -161,6 +164,7 @@ make docker-prod-down
 |---------|-------------|
 | `make dev` | Start dev server |
 | `make build` | Production build |
+| `make docker-build` | Build Docker image |
 | `make test` | Full test suite |
 | `make test-e2e` | Playwright E2E |
 | `make test-e2e-ci` | CI E2E (chromium) |
@@ -169,10 +173,12 @@ make docker-prod-down
 | `make clean` | Clean build artifacts |
 | `make clean-all` | Clean + node_modules |
 | `make ci` | Full CI pipeline |
-| `make docker-dev` | Start dev Docker Compose stack |
-| `make docker-dev-down` | Stop dev stack |
-| `make docker-prod` | Start prod Docker Compose stack |
-| `make docker-prod-down` | Stop prod stack |
+| `make docker-build` | Build Docker image (portal only) |
+| `make docker-run` | Run portal container (standalone) |
+| `make dev-docker` | Start dev Docker Compose stack (requires API) |
+| `make dev-docker-down` | Stop dev stack |
+| `make prod` | Start prod Docker Compose stack |
+| `make prod-down` | Stop prod stack |
 
 ## Scripts
 

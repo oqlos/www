@@ -75,8 +75,8 @@ export default function TerminalSim() {
           </div>
         )}
         {lines.map((l, i) => (
-          <div key={i} style={{ color: colorMap[l.type] || "#cbd5e1", minHeight: "1.4em" }}>
-            {l.text}
+          <div key={i} style={{ color: colorMap[l?.type] || "#cbd5e1", minHeight: "1.4em" }}>
+            {l?.text || ""}
           </div>
         ))}
         {running && <span className="cursor-blink">█</span>}

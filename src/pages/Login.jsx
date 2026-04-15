@@ -10,7 +10,9 @@ export default function Login() {
   const [msg, setMsg] = useState(null);
   const [loading, setLoading] = useState(false);
   const token = searchParams.get("token");
+  const plan = searchParams.get("plan");
   const verifyTokenRef = useRef(false);
+  const autoSubmitRef = useRef(false);
 
   useEffect(() => {
     if (!token || verifyTokenRef.current) return;
@@ -36,6 +38,20 @@ export default function Login() {
       }
     })();
   }, [token, navigate, t]);
+
+  // Auto-fill test email when plan=pro
+  useEffect(() => {
+    if (plan === "pro" && !autoSubmitRef.current) {
+      setEmail("test@test.com");
+      autoSubmitRef.current = true;
+      
+      // Auto-submit after a short delay for easier testing
+      setTimeout(() => {
+        const form = document.querySelector('form');
+        if (form) form.requestSubmit();
+      }, 500);
+    }
+  }, [plan]);
 
   async function handleSubmit(e) {
     e.preventDefault();
