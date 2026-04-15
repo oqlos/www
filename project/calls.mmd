@@ -1,34 +1,44 @@
 flowchart LR
-    subgraph TODO__oqlos_landing
-        TODO__oqlos_landing__fn["fn"]
-        TODO__oqlos_landing__CodeEditor["CodeEditor"]
+    subgraph e2e__demo_user
+        e2e__demo_user__spec__mockBackendRoutes["mockBackendRoutes"]
+        e2e__demo_user__spec__request["request"]
     end
     subgraph e2e__smoke
         e2e__smoke__spec__status["status"]
         e2e__smoke__spec__response["response"]
     end
+    subgraph src__hooks
+        src__hooks__useAuth__isAuthenticated["isAuthenticated"]
+        src__hooks__useAuth__navigate["navigate"]
+        src__hooks__useAuth__useAuth["useAuth"]
+        src__hooks__useAuth__requireAuth["requireAuth"]
+        src__hooks__useAuth__logout["logout"]
+    end
+    subgraph src__mocks
+        src__mocks__api__mockFetch["mockFetch"]
+        src__mocks__api__fakeResponse["fakeResponse"]
+        src__mocks__api__email["email"]
+        src__mocks__api__user["user"]
+    end
     subgraph src__pages
         src__pages__Login__token["token"]
-        src__pages__Scenarios__exampleKeys["exampleKeys"]
-        src__pages__Dashboard__jwt["jwt"]
         src__pages__Login__navigate["navigate"]
-        src__pages__Billing__handleSubscribe["handleSubscribe"]
-        src__pages__Scenarios__jwt["jwt"]
-        src__pages__Scenarios__navigate["navigate"]
-        src__pages__Login__verifyToken["verifyToken"]
-        src__pages__NlpConsole__navigate["navigate"]
-        src__pages__Billing__navigate["navigate"]
-        src__pages__Dashboard__logout["logout"]
-        src__pages__NlpConsole__jwt["jwt"]
-        src__pages__Dashboard__navigate["navigate"]
+        src__pages__Login__autoSubmitRef["autoSubmitRef"]
+        src__pages__Login__plan["plan"]
+        src__pages__Login__data["data"]
+        src__pages__Login__verifyTokenRef["verifyTokenRef"]
     end
-    src__pages__NlpConsole__jwt --> src__pages__NlpConsole__navigate
-    src__pages__Billing__handleSubscribe --> src__pages__Billing__navigate
+    src__hooks__useAuth__useAuth --> src__hooks__useAuth__navigate
+    src__hooks__useAuth__isAuthenticated --> src__hooks__useAuth__navigate
+    src__hooks__useAuth__logout --> src__hooks__useAuth__navigate
+    src__hooks__useAuth__requireAuth --> src__hooks__useAuth__navigate
+    src__mocks__api__mockFetch --> src__mocks__api__fakeResponse
+    src__mocks__api__email --> src__mocks__api__fakeResponse
+    src__mocks__api__user --> src__mocks__api__fakeResponse
     src__pages__Login__token --> src__pages__Login__navigate
-    src__pages__Login__verifyToken --> src__pages__Login__navigate
-    src__pages__Dashboard__jwt --> src__pages__Dashboard__navigate
-    src__pages__Dashboard__logout --> src__pages__Dashboard__navigate
-    src__pages__Scenarios__jwt --> src__pages__Scenarios__navigate
-    src__pages__Scenarios__exampleKeys --> src__pages__Scenarios__navigate
+    src__pages__Login__plan --> src__pages__Login__navigate
+    src__pages__Login__verifyTokenRef --> src__pages__Login__navigate
+    src__pages__Login__autoSubmitRef --> src__pages__Login__navigate
+    src__pages__Login__data --> src__pages__Login__navigate
+    e2e__demo_user__spec__mockBackendRoutes --> e2e__demo_user__spec__request
     e2e__smoke__spec__response --> e2e__smoke__spec__status
-    TODO__oqlos_landing__CodeEditor --> TODO__oqlos_landing__fn

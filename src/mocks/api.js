@@ -50,7 +50,7 @@ export function mockFetch(url, options) {
   if (url.includes('/auth/login')) {
     const body = options.body ? JSON.parse(options.body) : {};
     const email = body.email;
-    const password = body.password;
+    console.log('[mockFetch] Login attempt for email:', email);
 
     // Special handling for test users
     if (email === 'test@test.com' || email === 'demo@oqlos.io') {
@@ -62,21 +62,14 @@ export function mockFetch(url, options) {
       });
     }
 
-    // Demo user from .env
+    // Demo user from .env - email-only login
     if (email === (import.meta.env.VITE_DEMO_USER_EMAIL || 'demo@oqlos.com')) {
-      if (password === (import.meta.env.VITE_DEMO_USER_PASSWORD || 'demo123')) {
-        const user = TEST_USERS[email];
-        return fakeResponse({
-          message: "Demo login successful",
-          testMode: true,
-          user: user
-        });
-      } else {
-        return fakeResponse({
-          error: "Invalid password",
-          message: "Demo password is incorrect"
-        }, 400);
-      }
+      const user = TEST_USERS[email];
+      return fakeResponse({
+        message: "Demo login successful",
+        testMode: true,
+        user: user
+      });
     }
 
     return fakeResponse({ message: "Check your email for a login link!" });

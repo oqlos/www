@@ -4,6 +4,7 @@ import PricingCards from "../components/PricingCards";
 import { useAuth } from "../hooks/useAuth";
 import SharedNav from "../components/SharedNav";
 import { useI18n } from "../i18n/I18nProvider";
+import { mockFetch } from "../mocks/api";
 
 export default function Billing() {
   const [searchParams] = useSearchParams();
@@ -24,7 +25,7 @@ export default function Billing() {
       return;
     }
     try {
-      const res = await fetch(`/billing/subscribe/${selectedPlan}?provider=stripe`, {
+      const res = await mockFetch(`/billing/subscribe/${selectedPlan}?provider=stripe`, {
         method: "POST",
         headers: { Authorization: `Bearer ${jwt}` },
       });

@@ -97,7 +97,10 @@ docker-run:
 	docker run -p 80:80 -e NGINX_PORT=80 -e BACKEND_URL=http://host.docker.internal:8101 oqlos-portal:latest
 
 dev-docker:
+	@echo "Restarting dev Docker stack..."
+	docker compose -f infra/docker/dev/docker-compose.dev.yml down
 	docker compose -f infra/docker/dev/docker-compose.dev.yml up -d
+	@echo "Dev Docker stack restarted"
 
 dev-docker-down:
 	docker compose -f infra/docker/dev/docker-compose.dev.yml down

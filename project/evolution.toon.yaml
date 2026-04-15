@@ -1,14 +1,54 @@
-# code2llm/evolution | 62 func | 11f | 2026-04-15
+# code2llm/evolution | 93 func | 18f | 2026-04-15
 
-NEXT[0]: no refactoring needed
+NEXT[10] (ranked by impact):
+  [1] !  SPLIT-FUNC      GITHUB_REPO  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [2] !  SPLIT-FUNC      API_DEV_URL  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [3] !  SPLIT-FUNC      IDE_DEV_URL  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [4] !  SPLIT-FUNC      TRAEFIK_DEV_URL  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [5] !  SPLIT-FUNC      DOCKER_IMAGE  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [6] !  SPLIT-FUNC      API_WS_URL  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [7] !  SPLIT-FUNC      HARDWARE_MODE  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [8] !  SPLIT-FUNC      MODBUS_SERIAL_PORT  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [9] !  SPLIT-FUNC      I2C_BUS  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
+  [10] !  SPLIT-FUNC      USB_DEVICE  CC=20  fan=26
+      WHY: CC=20 exceeds 15
+      EFFORT: ~1h  IMPACT: 520
+
 
 RISKS[0]: none
 
 METRICS-TARGET:
-  CC̄:          2.4 → ≤1.7
-  max-CC:      11 → ≤5
+  CC̄:          4.9 → ≤3.4
+  max-CC:      20 → ≤10
   god-modules: 0 → 0
-  high-CC(≥15): 0 → ≤0
+  high-CC(≥15): 12 → ≤6
   hub-types:   0 → ≤0
 
 PATTERNS (language parser shared logic):
@@ -36,4 +76,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=2.3 → now CC̄=2.4
+  prev CC̄=2.4 → now CC̄=4.9

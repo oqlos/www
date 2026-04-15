@@ -1,88 +1,132 @@
-# www | 20f 2726L | shell:2,javascript:18 | 2026-04-15
-# stats: 62 func | 0 cls | 20 mod | CC̄=2.4 | critical:0 | cycles:0
-# alerts[1]: fan-out exampleKeys=10
-# hotspots[5]: exampleKeys fan=10; token fan=9; verifyToken fan=9; TerminalSim fan=9; handleSubmit fan=8
-# evolution: CC̄ 2.3→2.4 (regressed +0.1)
+# www | 34f 2223L | shell:3,javascript:31 | 2026-04-15
+# stats: 93 func | 0 cls | 34 mod | CC̄=4.9 | critical:12 | cycles:0
+# alerts[5]: fan-out API_DEV_URL=26; fan-out API_WS_URL=26; fan-out DOCKER_IMAGE=26; fan-out GITHUB_REPO=26; fan-out HARDWARE_MODE=26
+# hotspots[5]: GITHUB_REPO fan=26; API_DEV_URL fan=26; IDE_DEV_URL fan=26; TRAEFIK_DEV_URL fan=26; DOCKER_IMAGE fan=26
+# evolution: CC̄ 2.4→4.9 (regressed +2.5)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[20]:
-  TODO/oqlos-landing.jsx,1221
+M[34]:
+  docker-entrypoint.sh,5
+  e2e/demo-user.spec.js,200
   e2e/landing.spec.js,44
   e2e/smoke.spec.js,31
   playwright.config.js,49
   project.sh,35
-  src/App.jsx,22
+  public/sw.js,26
+  src/App.jsx,23
   src/components/ArchDiagram.jsx,84
   src/components/CodeEditor.jsx,106
+  src/components/ErrorBoundary.jsx,47
+  src/components/LangSwitch.jsx,24
+  src/components/LoadingSpinner.jsx,17
   src/components/PricingCards.jsx,71
+  src/components/ProtectedRoute.jsx,7
+  src/components/SharedNav.jsx,25
   src/components/TerminalSim.jsx,86
+  src/components/ThemeToggle.jsx,29
   src/components/oql-examples.js,144
-  src/main.jsx,12
-  src/pages/Billing.jsx,70
-  src/pages/Dashboard.jsx,80
-  src/pages/Landing.jsx,365
-  src/pages/Login.jsx,110
-  src/pages/NlpConsole.jsx,118
-  src/pages/Scenarios.jsx,58
+  src/data/install-commands.js,53
+  src/hooks/useAuth.js,32
+  src/i18n/I18nProvider.jsx,53
+  src/main.jsx,19
+  src/mocks/api.js,139
+  src/pages/Billing.jsx,64
+  src/pages/Dashboard.jsx,60
+  src/pages/Landing.jsx,328
+  src/pages/Login.jsx,136
+  src/pages/NlpConsole.jsx,106
+  src/pages/Scenarios.jsx,45
+  src/utils/logger.js,33
+  src/utils/logger.spec.js,62
   tree.sh,1
-  vite.config.js,19
+  vite.config.js,39
 D:
-  src/pages/NlpConsole.jsx:
-    i: react,react-router-dom
-    e: navigate,user,jwt,handleSubmit,endpoint,res,data
-    navigate()
+  src/mocks/api.js:
+    e: mockFetch,body,email,user,user,fakeResponse
+    mockFetch()
+    body()
+    email()
     user()
-    jwt()
+    user()
+    fakeResponse()
+  src/pages/Landing.jsx:
+    i: ../components/ArchDiagram,../components/CodeEditor,../components/PricingCards,../components/TerminalSim,../components/oql-examples,../data/install-commands,../utils/logger,react,react-router-dom
+    e: GITHUB_REPO,API_DEV_URL,IDE_DEV_URL,TRAEFIK_DEV_URL,DOCKER_IMAGE,API_WS_URL,HARDWARE_MODE,MODBUS_SERIAL_PORT,I2C_BUS,USB_DEVICE,OQLAGENT_PORT,exampleKeys,handleExampleChange,handleTabChange,handleCopy
+    GITHUB_REPO()
+    API_DEV_URL()
+    IDE_DEV_URL()
+    TRAEFIK_DEV_URL()
+    DOCKER_IMAGE()
+    API_WS_URL()
+    HARDWARE_MODE()
+    MODBUS_SERIAL_PORT()
+    I2C_BUS()
+    USB_DEVICE()
+    OQLAGENT_PORT()
+    exampleKeys()
+    handleExampleChange()
+    handleTabChange()
+    handleCopy()
+  src/pages/NlpConsole.jsx:
+    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,react
+    e: handleSubmit,endpoint,res,data
     handleSubmit()
     endpoint()
     res()
     data()
-  TODO/oqlos-landing.jsx:
-    i: react
-    e: highlightOQL,html,highlightIQL,html,TerminalSim,termRef,runSim,idx,iv,CodeEditor,textareaRef,preRef,fn,handleScroll,ArchDiagram,exampleKeys
-    highlightOQL()
-    html()
-    highlightIQL()
-    html()
-    TerminalSim()
-    termRef()
-    runSim()
-    idx()
-    iv()
-    CodeEditor()
-    textareaRef()
-    preRef()
-    fn()
-    handleScroll()
-    ArchDiagram()
-    exampleKeys()
-  src/pages/Landing.jsx:
-    i: ../components/ArchDiagram,../components/CodeEditor,../components/PricingCards,../components/TerminalSim,../components/oql-examples,react,react-router-dom
-    e: extractTextFromJSX,exampleKeys,code,code,code
-    extractTextFromJSX()
-    exampleKeys()
-    code()
-    code()
-    code()
+  src/i18n/I18nProvider.jsx:
+    i: ./en.json,./pl.json,react
+    e: SUPPORTED_LANGS,I18nContext,getInitialLang,saved,browser,I18nProvider,setLang,dict,t,keys,val,useI18n,ctx
+    SUPPORTED_LANGS()
+    I18nContext()
+    getInitialLang()
+    saved()
+    browser()
+    I18nProvider()
+    setLang()
+    dict()
+    t()
+    keys()
+    val()
+    useI18n()
+    ctx()
   src/pages/Login.jsx:
-    i: react,react-router-dom
-    e: navigate,token,verifyToken,res,data,handleSubmit,res,data
+    i: ../i18n/I18nProvider,../mocks/api,react,react-router-dom
+    e: navigate,token,plan,verifyTokenRef,autoSubmitRef,res,data,form,handleSubmit,res,data
     navigate()
     token()
-    verifyToken()
+    plan()
+    verifyTokenRef()
+    autoSubmitRef()
     res()
     data()
+    form()
     handleSubmit()
     res()
     data()
-  src/pages/Billing.jsx:
-    i: ../components/PricingCards,react,react-router-dom
-    e: navigate,user,jwt,handleSubscribe,res,data
-    navigate()
-    user()
+  e2e/demo-user.spec.js:
+    i: @playwright/test
+    e: mockBackendRoutes,request,emailInput,jwt,user,user
+    mockBackendRoutes()
+    request()
+    emailInput()
     jwt()
+    user()
+    user()
+  src/pages/Billing.jsx:
+    i: ../components/PricingCards,../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,react,react-router-dom
+    e: handleSubscribe,res,data
     handleSubscribe()
     res()
     data()
+  src/hooks/useAuth.js:
+    i: react-router-dom
+    e: useAuth,navigate,jwt,isAuthenticated,logout,requireAuth
+    useAuth()
+    navigate()
+    jwt()
+    isAuthenticated()
+    logout()
+    requireAuth()
   src/components/TerminalSim.jsx:
     i: react
     e: termRef,runSim,idx,iv
@@ -90,6 +134,10 @@ D:
     runSim()
     idx()
     iv()
+  src/components/ErrorBoundary.jsx:
+    i: react
+    e: ErrorBoundary
+    ErrorBoundary: super(-1),getDerivedStateFromError(-1),componentDidCatch(-1),render(-1)
   src/components/CodeEditor.jsx:
     i: react
     e: highlightOQL,html,highlightIQL,html,textareaRef,preRef,fn,handleScroll
@@ -101,26 +149,38 @@ D:
     preRef()
     fn()
     handleScroll()
-  src/pages/Dashboard.jsx:
-    i: react-router-dom
-    e: navigate,user,jwt,logout
-    navigate()
-    user()
-    jwt()
-    logout()
-  src/pages/Scenarios.jsx:
-    i: ../components/CodeEditor,../components/TerminalSim,../components/oql-examples,react,react-router-dom
-    e: navigate,user,jwt,exampleKeys
-    navigate()
-    user()
-    jwt()
-    exampleKeys()
   e2e/smoke.spec.js:
     i: @playwright/test
     e: response,response,status
     response()
     response()
     status()
+  src/utils/logger.js:
+    i: loglevel
+    e: LOG_LEVEL,MAX_BUFFER,_push,filtered
+    LOG_LEVEL()
+    MAX_BUFFER()
+    _push()
+    filtered()
+  src/components/ProtectedRoute.jsx:
+    i: react-router-dom
+    e: jwt
+    jwt()
+  src/pages/Scenarios.jsx:
+    i: ../components/CodeEditor,../components/SharedNav,../components/TerminalSim,../components/oql-examples,../hooks/useAuth,../i18n/I18nProvider,react
+    e: exampleKeys
+    exampleKeys()
+  src/utils/logger.spec.js:
+    i: ./logger.js,vitest
+    e: exported,logs,last,warns
+    exported()
+    logs()
+    last()
+    warns()
+  src/data/install-commands.js:
+    e: INSTALL_DOCKER,INSTALL_RPI
+    INSTALL_DOCKER()
+    INSTALL_RPI()
   e2e/landing.spec.js:
     i: @playwright/test
     e: heading,nav,errorMessages,response,response
@@ -129,16 +189,27 @@ D:
     errorMessages()
     response()
     response()
+  docker-entrypoint.sh:
   tree.sh:
   project.sh:
-  playwright.config.js:
-    i: @playwright/test
-  src/App.jsx:
-    i: ./pages/Billing,./pages/Dashboard,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/Scenarios,react-router-dom
   vite.config.js:
     i: @vitejs/plugin-react,vite
-  src/components/oql-examples.js:
-  src/components/ArchDiagram.jsx:
-  src/components/PricingCards.jsx:
+  playwright.config.js:
+    i: @playwright/test
   src/main.jsx:
-    i: ./App,react,react-dom/client,react-router-dom
+    i: ./App,./components/ErrorBoundary,./i18n/I18nProvider,react,react-dom/client,react-router-dom
+  public/sw.js:
+  src/components/LangSwitch.jsx:
+    i: ../i18n/I18nProvider
+  src/App.jsx:
+    i: ./components/ProtectedRoute,./pages/Billing,./pages/Dashboard,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/Scenarios,react-router-dom
+  src/components/ArchDiagram.jsx:
+  src/components/oql-examples.js:
+  src/components/LoadingSpinner.jsx:
+  src/components/SharedNav.jsx:
+    i: ../i18n/I18nProvider,./LangSwitch,./ThemeToggle,react-router-dom
+  src/components/ThemeToggle.jsx:
+    i: react
+  src/components/PricingCards.jsx:
+  src/pages/Dashboard.jsx:
+    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider

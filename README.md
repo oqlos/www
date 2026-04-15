@@ -137,6 +137,8 @@ make docker-run            # Run container (standalone)
 
 **⚠️ Requires `oql-api` repository in `packages/oql-api` for full stack.**
 
+demo@oqlos.com
+
 ```bash
 # Development: Traefik + API + Portal + Mailpit
 make dev-docker

@@ -7,14 +7,14 @@ import { test, expect } from '@playwright/test';
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
-const DEMO_EMAIL = import.meta.env.VITE_DEMO_USER_EMAIL || 'demo@oqlos.com';
-const DEMO_PASSWORD = import.meta.env.VITE_DEMO_USER_PASSWORD || 'demo123';
+const DEMO_EMAIL = 'demo@oqlos.com';
+const DEMO_PASSWORD = 'demo123';
 
 const DEMO_USER = {
   id: 3,
   email: DEMO_EMAIL,
-  name: import.meta.env.VITE_DEMO_USER_NAME || 'Demo User',
-  role: import.meta.env.VITE_DEMO_USER_ROLE || 'user',
+  name: 'Demo User',
+  role: 'user',
   plan: 'free',
   created_at: new Date().toISOString(),
 };
@@ -26,28 +26,17 @@ async function mockBackendRoutes(page) {
     let body = {};
     try { body = JSON.parse(request.postData() || '{}'); } catch {}
 
-    // Demo user from .env
+    // Demo user from .env - email-only login like test users
     if (body.email === DEMO_EMAIL) {
-      if (body.password === DEMO_PASSWORD) {
-        await route.fulfill({
-          status: 200,
-          contentType: 'application/json',
-          body: JSON.stringify({
-            message: 'Demo login successful',
-            testMode: true,
-            user: DEMO_USER
-          }),
-        });
-      } else {
-        await route.fulfill({
-          status: 400,
-          contentType: 'application/json',
-          body: JSON.stringify({
-            error: 'Invalid password',
-            message: 'Demo password is incorrect'
-          }),
-        });
-      }
+      await route.fulfill({
+        status: 200,
+        contentType: 'application/json',
+        body: JSON.stringify({
+          message: 'Demo login successful',
+          testMode: true,
+          user: DEMO_USER
+        }),
+      });
     } else if (body.email === 'test@test.com' || body.email === 'demo@oqlos.io') {
       // Legacy test users
       await route.fulfill({
@@ -56,7 +45,7 @@ async function mockBackendRoutes(page) {
         body: JSON.stringify({
           message: 'Test login successful',
           testMode: true,
-          user: body.email === 'test@test.com' 
+          user: body.email === 'test@test.com'
             ? { id: 1, email: 'test@test.com', role: 'admin', plan: 'pro', created_at: new Date().toISOString() }
             : { id: 2, email: 'demo@oqlos.io', role: 'admin', plan: 'pro', created_at: new Date().toISOString() }
         }),

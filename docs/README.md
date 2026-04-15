@@ -1,7 +1,7 @@
 <!-- code2docs:start --># www
 
-![version](https://img.shields.io/badge/version-0.1.1-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-62-green)
-> **62** functions | **0** classes | **20** files | CC̄ = 2.4
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-93-green)
+> **93** functions | **1** classes | **34** files | CC̄ = 4.9
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,16 +141,23 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 www/
-├── tree├── project    ├── App    ├── config    ├── config    ├── main        ├── ArchDiagram        ├── oql-examples        ├── PricingCards        ├── TerminalSim        ├── CodeEditor        ├── NlpConsole        ├── Login        ├── Scenarios        ├── Billing        ├── Landing        ├── Dashboard        ├── spec        ├── spec    ├── oqlos-landing```
+├── docker-entrypoint├── tree├── project    ├── config    ├── main    ├── config    ├── sw    ├── App        ├── useAuth        ├── LangSwitch        ├── ProtectedRoute        ├── LoadingSpinner        ├── oql-examples        ├── ArchDiagram        ├── SharedNav        ├── CodeEditor        ├── TerminalSim        ├── ThemeToggle        ├── ErrorBoundary        ├── PricingCards        ├── NlpConsole        ├── Billing        ├── Scenarios        ├── Dashboard        ├── Login        ├── logger        ├── I18nProvider        ├── api        ├── install-commands            ├── spec        ├── spec        ├── spec        ├── spec        ├── Landing```
 
 ## API Overview
 
+### Classes
+
+- **`ErrorBoundary`** — —
+
 ### Functions
 
-- `termRef()` — —
-- `runSim()` — —
-- `idx()` — —
-- `iv()` — —
+- `useAuth()` — —
+- `navigate()` — —
+- `jwt()` — —
+- `isAuthenticated()` — —
+- `logout()` — —
+- `requireAuth()` — —
+- `jwt()` — —
 - `highlightOQL()` — —
 - `html()` — —
 - `highlightIQL()` — —
@@ -158,85 +165,122 @@ www/
 - `preRef()` — —
 - `fn()` — —
 - `handleScroll()` — —
-- `navigate()` — —
-- `user()` — —
-- `jwt()` — —
+- `termRef()` — —
+- `runSim()` — —
+- `idx()` — —
+- `iv()` — —
 - `handleSubmit()` — —
 - `endpoint()` — —
 - `res()` — —
 - `data()` — —
-- `navigate()` — —
-- `token()` — —
-- `verifyToken()` — —
-- `res()` — —
-- `data()` — —
-- `handleSubmit()` — —
-- `navigate()` — —
-- `user()` — —
-- `jwt()` — —
-- `exampleKeys()` — —
-- `navigate()` — —
-- `user()` — —
-- `jwt()` — —
 - `handleSubscribe()` — —
 - `res()` — —
 - `data()` — —
-- `extractTextFromJSX()` — —
 - `exampleKeys()` — —
-- `code()` — —
 - `navigate()` — —
+- `token()` — —
+- `plan()` — —
+- `verifyTokenRef()` — —
+- `autoSubmitRef()` — —
+- `res()` — —
+- `data()` — —
+- `form()` — —
+- `handleSubmit()` — —
+- `LOG_LEVEL()` — —
+- `MAX_BUFFER()` — —
+- `filtered()` — —
+- `SUPPORTED_LANGS()` — —
+- `I18nContext()` — —
+- `getInitialLang()` — —
+- `saved()` — —
+- `browser()` — —
+- `I18nProvider()` — —
+- `setLang()` — —
+- `dict()` — —
+- `t()` — —
+- `keys()` — —
+- `val()` — —
+- `useI18n()` — —
+- `ctx()` — —
+- `mockFetch()` — —
+- `body()` — —
+- `email()` — —
 - `user()` — —
-- `jwt()` — —
-- `logout()` — —
+- `fakeResponse()` — —
+- `INSTALL_DOCKER()` — —
+- `INSTALL_RPI()` — —
+- `exported()` — —
+- `logs()` — —
+- `last()` — —
+- `warns()` — —
 - `heading()` — —
 - `nav()` — —
 - `errorMessages()` — —
 - `response()` — —
 - `response()` — —
 - `status()` — —
-- `highlightOQL()` — —
-- `html()` — —
-- `highlightIQL()` — —
-- `TerminalSim()` — —
-- `termRef()` — —
-- `runSim()` — —
-- `idx()` — —
-- `iv()` — —
-- `CodeEditor()` — —
-- `textareaRef()` — —
-- `preRef()` — —
-- `fn()` — —
-- `handleScroll()` — —
-- `ArchDiagram()` — —
+- `mockBackendRoutes()` — —
+- `request()` — —
+- `emailInput()` — —
+- `jwt()` — —
+- `user()` — —
+- `GITHUB_REPO()` — —
+- `API_DEV_URL()` — —
+- `IDE_DEV_URL()` — —
+- `TRAEFIK_DEV_URL()` — —
+- `DOCKER_IMAGE()` — —
+- `API_WS_URL()` — —
+- `HARDWARE_MODE()` — —
+- `MODBUS_SERIAL_PORT()` — —
+- `I2C_BUS()` — —
+- `USB_DEVICE()` — —
+- `OQLAGENT_PORT()` — —
 - `exampleKeys()` — —
+- `handleExampleChange()` — —
+- `handleTabChange()` — —
+- `handleCopy()` — —
 
 
 ## Project Structure
 
-📄 `TODO.oqlos-landing` (16 functions)
+📄 `docker-entrypoint`
+📄 `e2e.demo-user.spec` (6 functions)
 📄 `e2e.landing.spec` (5 functions)
 📄 `e2e.smoke.spec` (3 functions)
 📄 `playwright.config`
 📄 `project`
+📄 `public.sw`
 📄 `src.App`
 📄 `src.components.ArchDiagram`
 📄 `src.components.CodeEditor` (8 functions)
+📄 `src.components.ErrorBoundary` (4 functions, 1 classes)
+📄 `src.components.LangSwitch`
+📄 `src.components.LoadingSpinner`
 📄 `src.components.PricingCards`
+📄 `src.components.ProtectedRoute` (1 functions)
+📄 `src.components.SharedNav`
 📄 `src.components.TerminalSim` (4 functions)
+📄 `src.components.ThemeToggle`
 📄 `src.components.oql-examples`
+📄 `src.data.install-commands` (2 functions)
+📄 `src.hooks.useAuth` (6 functions)
+📄 `src.i18n.I18nProvider` (13 functions)
 📄 `src.main`
-📄 `src.pages.Billing` (6 functions)
-📄 `src.pages.Dashboard` (4 functions)
-📄 `src.pages.Landing` (5 functions)
-📄 `src.pages.Login` (8 functions)
-📄 `src.pages.NlpConsole` (7 functions)
-📄 `src.pages.Scenarios` (4 functions)
+📄 `src.mocks.api` (6 functions)
+📄 `src.pages.Billing` (3 functions)
+📄 `src.pages.Dashboard`
+📄 `src.pages.Landing` (15 functions)
+📄 `src.pages.Login` (11 functions)
+📄 `src.pages.NlpConsole` (4 functions)
+📄 `src.pages.Scenarios` (1 functions)
+📄 `src.utils.logger` (4 functions)
+📄 `src.utils.logger.spec` (4 functions)
 📄 `tree`
 📄 `vite.config`
 
 ## Requirements
 
-- react ^18.3.1- react-dom ^18.3.1- react-router-dom ^6.26.0
+- loglevel ^1.9.2- react ^18.3.1- react-dom ^18.3.1- react-router-dom ^6.28.0
 
 ## Contributing
 

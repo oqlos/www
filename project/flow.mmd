@@ -4,6 +4,13 @@ flowchart TD
     classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
 
     subgraph Core
+        src__hooks__useAuth__useAuth["useAuth"]
+        src__hooks__useAuth__navigate["navigate"]
+        src__hooks__useAuth__jwt["jwt"]
+        src__hooks__useAuth__isAuthenticated["isAuthenticated"]
+        src__hooks__useAuth__logout["logout"]
+        src__hooks__useAuth__requireAuth["requireAuth"]
+        src__components__ProtectedRoute__jwt["jwt"]
         src__components__CodeEditor__highlightOQL["highlightOQL"]
         src__components__CodeEditor__html["html"]
         src__components__CodeEditor__highlightIQL["highlightIQL"]
@@ -12,14 +19,11 @@ flowchart TD
         src__components__CodeEditor__fn["fn"]
         src__components__CodeEditor__handleScroll["handleScroll"]
         src__components__TerminalSim__termRef["termRef"]
-        src__components__TerminalSim__runSim["runSim"]
-        src__components__TerminalSim__idx["idx"]
-        src__components__TerminalSim__iv["iv"]
-        src__pages__NlpConsole__navigate["navigate"]
-        src__pages__NlpConsole__user["user"]
-        src__pages__NlpConsole__jwt["jwt"]
-        src__pages__NlpConsole__handleSubmit["handleSubmit"]
-        ...["+41 more"]
+        ...["+72 more"]
     end
 
-    class src__components__CodeEditor__highlightOQL,src__components__CodeEditor__html,src__components__CodeEditor__highlightIQL,src__components__CodeEditor__textareaRef,src__components__CodeEditor__preRef,src__components__CodeEditor__fn,src__components__CodeEditor__handleScroll,src__components__TerminalSim__termRef,src__components__TerminalSim__runSim,src__components__TerminalSim__idx entry
+    subgraph Exporters
+        src__utils__logger__spec__exported["exported"]
+    end
+
+    class src__hooks__useAuth__useAuth,src__hooks__useAuth__jwt,src__hooks__useAuth__isAuthenticated,src__hooks__useAuth__logout,src__hooks__useAuth__requireAuth,src__components__ProtectedRoute__jwt,src__components__CodeEditor__highlightOQL,src__components__CodeEditor__html,src__components__CodeEditor__highlightIQL,src__components__CodeEditor__textareaRef entry

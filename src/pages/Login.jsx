@@ -60,12 +60,15 @@ export default function Login() {
     setLoading(true);
     setMsg(null);
     try {
+      console.log('[Login] Attempting login with email:', email);
       const res = await mockFetch("/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
       });
+      console.log('[Login] Response status:', res.status);
       const data = await res.json();
+      console.log('[Login] Response data:', data);
       if (res.ok && data.testMode) {
         localStorage.setItem("jwt", "test-jwt-token");
         localStorage.setItem("user", JSON.stringify(data.user));

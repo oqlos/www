@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import SharedNav from "../components/SharedNav";
 import { useI18n } from "../i18n/I18nProvider";
+import { mockFetch } from "../mocks/api";
 
 const MOCK_OQL = `SCENARIO: "NLP Generated Test"
 DEVICE_TYPE: "BA"
@@ -28,7 +29,7 @@ export default function NlpConsole() {
 
     try {
       const endpoint = targetLang === "oql" ? "/nlp/to-oql" : targetLang === "iql" ? "/nlp/to-iql" : "/nlp/devops";
-      const res = await fetch(endpoint, {
+      const res = await mockFetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

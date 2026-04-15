@@ -1,34 +1,51 @@
-# www | 62 func | 11f | 2816L | javascript | 2026-04-15
+# www | 93 func | 18f | 2973L | javascript | 2026-04-15
 
 HEALTH:
-  CC̄=2.4  critical=1 (limit:10)  dup=0  cycles=0
+  CC̄=4.9  critical=13 (limit:10)  dup=0  cycles=0
 
-ALERTS[1]:
-  !   high_fan_out     exampleKeys = 10 (limit:10)
+ALERTS[20]:
+  !!! high_fan_out     GITHUB_REPO = 26 (limit:10)
+  !!! high_fan_out     API_DEV_URL = 26 (limit:10)
+  !!! high_fan_out     IDE_DEV_URL = 26 (limit:10)
+  !!! high_fan_out     TRAEFIK_DEV_URL = 26 (limit:10)
+  !!! high_fan_out     DOCKER_IMAGE = 26 (limit:10)
+  !!! high_fan_out     API_WS_URL = 26 (limit:10)
+  !!! high_fan_out     HARDWARE_MODE = 26 (limit:10)
+  !!! high_fan_out     MODBUS_SERIAL_PORT = 26 (limit:10)
+  !!! high_fan_out     I2C_BUS = 26 (limit:10)
+  !!! high_fan_out     USB_DEVICE = 26 (limit:10)
 
-MODULES[20] (top by size):
-  M[TODO/oqlos-landing.jsx] 1221L C:0 F:15 CC↑8 D:0 (javascript)
-  M[src/pages/Landing.jsx] 365L C:0 F:3 CC↑7 D:0 (javascript)
+MODULES[34] (top by size):
+  M[src/pages/Landing.jsx] 328L C:0 F:15 CC↑20 D:0 (javascript)
+  M[e2e/demo-user.spec.js] 200L C:0 F:5 CC↑8 D:0 (javascript)
   M[src/components/oql-examples.js] 144L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/pages/NlpConsole.jsx] 118L C:0 F:7 CC↑11 D:0 (javascript)
-  M[src/pages/Login.jsx] 110L C:0 F:6 CC↑6 D:0 (javascript)
+  M[src/mocks/api.js] 139L C:0 F:5 CC↑20 D:0 (javascript)
+  M[src/pages/Login.jsx] 136L C:0 F:9 CC↑8 D:0 (javascript)
+  M[src/pages/NlpConsole.jsx] 106L C:0 F:4 CC↑11 D:0 (javascript)
   M[src/components/CodeEditor.jsx] 106L C:0 F:7 CC↑3 D:0 (javascript)
   M[src/components/TerminalSim.jsx] 86L C:0 F:4 CC↑4 D:0 (javascript)
   M[src/components/ArchDiagram.jsx] 84L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/pages/Dashboard.jsx] 80L C:0 F:4 CC↑2 D:0 (javascript)
   M[src/components/PricingCards.jsx] 71L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/pages/Billing.jsx] 70L C:0 F:6 CC↑5 D:0 (javascript)
-  M[src/pages/Scenarios.jsx] 58L C:0 F:4 CC↑2 D:0 (javascript)
-  M[playwright.config.js] 49L C:0 F:0 CC↑0 D:0 (javascript)
-  M[e2e/landing.spec.js] 44L C:0 F:4 CC↑1 D:0 (javascript)
-  M[project.sh] 35L C:0 F:0 CC↑0 D:0 (shell)
-  LANGS: javascript:18/shell:2
+  M[src/pages/Billing.jsx] 64L C:0 F:3 CC↑5 D:0 (javascript)
+  M[src/utils/logger.spec.js] 62L C:0 F:4 CC↑1 D:0 (javascript)
+  M[src/pages/Dashboard.jsx] 60L C:0 F:0 CC↑0 D:0 (javascript)
+  M[src/i18n/I18nProvider.jsx] 53L C:0 F:13 CC↑9 D:0 (javascript)
+  M[src/data/install-commands.js] 53L C:0 F:2 CC↑1 D:0 (javascript)
+  LANGS: javascript:31/shell:3
 
-HOTSPOTS[1]:
-  ★ exampleKeys fan=10  // Orchestrates 10 calls
+HOTSPOTS[10]:
+  ★ GITHUB_REPO fan=26  // Orchestrates 26 calls
+  ★ API_DEV_URL fan=26  // Orchestrates 26 calls
+  ★ IDE_DEV_URL fan=26  // Orchestrates 26 calls
+  ★ TRAEFIK_DEV_URL fan=26  // Orchestrates 26 calls
+  ★ DOCKER_IMAGE fan=26  // Orchestrates 26 calls
 
-REFACTOR[1]:
-  [1] H/H Split god module TODO/oqlos-landing.jsx (1221L, 0 classes)
+REFACTOR[15]:
+  [1] M/L Split mockFetch (CC=20 → target CC<10)
+  [2] M/L Split GITHUB_REPO (CC=20 → target CC<10)
+  [3] M/L Split API_DEV_URL (CC=20 → target CC<10)
+  [4] M/L Split IDE_DEV_URL (CC=20 → target CC<10)
+  [5] M/L Split TRAEFIK_DEV_URL (CC=20 → target CC<10)
 
 EVOLUTION:
-  2026-04-15 CC̄=2.4 crit=1 2816L // Automated analysis
+  2026-04-15 CC̄=4.9 crit=13 2973L // Automated analysis

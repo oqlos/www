@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mock API Test</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1e1e1e; color: #d4d4d4; }
+        .section { margin: 20px 0; padding: 15px; background: #252526; border-radius: 5px; }
+        .success { color: #4ec9b0; }
+        .error { color: #f48771; }
+        .info { color: #9cdcfe; }
+        button { padding: 10px 20px; background: #0e639c; color: white; border: none; border-radius: 3px; cursor: pointer; }
+        button:hover { background: #1177bb; }
+        pre { background: #1e1e1e; padding: 10px; overflow-x: auto; }
+    </style>
+</head>
+<body>
+    <h1>Mock API Debug Page</h1>
+    
+    <div class="section">
+        <h2>Environment Check</h2>
+        <div id="env-check">Checking...</div>
+    </div>
+
+    <div class="section">
+        <h2>Test Demo Login</h2>
+        <button onclick="testLogin()">Test Login with demo@oqlos.com</button>
+        <pre id="login-result">Click button to test</pre>
+    </div>
+
+    <div class="section">
+        <h2>Console Log</h2>
+        <pre id="console-log"></pre>
+    </div>
+
+    <script type="module">
+        // Intercept console.log
+        const originalLog = console.log;
+        const consoleLogDiv = document.getElementById('console-log');
+        const logs = [];
+
+        console.log = function(...args) {
+            logs.push(args.join(' '));
+            consoleLogDiv.textContent = logs.join('\n');
+            originalLog.apply(console, args);
+        };
+
+        // Check environment
+        const envCheck = document.getElementById('env-check');
+        const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+        const MOCK_ENABLED = !VITE_BACKEND_URL;
+
+        envCheck.innerHTML = `
+            <p class="info">VITE_BACKEND_URL: ${VITE_BACKEND_URL || 'undefined'}</p>
+            <p class="${MOCK_ENABLED ? 'success' : 'error'}">MOCK_ENABLED: ${MOCK_ENABLED}</p>
+            <p class="info">Demo email: ${import.meta.env.VITE_DEMO_USER_EMAIL || 'demo@oqlos.com'}</p>
+        `;
+
+        // Import mockFetch
+        import { mockFetch } from '/src/mocks/api.js';
+
+        window.testLogin = async function() {
+            const resultDiv = document.getElementById('login-result');
+            resultDiv.textContent = 'Testing...';
+            
+            try {
+                console.log('=== Starting login test ===');
+                const res = await mockFetch('/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: 'demo@oqlos.com' }),
+                });
+                
+                console.log('Response status:', res.status);
+                console.log('Response ok:', res.ok);
+                
+                const data = await res.json();
+                console.log('Response data:', data);
+                
+                resultDiv.innerHTML = `
+                    <span class="success">Status: ${res.status}</span>
+                    <span class="success">OK: ${res.ok}</span>
+                    <span class="info">Data: ${JSON.stringify(data, null, 2)}</span>
+                    
+                    ${data.testMode ? '<span class="success">✓ Test mode detected</span>' : '<span class="error">✗ Test mode NOT detected</span>'}
+                    ${data.user ? '<span class="success">✓ User data present</span>' : '<span class="error">✗ No user data</span>'}
+                `;
+            } catch (error) {
+                console.error('Login test failed:', error);
+                resultDiv.innerHTML = `<span class="error">Error: ${error.message}</span>`;
+            }
+        };
+    </script>
+</body>
+</html>

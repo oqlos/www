@@ -4,83 +4,151 @@
 
 - **Project**: /home/tom/github/oqlos/www
 - **Primary Language**: javascript
-- **Languages**: javascript: 18, shell: 2
+- **Languages**: javascript: 31, shell: 3
 - **Analysis Mode**: static
-- **Total Functions**: 62
-- **Total Classes**: 0
-- **Modules**: 20
-- **Entry Points**: 55
+- **Total Functions**: 93
+- **Total Classes**: 1
+- **Modules**: 34
+- **Entry Points**: 87
 
 ## Architecture by Module
 
-### TODO.oqlos-landing
-- **Functions**: 16
-- **File**: `oqlos-landing.jsx`
+### src.pages.Landing
+- **Functions**: 15
+- **File**: `Landing.jsx`
+
+### src.i18n.I18nProvider
+- **Functions**: 13
+- **File**: `I18nProvider.jsx`
+
+### src.pages.Login
+- **Functions**: 11
+- **File**: `Login.jsx`
 
 ### src.components.CodeEditor
 - **Functions**: 8
 - **File**: `CodeEditor.jsx`
 
-### src.pages.Login
-- **Functions**: 8
-- **File**: `Login.jsx`
-
-### src.pages.NlpConsole
-- **Functions**: 7
-- **File**: `NlpConsole.jsx`
-
-### src.pages.Billing
+### src.hooks.useAuth
 - **Functions**: 6
-- **File**: `Billing.jsx`
+- **File**: `useAuth.js`
+
+### src.mocks.api
+- **Functions**: 6
+- **File**: `api.js`
+
+### e2e.demo-user.spec
+- **Functions**: 6
+- **File**: `demo-user.spec.js`
 
 ### e2e.landing.spec
 - **Functions**: 5
 - **File**: `landing.spec.js`
 
-### src.pages.Landing
-- **Functions**: 5
-- **File**: `Landing.jsx`
-
 ### src.components.TerminalSim
 - **Functions**: 4
 - **File**: `TerminalSim.jsx`
 
-### src.pages.Dashboard
+### src.components.ErrorBoundary
 - **Functions**: 4
-- **File**: `Dashboard.jsx`
+- **Classes**: 1
+- **File**: `ErrorBoundary.jsx`
 
-### src.pages.Scenarios
+### src.pages.NlpConsole
 - **Functions**: 4
-- **File**: `Scenarios.jsx`
+- **File**: `NlpConsole.jsx`
+
+### src.utils.logger.spec
+- **Functions**: 4
+- **File**: `logger.spec.js`
+
+### src.utils.logger
+- **Functions**: 4
+- **File**: `logger.js`
+
+### src.pages.Billing
+- **Functions**: 3
+- **File**: `Billing.jsx`
 
 ### e2e.smoke.spec
 - **Functions**: 3
 - **File**: `smoke.spec.js`
 
+### src.data.install-commands
+- **Functions**: 2
+- **File**: `install-commands.js`
+
+### src.components.ProtectedRoute
+- **Functions**: 1
+- **File**: `ProtectedRoute.jsx`
+
+### src.pages.Scenarios
+- **Functions**: 1
+- **File**: `Scenarios.jsx`
+
 ## Key Entry Points
 
 Main execution flows into the system:
 
-### TODO.oqlos-landing.exampleKeys
-- **Calls**: TODO.oqlos-landing.url, TODO.oqlos-landing.var, TODO.oqlos-landing.gradient, TODO.oqlos-landing.rgba, TODO.oqlos-landing.clamp, TODO.oqlos-landing.translateY, TODO.oqlos-landing.repeat, TODO.oqlos-landing.minmax
+### src.pages.Landing.GITHUB_REPO
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
 
-### src.pages.Login.token
-- **Calls**: src.pages.Login.useCallback, src.pages.Login.setLoading, src.pages.Login.fetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.setTimeout
+### src.pages.Landing.API_DEV_URL
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
 
-### src.pages.Login.verifyToken
-- **Calls**: src.pages.Login.useCallback, src.pages.Login.setLoading, src.pages.Login.fetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.setTimeout
+### src.pages.Landing.IDE_DEV_URL
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
 
-### TODO.oqlos-landing.TerminalSim
-- **Calls**: TODO.oqlos-landing.useState, TODO.oqlos-landing.useRef, TODO.oqlos-landing.run, TODO.oqlos-landing.02s, TODO.oqlos-landing.setRunning, TODO.oqlos-landing.setLines, TODO.oqlos-landing.setInterval, TODO.oqlos-landing.clearInterval
+### src.pages.Landing.TRAEFIK_DEV_URL
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
 
-### src.pages.NlpConsole.handleSubmit
-- **Calls**: src.pages.NlpConsole.preventDefault, src.pages.NlpConsole.trim, src.pages.NlpConsole.setLoading, src.pages.NlpConsole.setOutput, src.pages.NlpConsole.fetch, src.pages.NlpConsole.stringify, src.pages.NlpConsole.json, src.pages.NlpConsole.join
+### src.pages.Landing.DOCKER_IMAGE
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+
+### src.pages.Landing.API_WS_URL
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+
+### src.pages.Landing.HARDWARE_MODE
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+
+### src.pages.Landing.MODBUS_SERIAL_PORT
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+
+### src.pages.Landing.I2C_BUS
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+
+### src.pages.Landing.USB_DEVICE
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+
+### src.pages.Landing.OQLAGENT_PORT
+- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
 
 ### src.pages.Login.handleSubmit
-- **Calls**: src.pages.Login.preventDefault, src.pages.Login.setLoading, src.pages.Login.setMsg, src.pages.Login.fetch, src.pages.Login.stringify, src.pages.Login.json, src.pages.Login.setEmail
+- **Calls**: src.pages.Login.preventDefault, src.pages.Login.setLoading, src.pages.Login.setMsg, src.pages.Login.log, src.pages.Login.mockFetch, src.pages.Login.stringify, src.pages.Login.json, src.pages.Login.setItem
 
-### TODO.oqlos-landing.CodeEditor
-- **Calls**: TODO.oqlos-landing.useState, TODO.oqlos-landing.useRef, TODO.oqlos-landing.useEffect, TODO.oqlos-landing.setCode, TODO.oqlos-landing.setHighlighted, TODO.oqlos-landing.fn, TODO.oqlos-landing.join
+### src.pages.Login.token
+- **Calls**: src.pages.Login.useEffect, src.pages.Login.setLoading, src.pages.Login.mockFetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t
+
+### src.pages.Login.plan
+- **Calls**: src.pages.Login.useEffect, src.pages.Login.setLoading, src.pages.Login.mockFetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t
+
+### src.pages.Login.verifyTokenRef
+- **Calls**: src.pages.Login.useEffect, src.pages.Login.setLoading, src.pages.Login.mockFetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t
+
+### src.pages.Login.autoSubmitRef
+- **Calls**: src.pages.Login.useEffect, src.pages.Login.setLoading, src.pages.Login.mockFetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t
+
+### src.pages.NlpConsole.handleSubmit
+- **Calls**: src.pages.NlpConsole.preventDefault, src.pages.NlpConsole.trim, src.pages.NlpConsole.setLoading, src.pages.NlpConsole.setOutput, src.pages.NlpConsole.mockFetch, src.pages.NlpConsole.stringify, src.pages.NlpConsole.json, src.pages.NlpConsole.join
+
+### e2e.demo-user.spec.mockBackendRoutes
+- **Calls**: e2e.demo-user.spec.route, e2e.demo-user.spec.request, e2e.demo-user.spec.parse, e2e.demo-user.spec.postData, e2e.demo-user.spec.fulfill, e2e.demo-user.spec.stringify, e2e.demo-user.spec.Date, e2e.demo-user.spec.toISOString
+
+### src.pages.Login.data
+- **Calls**: src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t, src.pages.Login.setTimeout, src.pages.Login.navigate, src.pages.Login.setEmail
+
+### src.hooks.useAuth.useAuth
+- **Calls**: src.hooks.useAuth.useNavigate, src.hooks.useAuth.getItem, src.hooks.useAuth.parse, src.hooks.useAuth.Boolean, src.hooks.useAuth.removeItem, src.hooks.useAuth.navigate
 
 ### src.components.CodeEditor.highlightOQL
 - **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.b, src.components.CodeEditor.String, src.components.CodeEditor.padStart
@@ -88,11 +156,11 @@ Main execution flows into the system:
 ### src.components.CodeEditor.highlightIQL
 - **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.b, src.components.CodeEditor.String, src.components.CodeEditor.padStart
 
-### TODO.oqlos-landing.highlightOQL
-- **Calls**: TODO.oqlos-landing.split, TODO.oqlos-landing.map, TODO.oqlos-landing.replace, TODO.oqlos-landing.b, TODO.oqlos-landing.String, TODO.oqlos-landing.padStart
+### src.i18n.I18nProvider.I18nProvider
+- **Calls**: src.i18n.I18nProvider.useState, src.i18n.I18nProvider.useCallback, src.i18n.I18nProvider.setLangState, src.i18n.I18nProvider.setItem, src.i18n.I18nProvider.split, src.i18n.I18nProvider.replace
 
-### TODO.oqlos-landing.highlightIQL
-- **Calls**: TODO.oqlos-landing.split, TODO.oqlos-landing.map, TODO.oqlos-landing.replace, TODO.oqlos-landing.b, TODO.oqlos-landing.String, TODO.oqlos-landing.padStart
+### src.mocks.api.mockFetch
+- **Calls**: src.mocks.api.fetch, src.mocks.api.includes, src.mocks.api.parse, src.mocks.api.log, src.mocks.api.fakeResponse
 
 ### src.components.TerminalSim.runSim
 - **Calls**: src.components.TerminalSim.setRunning, src.components.TerminalSim.setLines, src.components.TerminalSim.setInterval, src.components.TerminalSim.clearInterval
@@ -104,106 +172,73 @@ Main execution flows into the system:
 - **Calls**: src.components.TerminalSim.setInterval, src.components.TerminalSim.setLines, src.components.TerminalSim.clearInterval, src.components.TerminalSim.setRunning
 
 ### src.pages.Billing.handleSubscribe
-- **Calls**: src.pages.Billing.navigate, src.pages.Billing.fetch, src.pages.Billing.json, src.pages.Billing.alert
+- **Calls**: src.pages.Billing.navigate, src.pages.Billing.mockFetch, src.pages.Billing.json, src.pages.Billing.alert
 
-### src.pages.Landing.extractTextFromJSX
-- **Calls**: src.pages.Landing.String, src.pages.Landing.isArray, src.pages.Landing.map, src.pages.Landing.join
+### src.utils.logger.LOG_LEVEL
+- **Calls**: src.utils.logger.push, src.utils.logger.Date, src.utils.logger.toISOString, src.utils.logger.shift
 
-### TODO.oqlos-landing.runSim
-- **Calls**: TODO.oqlos-landing.setRunning, TODO.oqlos-landing.setLines, TODO.oqlos-landing.setInterval, TODO.oqlos-landing.clearInterval
-
-### TODO.oqlos-landing.idx
-- **Calls**: TODO.oqlos-landing.setInterval, TODO.oqlos-landing.setLines, TODO.oqlos-landing.clearInterval, TODO.oqlos-landing.setRunning
-
-### TODO.oqlos-landing.iv
-- **Calls**: TODO.oqlos-landing.setInterval, TODO.oqlos-landing.setLines, TODO.oqlos-landing.clearInterval, TODO.oqlos-landing.setRunning
-
-### TODO.oqlos-landing.ArchDiagram
-- **Calls**: TODO.oqlos-landing.url, TODO.oqlos-landing.rgba, TODO.oqlos-landing.CLI, TODO.oqlos-landing.oqlagent
-
-### src.pages.NlpConsole.data
-- **Calls**: src.pages.NlpConsole.setOutput, src.pages.NlpConsole.join, src.pages.NlpConsole.stringify
-
-### e2e.smoke.spec.response
-- **Calls**: e2e.smoke.spec.status, e2e.smoke.spec.expect, e2e.smoke.spec.toContain
-
-### src.components.CodeEditor.textareaRef
-- **Calls**: src.components.CodeEditor.useEffect, src.components.CodeEditor.setCode
-
-### src.components.CodeEditor.preRef
-- **Calls**: src.components.CodeEditor.useEffect, src.components.CodeEditor.setCode
-
-### src.pages.NlpConsole.user
-- **Calls**: src.pages.NlpConsole.parse, src.pages.NlpConsole.getItem
-
-### src.pages.NlpConsole.endpoint
-- **Calls**: src.pages.NlpConsole.fetch, src.pages.NlpConsole.stringify
-
-### src.pages.NlpConsole.res
-- **Calls**: src.pages.NlpConsole.fetch, src.pages.NlpConsole.stringify
-
-### src.pages.Billing.user
-- **Calls**: src.pages.Billing.parse, src.pages.Billing.getItem
-
-### src.pages.Billing.jwt
-- **Calls**: src.pages.Billing.useEffect, src.pages.Billing.setPlan
-
-### src.pages.Login.res
-- **Calls**: src.pages.Login.fetch, src.pages.Login.stringify
+### src.utils.logger.MAX_BUFFER
+- **Calls**: src.utils.logger.push, src.utils.logger.Date, src.utils.logger.toISOString, src.utils.logger.shift
 
 ## Process Flows
 
 Key execution flows identified:
 
-### Flow 1: exampleKeys
+### Flow 1: GITHUB_REPO
 ```
-exampleKeys [TODO.oqlos-landing]
-```
-
-### Flow 2: token
-```
-token [src.pages.Login]
+GITHUB_REPO [src.pages.Landing]
 ```
 
-### Flow 3: verifyToken
+### Flow 2: API_DEV_URL
 ```
-verifyToken [src.pages.Login]
-```
-
-### Flow 4: TerminalSim
-```
-TerminalSim [TODO.oqlos-landing]
+API_DEV_URL [src.pages.Landing]
 ```
 
-### Flow 5: handleSubmit
+### Flow 3: IDE_DEV_URL
 ```
-handleSubmit [src.pages.NlpConsole]
-```
-
-### Flow 6: CodeEditor
-```
-CodeEditor [TODO.oqlos-landing]
+IDE_DEV_URL [src.pages.Landing]
 ```
 
-### Flow 7: highlightOQL
+### Flow 4: TRAEFIK_DEV_URL
 ```
-highlightOQL [src.components.CodeEditor]
-```
-
-### Flow 8: highlightIQL
-```
-highlightIQL [src.components.CodeEditor]
+TRAEFIK_DEV_URL [src.pages.Landing]
 ```
 
-### Flow 9: runSim
+### Flow 5: DOCKER_IMAGE
 ```
-runSim [src.components.TerminalSim]
+DOCKER_IMAGE [src.pages.Landing]
 ```
 
-### Flow 10: idx
+### Flow 6: API_WS_URL
 ```
-idx [src.components.TerminalSim]
+API_WS_URL [src.pages.Landing]
 ```
+
+### Flow 7: HARDWARE_MODE
+```
+HARDWARE_MODE [src.pages.Landing]
+```
+
+### Flow 8: MODBUS_SERIAL_PORT
+```
+MODBUS_SERIAL_PORT [src.pages.Landing]
+```
+
+### Flow 9: I2C_BUS
+```
+I2C_BUS [src.pages.Landing]
+```
+
+### Flow 10: USB_DEVICE
+```
+USB_DEVICE [src.pages.Landing]
+```
+
+## Key Classes
+
+### src.components.ErrorBoundary.ErrorBoundary
+- **Methods**: 4
+- **Key Methods**: src.components.ErrorBoundary.ErrorBoundary.super, src.components.ErrorBoundary.ErrorBoundary.getDerivedStateFromError, src.components.ErrorBoundary.ErrorBoundary.componentDidCatch, src.components.ErrorBoundary.ErrorBoundary.render
 
 ## Data Transformation Functions
 
@@ -213,46 +248,46 @@ Key functions that process and transform data:
 
 Functions exposed as public API (no underscore prefix):
 
-- `TODO.oqlos-landing.exampleKeys` - 10 calls
-- `src.pages.Login.token` - 9 calls
-- `src.pages.Login.verifyToken` - 9 calls
-- `TODO.oqlos-landing.TerminalSim` - 9 calls
+- `src.pages.Landing.GITHUB_REPO` - 26 calls
+- `src.pages.Landing.API_DEV_URL` - 26 calls
+- `src.pages.Landing.IDE_DEV_URL` - 26 calls
+- `src.pages.Landing.TRAEFIK_DEV_URL` - 26 calls
+- `src.pages.Landing.DOCKER_IMAGE` - 26 calls
+- `src.pages.Landing.API_WS_URL` - 26 calls
+- `src.pages.Landing.HARDWARE_MODE` - 26 calls
+- `src.pages.Landing.MODBUS_SERIAL_PORT` - 26 calls
+- `src.pages.Landing.I2C_BUS` - 26 calls
+- `src.pages.Landing.USB_DEVICE` - 26 calls
+- `src.pages.Landing.OQLAGENT_PORT` - 26 calls
+- `src.pages.Login.handleSubmit` - 12 calls
+- `src.pages.Login.token` - 10 calls
+- `src.pages.Login.plan` - 10 calls
+- `src.pages.Login.verifyTokenRef` - 10 calls
+- `src.pages.Login.autoSubmitRef` - 10 calls
+- `src.pages.Login.navigate` - 9 calls
 - `src.pages.NlpConsole.handleSubmit` - 8 calls
-- `src.pages.Login.navigate` - 8 calls
-- `src.pages.Login.handleSubmit` - 7 calls
-- `TODO.oqlos-landing.CodeEditor` - 7 calls
+- `e2e.demo-user.spec.mockBackendRoutes` - 8 calls
+- `src.pages.Login.data` - 7 calls
+- `src.hooks.useAuth.useAuth` - 6 calls
 - `src.components.CodeEditor.highlightOQL` - 6 calls
 - `src.components.CodeEditor.highlightIQL` - 6 calls
-- `TODO.oqlos-landing.highlightOQL` - 6 calls
-- `TODO.oqlos-landing.highlightIQL` - 6 calls
+- `src.i18n.I18nProvider.I18nProvider` - 6 calls
+- `src.mocks.api.mockFetch` - 5 calls
 - `src.components.TerminalSim.runSim` - 4 calls
 - `src.components.TerminalSim.idx` - 4 calls
 - `src.components.TerminalSim.iv` - 4 calls
 - `src.pages.Billing.handleSubscribe` - 4 calls
-- `src.pages.Landing.extractTextFromJSX` - 4 calls
-- `TODO.oqlos-landing.runSim` - 4 calls
-- `TODO.oqlos-landing.idx` - 4 calls
-- `TODO.oqlos-landing.iv` - 4 calls
-- `TODO.oqlos-landing.ArchDiagram` - 4 calls
+- `src.utils.logger.LOG_LEVEL` - 4 calls
+- `src.utils.logger.MAX_BUFFER` - 4 calls
+- `src.pages.Landing.handleCopy` - 4 calls
 - `src.pages.NlpConsole.data` - 3 calls
-- `e2e.smoke.spec.response` - 3 calls
-- `src.components.CodeEditor.textareaRef` - 2 calls
-- `src.components.CodeEditor.preRef` - 2 calls
-- `src.pages.NlpConsole.navigate` - 2 calls
-- `src.pages.NlpConsole.user` - 2 calls
-- `src.pages.NlpConsole.endpoint` - 2 calls
-- `src.pages.NlpConsole.res` - 2 calls
-- `src.pages.Billing.navigate` - 2 calls
-- `src.pages.Billing.user` - 2 calls
-- `src.pages.Billing.jwt` - 2 calls
-- `src.pages.Login.res` - 2 calls
-- `src.pages.Login.data` - 2 calls
-- `src.pages.Dashboard.navigate` - 2 calls
-- `src.pages.Dashboard.user` - 2 calls
-- `src.pages.Dashboard.logout` - 2 calls
-- `src.pages.Scenarios.navigate` - 2 calls
-- `src.pages.Scenarios.user` - 2 calls
-- `TODO.oqlos-landing.textareaRef` - 2 calls
+- `src.i18n.I18nProvider.SUPPORTED_LANGS` - 3 calls
+- `src.i18n.I18nProvider.I18nContext` - 3 calls
+- `src.i18n.I18nProvider.getInitialLang` - 3 calls
+- `src.i18n.I18nProvider.setLang` - 3 calls
+- `src.i18n.I18nProvider.dict` - 3 calls
+- `src.i18n.I18nProvider.t` - 3 calls
+- `src.mocks.api.fakeResponse` - 3 calls
 
 ## System Interactions
 
@@ -260,36 +295,36 @@ How components interact:
 
 ```mermaid
 graph TD
-    exampleKeys --> url
-    exampleKeys --> var
-    exampleKeys --> gradient
-    exampleKeys --> rgba
-    exampleKeys --> clamp
-    token --> useCallback
-    token --> setLoading
-    token --> fetch
-    token --> json
-    token --> setItem
-    verifyToken --> useCallback
-    verifyToken --> setLoading
-    verifyToken --> fetch
-    verifyToken --> json
-    verifyToken --> setItem
-    TerminalSim --> useState
-    TerminalSim --> useRef
-    TerminalSim --> run
-    TerminalSim --> 02s
-    TerminalSim --> setRunning
-    handleSubmit --> preventDefault
-    handleSubmit --> trim
-    handleSubmit --> setLoading
-    handleSubmit --> setOutput
-    handleSubmit --> fetch
-    handleSubmit --> setMsg
-    handleSubmit --> stringify
-    CodeEditor --> useState
-    CodeEditor --> useRef
-    CodeEditor --> useEffect
+    GITHUB_REPO --> useState
+    GITHUB_REPO --> keys
+    GITHUB_REPO --> useEffect
+    GITHUB_REPO --> info
+    GITHUB_REPO --> setActiveExample
+    API_DEV_URL --> useState
+    API_DEV_URL --> keys
+    API_DEV_URL --> useEffect
+    API_DEV_URL --> info
+    API_DEV_URL --> setActiveExample
+    IDE_DEV_URL --> useState
+    IDE_DEV_URL --> keys
+    IDE_DEV_URL --> useEffect
+    IDE_DEV_URL --> info
+    IDE_DEV_URL --> setActiveExample
+    TRAEFIK_DEV_URL --> useState
+    TRAEFIK_DEV_URL --> keys
+    TRAEFIK_DEV_URL --> useEffect
+    TRAEFIK_DEV_URL --> info
+    TRAEFIK_DEV_URL --> setActiveExample
+    DOCKER_IMAGE --> useState
+    DOCKER_IMAGE --> keys
+    DOCKER_IMAGE --> useEffect
+    DOCKER_IMAGE --> info
+    DOCKER_IMAGE --> setActiveExample
+    API_WS_URL --> useState
+    API_WS_URL --> keys
+    API_WS_URL --> useEffect
+    API_WS_URL --> info
+    API_WS_URL --> setActiveExample
 ```
 
 ## Reverse Engineering Guidelines
