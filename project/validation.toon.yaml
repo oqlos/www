@@ -1,9 +1,9 @@
-# vallm batch | 30f | 8✓ 10⚠ 0✗ | 2026-04-15
+# vallm batch | 49f | 13✓ 14⚠ 0✗ | 2026-04-15
 
 SUMMARY:
-  scanned: 30  passed: 8 (26.7%)  warnings: 10  errors: 0  unsupported: 13
+  scanned: 49  passed: 13 (26.5%)  warnings: 14  errors: 0  unsupported: 23
 
-WARNINGS[10]{path,score}:
+WARNINGS[14]{path,score}:
   TODO/oqlos-landing.jsx,0.74
     issues[2]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
@@ -26,17 +26,31 @@ WARNINGS[10]{path,score}:
   src/main.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Billing.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Dashboard.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
   src/pages/Landing.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
   src/pages/Login.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/NlpConsole.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Scenarios.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
   vite.config.js,0.83
     issues[1]{rule,severity,message,line}:
       js.import.resolvable,warning,Module 'vite' not found,1
 
-UNSUPPORTED[3]{bucket,count}:
-  *.md,5
+UNSUPPORTED[5]{bucket,count}:
+  *.md,6
+  Dockerfile*,1
   *.txt,1
-  other,7
+  *.yml,2
+  other,13

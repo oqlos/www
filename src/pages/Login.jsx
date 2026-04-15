@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import "../styles/global.css";
 
@@ -10,13 +10,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const token = searchParams.get("token");
 
-  useEffect(() => {
-    if (token) {
-      verifyToken(token);
-    }
-  }, [token]);
-
-  async function verifyToken(t) {
+  const verifyToken = useCallback(async (t) => {
     setLoading(true);
     try {
       const res = await fetch(`/auth/verify?token=${t}`);
@@ -34,7 +28,13 @@ export default function Login() {
     } finally {
       setLoading(false);
     }
-  }
+  }, [navigate]);
+
+  useEffect(() => {
+    if (token) {
+      verifyToken(token);
+    }
+  }, [token, verifyToken]);
 
   async function handleSubmit(e) {
     e.preventDefault();

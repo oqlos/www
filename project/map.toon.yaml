@@ -1,11 +1,14 @@
-# www | 11f 1801L | shell:2,javascript:9 | 2026-04-15
-# stats: 26 func | 0 cls | 11 mod | CC̄=2.2 | critical:0 | cycles:0
+# www | 20f 2636L | shell:2,javascript:18 | 2026-04-15
+# stats: 60 func | 0 cls | 20 mod | CC̄=2.3 | critical:0 | cycles:0
 # alerts[1]: fan-out exampleKeys=10
-# hotspots[5]: exampleKeys fan=10; TerminalSim fan=9; CodeEditor fan=7; highlightOQL fan=6; highlightIQL fan=6
-# evolution: baseline
+# hotspots[5]: exampleKeys fan=10; TerminalSim fan=9; handleSubmit fan=8; verifyToken fan=8; handleSubmit fan=7
+# evolution: CC̄ 2.3→2.3 (flat 0.0)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[11]:
+M[20]:
   TODO/oqlos-landing.jsx,1221
+  e2e/landing.spec.js,44
+  e2e/smoke.spec.js,31
+  playwright.config.js,49
   project.sh,35
   src/App.jsx,22
   src/components/ArchDiagram.jsx,84
@@ -14,9 +17,25 @@ M[11]:
   src/components/TerminalSim.jsx,86
   src/components/oql-examples.js,144
   src/main.jsx,12
+  src/pages/Billing.jsx,70
+  src/pages/Dashboard.jsx,80
+  src/pages/Landing.jsx,275
+  src/pages/Login.jsx,110
+  src/pages/NlpConsole.jsx,118
+  src/pages/Scenarios.jsx,58
   tree.sh,1
   vite.config.js,19
 D:
+  src/pages/NlpConsole.jsx:
+    i: react,react-router-dom
+    e: navigate,user,jwt,handleSubmit,endpoint,res,data
+    navigate()
+    user()
+    jwt()
+    handleSubmit()
+    endpoint()
+    res()
+    data()
   TODO/oqlos-landing.jsx:
     i: react
     e: highlightOQL,html,highlightIQL,html,TerminalSim,termRef,runSim,idx,iv,CodeEditor,textareaRef,preRef,fn,handleScroll,ArchDiagram,exampleKeys
@@ -36,6 +55,26 @@ D:
     handleScroll()
     ArchDiagram()
     exampleKeys()
+  src/pages/Login.jsx:
+    i: react,react-router-dom
+    e: navigate,token,verifyToken,res,data,handleSubmit,res,data
+    navigate()
+    token()
+    verifyToken()
+    res()
+    data()
+    handleSubmit()
+    res()
+    data()
+  src/pages/Billing.jsx:
+    i: ../components/PricingCards,react,react-router-dom
+    e: navigate,user,jwt,handleSubscribe,res,data
+    navigate()
+    user()
+    jwt()
+    handleSubscribe()
+    res()
+    data()
   src/components/TerminalSim.jsx:
     i: react
     e: termRef,runSim,idx,iv
@@ -54,14 +93,48 @@ D:
     preRef()
     fn()
     handleScroll()
+  src/pages/Scenarios.jsx:
+    i: ../components/CodeEditor,../components/TerminalSim,../components/oql-examples,react,react-router-dom
+    e: navigate,user,jwt,exampleKeys
+    navigate()
+    user()
+    jwt()
+    exampleKeys()
+  e2e/smoke.spec.js:
+    i: @playwright/test
+    e: response,response,status
+    response()
+    response()
+    status()
+  src/pages/Dashboard.jsx:
+    i: react-router-dom
+    e: navigate,user,jwt,logout
+    navigate()
+    user()
+    jwt()
+    logout()
+  src/pages/Landing.jsx:
+    i: ../components/ArchDiagram,../components/CodeEditor,../components/PricingCards,../components/TerminalSim,../components/oql-examples,react,react-router-dom
+    e: exampleKeys
+    exampleKeys()
+  e2e/landing.spec.js:
+    i: @playwright/test
+    e: heading,nav,errorMessages,response,response
+    heading()
+    nav()
+    errorMessages()
+    response()
+    response()
   tree.sh:
   project.sh:
+  playwright.config.js:
+    i: @playwright/test
+  src/main.jsx:
+    i: ./App,react,react-dom/client,react-router-dom
   vite.config.js:
     i: @vitejs/plugin-react,vite
   src/App.jsx:
     i: ./pages/Billing,./pages/Dashboard,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/Scenarios,react-router-dom
-  src/main.jsx:
-    i: ./App,react,react-dom/client,react-router-dom
   src/components/oql-examples.js:
   src/components/ArchDiagram.jsx:
   src/components/PricingCards.jsx:

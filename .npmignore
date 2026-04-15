@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Test results
+test-results/
+playwright-report/
+
+# Environment
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project files (not needed for npm)
+project/
+venv/
+.pyqual/
+
+# Git
+.git/
+.gitignore
+
+# CI/Testing configs (not needed in package)
+playwright.config.js
+e2e/
+test/
+tests/
+test.sh
+ansible/
+pyqual.yaml
+goal.yaml
+
+# Docker
+Dockerfile
+docker-compose.yml
+nginx.conf
+
+# TODO (development notes)
+TODO/
+
+# Scripts not needed in package
+project.sh
+tree.sh

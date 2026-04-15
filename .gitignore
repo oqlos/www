@@ -3,6 +3,7 @@
 venv
 package-lock.json
 .venv
+test-results/
 node_modules/
 dist/
 # Byte-compiled / optimized / DLL files

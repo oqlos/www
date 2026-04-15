@@ -1,30 +1,35 @@
-# www | 26 func | 3f | 2076L | javascript | 2026-04-15
+# www | 60 func | 11f | 2726L | javascript | 2026-04-15
 
 HEALTH:
-  CC̄=2.2  critical=0 (limit:10)  dup=0  cycles=0
+  CC̄=2.3  critical=1 (limit:10)  dup=0  cycles=1
 
 ALERTS[1]:
   !   high_fan_out     exampleKeys = 10 (limit:10)
 
-MODULES[11] (top by size):
+MODULES[20] (top by size):
   M[TODO/oqlos-landing.jsx] 1221L C:0 F:15 CC↑8 D:0 (javascript)
+  M[src/pages/Landing.jsx] 275L C:0 F:1 CC↑1 D:0 (javascript)
   M[src/components/oql-examples.js] 144L C:0 F:0 CC↑0 D:0 (javascript)
+  M[src/pages/NlpConsole.jsx] 118L C:0 F:7 CC↑11 D:0 (javascript)
+  M[src/pages/Login.jsx] 110L C:0 F:6 CC↑6 D:0 (javascript)
   M[src/components/CodeEditor.jsx] 106L C:0 F:7 CC↑3 D:0 (javascript)
   M[src/components/TerminalSim.jsx] 86L C:0 F:4 CC↑4 D:0 (javascript)
   M[src/components/ArchDiagram.jsx] 84L C:0 F:0 CC↑0 D:0 (javascript)
+  M[src/pages/Dashboard.jsx] 80L C:0 F:4 CC↑2 D:0 (javascript)
   M[src/components/PricingCards.jsx] 71L C:0 F:0 CC↑0 D:0 (javascript)
+  M[src/pages/Billing.jsx] 70L C:0 F:6 CC↑5 D:0 (javascript)
+  M[src/pages/Scenarios.jsx] 58L C:0 F:4 CC↑2 D:0 (javascript)
+  M[playwright.config.js] 49L C:0 F:0 CC↑0 D:0 (javascript)
+  M[e2e/landing.spec.js] 44L C:0 F:4 CC↑1 D:0 (javascript)
   M[project.sh] 35L C:0 F:0 CC↑0 D:0 (shell)
-  M[src/App.jsx] 22L C:0 F:0 CC↑0 D:0 (javascript)
-  M[vite.config.js] 19L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/main.jsx] 12L C:0 F:0 CC↑0 D:0 (javascript)
-  M[tree.sh] 1L C:0 F:0 CC↑0 D:0 (shell)
-  LANGS: javascript:9/shell:2
+  LANGS: javascript:18/shell:2
 
 HOTSPOTS[1]:
   ★ exampleKeys fan=10  // Orchestrates 10 calls
 
-REFACTOR[1]:
+REFACTOR[2]:
   [1] H/H Split god module TODO/oqlos-landing.jsx (1221L, 0 classes)
+  [2] M/L Break circular dependency: src.pages.Login.navigate → src.pages.Login.verifyToken
 
 EVOLUTION:
-  2026-04-15 CC̄=2.2 crit=0 2076L // Automated analysis
+  2026-04-15 CC̄=2.3 crit=1 2726L // Automated analysis

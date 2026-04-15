@@ -1,7 +1,7 @@
 <!-- code2docs:start --># www
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-33-green)
-> **33** functions | **0** classes | **13** files | CC̄ = 2.3
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-60-green)
+> **60** functions | **0** classes | **20** files | CC̄ = 2.3
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,7 +141,7 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 www/
-├── tree├── project    ├── App    ├── config        ├── oql-examples    ├── main        ├── ArchDiagram        ├── CodeEditor        ├── PricingCards        ├── TerminalSim        ├── Login        ├── Landing    ├── oqlos-landing```
+├── tree├── project    ├── config    ├── config    ├── main    ├── App        ├── oql-examples        ├── ArchDiagram        ├── CodeEditor        ├── PricingCards        ├── TerminalSim        ├── NlpConsole        ├── Login        ├── Landing        ├── Scenarios        ├── Billing        ├── Dashboard        ├── spec        ├── spec    ├── oqlos-landing```
 
 ## API Overview
 
@@ -159,12 +159,39 @@ www/
 - `idx()` — —
 - `iv()` — —
 - `navigate()` — —
+- `user()` — —
+- `jwt()` — —
+- `handleSubmit()` — —
+- `endpoint()` — —
+- `res()` — —
+- `data()` — —
+- `navigate()` — —
 - `token()` — —
 - `verifyToken()` — —
 - `res()` — —
 - `data()` — —
 - `handleSubmit()` — —
 - `exampleKeys()` — —
+- `navigate()` — —
+- `user()` — —
+- `jwt()` — —
+- `exampleKeys()` — —
+- `navigate()` — —
+- `user()` — —
+- `jwt()` — —
+- `handleSubscribe()` — —
+- `res()` — —
+- `data()` — —
+- `navigate()` — —
+- `user()` — —
+- `jwt()` — —
+- `logout()` — —
+- `heading()` — —
+- `nav()` — —
+- `errorMessages()` — —
+- `response()` — —
+- `response()` — —
+- `status()` — —
 - `highlightOQL()` — —
 - `html()` — —
 - `highlightIQL()` — —
@@ -185,6 +212,9 @@ www/
 ## Project Structure
 
 📄 `TODO.oqlos-landing` (16 functions)
+📄 `e2e.landing.spec` (5 functions)
+📄 `e2e.smoke.spec` (3 functions)
+📄 `playwright.config`
 📄 `project`
 📄 `src.App`
 📄 `src.components.ArchDiagram`
@@ -193,8 +223,12 @@ www/
 📄 `src.components.TerminalSim` (4 functions)
 📄 `src.components.oql-examples`
 📄 `src.main`
+📄 `src.pages.Billing` (6 functions)
+📄 `src.pages.Dashboard` (4 functions)
 📄 `src.pages.Landing` (1 functions)
 📄 `src.pages.Login` (8 functions)
+📄 `src.pages.NlpConsole` (7 functions)
+📄 `src.pages.Scenarios` (4 functions)
 📄 `tree`
 📄 `vite.config`
 
@@ -205,8 +239,8 @@ www/
 ## Contributing
 
 **Contributors:**
-- Tom Sapletta <tom-sapletta-com@users.noreply.github.com>
 - Tom Softreck <tom@sapletta.com>
+- Tom Sapletta <tom-sapletta-com@users.noreply.github.com>
 
 We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
 

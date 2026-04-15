@@ -1,11 +1,13 @@
-# code2llm | 11f 1801L | javascript:9,shell:2 | 2026-04-15
-# CC̄=2.2 | critical:0/26 | dups:0 | cycles:0
+# code2llm | 20f 2636L | javascript:18,shell:2 | 2026-04-15
+# CC̄=2.3 | critical:0/60 | dups:0 | cycles:1
 
-HEALTH[0]: ok
+HEALTH[1]:
+  🔴 CYCLE Circular dependency detected: src.pages.Login.navigate -> src.pages.Login.verifyToken. This indicates high coupling and may lead to infinite recursion or initialization issues.
 
-REFACTOR[0]: none needed
+REFACTOR[1]:
+  1. break 1 circular dependencies
 
-PIPELINES[18]:
+PIPELINES[42]:
   [1] Src [highlightOQL]: highlightOQL
       PURITY: 100% pure
   [2] Src [highlightIQL]: highlightIQL
@@ -18,19 +20,30 @@ PIPELINES[18]:
       PURITY: 100% pure
 
 LAYERS:
-  TODO/                           CC̄=2.4    ←in:0  →out:0
-  │ !! oqlos-landing.jsx         1221L  0C   15m  CC=8      ←0
-  │
-  src/                            CC̄=1.8    ←in:0  →out:0
+  src/                            CC̄=2.5    ←in:0  →out:0
+  │ Landing.jsx                275L  0C    1m  CC=1      ←0
   │ oql-examples.js            144L  0C    0m  CC=0.0    ←0
+  │ NlpConsole.jsx             118L  0C    7m  CC=11     ←0
+  │ Login.jsx                  110L  0C    6m  CC=6      ←0
   │ CodeEditor.jsx             106L  0C    7m  CC=3      ←0
   │ TerminalSim.jsx             86L  0C    4m  CC=4      ←0
   │ ArchDiagram.jsx             84L  0C    0m  CC=0.0    ←0
+  │ Dashboard.jsx               80L  0C    4m  CC=2      ←0
   │ PricingCards.jsx            71L  0C    0m  CC=0.0    ←0
+  │ Billing.jsx                 70L  0C    6m  CC=5      ←0
+  │ Scenarios.jsx               58L  0C    4m  CC=2      ←0
   │ App.jsx                     22L  0C    0m  CC=0.0    ←0
   │ main.jsx                    12L  0C    0m  CC=0.0    ←0
   │
+  TODO/                           CC̄=2.4    ←in:0  →out:0
+  │ !! oqlos-landing.jsx         1221L  0C   15m  CC=8      ←0
+  │
+  e2e/                            CC̄=1.2    ←in:0  →out:0
+  │ landing.spec.js             44L  0C    4m  CC=1      ←0
+  │ smoke.spec.js               31L  0C    2m  CC=2      ←0
+  │
   ./                              CC̄=0.0    ←in:0  →out:0
+  │ playwright.config.js        49L  0C    0m  CC=0.0    ←0
   │ project.sh                  35L  0C    0m  CC=0.0    ←0
   │ vite.config.js              19L  0C    0m  CC=0.0    ←0
   │ tree.sh                      1L  0C    0m  CC=0.0    ←0
