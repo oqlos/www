@@ -323,6 +323,30 @@ logger.clearLogs();
 
 ### Testing Configuration
 
+**Test User:**
+
+| Email | Role | Plan | Auto-login URL |
+|-------|------|------|----------------|
+| `test@test.com` | admin | pro | `http://localhost:3000/login?plan=pro` |
+
+**E2E Test Suites (`e2e/`):**
+
+| File | Tests | Description |
+|------|-------|-------------|
+| `test-user.spec.js` | 34 | Full `test@test.com` journey: login, dashboard, OQL, IQL, NLP, billing, logout |
+| `landing.spec.js` | 5 | Landing page, login page, dashboard page load |
+| `smoke.spec.js` | 7 | All routes + API health check |
+
+All test-user tests use Playwright route interception (`page.route()`) to mock backend responses — **no running backend required**.
+
+```bash
+# Run test-user suite
+VITE_TEST_URL=http://localhost:3000 npx playwright test e2e/test-user.spec.js --project=chromium
+
+# Run all E2E tests via Ansible (generates report)
+npm run ansible:test
+```
+
 **Playwright Environment Variables:**
 - `VITE_TEST_URL` - Base URL for E2E tests (default: `http://localhost:3000`)
 - `VITE_DEV_PORT` - Dev server port (default: `3000`)
@@ -331,4 +355,16 @@ logger.clearLogs();
 - `DEPLOY_DIR` - Deployment directory (default: `/opt/oqlos/www`)
 - `APP_PORT` - Application port (default: `3000`)
 - `SERVICE_NAME` - Systemd service name (default: `oqlos-portal`)
-- `TEST_TIMEOUT` - Test timeout in seconds (default: `60`)
+- `TEST_TIMEOUT` - Test timeout in seconds (default: `120`)
+
+**Test Data Services (Docker):**
+
+```bash
+cd infra/docker/dev
+docker-compose -f docker-compose.test.yml up -d
+```
+
+| Service | Port | Credentials |
+|---------|------|-------------|
+| PostgreSQL | 5433 | `test_user` / `test_password` / `oqlos_test` |
+| Redis | 6380 | password: `test_redis_password` |

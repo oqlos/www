@@ -29,6 +29,20 @@ npm run preview
 | `APP_PORT` | `3000` | Application port for Ansible |
 | `SERVICE_NAME` | `oqlos-portal` | Systemd service name |
 
+## Test User
+
+A built-in test account is available for development and E2E testing:
+
+| Email | Password | Role | Plan |
+|-------|----------|------|------|
+| `test@test.com` | _(magic link / auto-login)_ | admin | pro |
+
+### Quick test login
+```
+http://localhost:3000/login?plan=pro
+```
+This auto-fills `test@test.com`, submits the form, sets JWT in localStorage, and redirects to the dashboard.
+
 ## Testing
 
 ### Local Testing (Shell)
@@ -53,14 +67,37 @@ npx playwright test --project=chromium --reporter=line
 VITE_TEST_URL=http://localhost:8080 npm run test:e2e
 ```
 
+### E2E Test User Suite (34 tests)
+
+Full test coverage for the `test@test.com` user journey with Playwright route mocking (no backend required):
+
+```bash
+# Run all test-user E2E tests
+VITE_TEST_URL=http://localhost:3000 npx playwright test e2e/test-user.spec.js --project=chromium
+```
+
+| Suite | Tests | What it covers |
+|-------|-------|----------------|
+| Login | 4 | Form, auto-fill `?plan=pro`, JWT storage, redirect |
+| Dashboard | 4 | Stats grid, quick-action navigation |
+| Scenarios — OQL | 7 | Editor, tabs, keywords, custom code, syntax highlighting, terminal dry-run |
+| Scenarios — IQL | 4 | API test tab, session recording, syntax, custom IQL |
+| NLP Console | 5 | OQL generation, IQL generation, tab switching, placeholders |
+| Billing | 4 | Pricing cards, Pro features, payment success state |
+| Navigation | 2 | SharedNav, full user journey (login → dashboard → scenarios → NLP → billing) |
+| Logout | 1 | Session clearing |
+| Protected routes | 3 | Redirect to /login without auth |
+
 ### Ansible E2E Tests
 ```bash
-# Standard run
+# Standard run (runs all suites: smoke, landing, test-user)
 npm run ansible:test
 
 # With custom port
 APP_PORT=8080 ansible-playbook -i ansible/inventory.ini ansible/playbook-test.yml
 ```
+
+The Ansible playbook runs each test suite separately and produces a detailed report at `test-results/ansible-test-report.txt`.
 
 ## Pipeline (pyqual.yaml)
 
@@ -114,6 +151,27 @@ make dev-docker-down
 make prod-down
 ```
 
+### Test Data Services (Docker)
+
+Standalone PostgreSQL + Redis with pre-seeded test data for `test@test.com`:
+
+```bash
+# Start test services
+cd infra/docker/dev
+docker-compose -f docker-compose.test.yml up -d
+
+# Verify test data
+psql -h localhost -p 5433 -U test_user -d oqlos_test -c "SELECT * FROM users;"
+
+# Stop & reset
+docker-compose -f docker-compose.test.yml down -v
+```
+
+| Service | Port | Credentials |
+|---------|------|-------------|
+| PostgreSQL | 5433 | `test_user` / `test_password` / `oqlos_test` |
+| Redis | 6380 | password: `test_redis_password` |
+
 ## Project Structure
 
 ```
@@ -132,6 +190,9 @@ make prod-down
 │   ├── utils/              # Utilities (logger, etc.)
 │   └── styles/             # CSS styles (dark + light themes)
 ├── e2e/                    # Playwright E2E tests
+│   ├── test-user.spec.js   # test@test.com full journey (34 tests)
+│   ├── landing.spec.js     # Landing + login + dashboard page tests
+│   └── smoke.spec.js       # Smoke tests for all routes
 ├── ansible/                # Ansible playbooks
 │   ├── inventory.ini       # Host inventory
 │   ├── playbook-test.yml   # Test playbook
@@ -139,6 +200,8 @@ make prod-down
 │   └── templates/          # Jinja2 templates
 ├── infra/                  # Infrastructure configs
 │   └── docker/             # Docker compose files
+│       ├── dev/            # Dev + test service configs
+│       └── prod/           # Production config
 ├── test.sh                 # Shell-based test runner
 ├── project.sh              # Code analysis script
 ├── pyqual.yaml             # Quality pipeline config
