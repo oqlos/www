@@ -1,3 +1,9 @@
+.env.example
+.idea
+venv
+.venv
+node_modules/
+dist/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -205,3 +211,6 @@ cython_debug/
 marimo/_static/
 marimo/_lsp/
 __marimo__/
+
+node_modules
+.pyqual

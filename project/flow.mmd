@@ -1,0 +1,25 @@
+flowchart TD
+
+    %% Entry points (blue)
+    classDef entry fill:#4dabf7,stroke:#1971c2,color:#fff
+
+    subgraph Core
+        src__components__CodeEditor__highlightOQL["highlightOQL"]
+        src__components__CodeEditor__html["html"]
+        src__components__CodeEditor__highlightIQL["highlightIQL"]
+        src__components__CodeEditor__textareaRef["textareaRef"]
+        src__components__CodeEditor__preRef["preRef"]
+        src__components__CodeEditor__fn["fn"]
+        src__components__CodeEditor__handleScroll["handleScroll"]
+        src__components__TerminalSim__termRef["termRef"]
+        src__components__TerminalSim__runSim["runSim"]
+        src__components__TerminalSim__idx["idx"]
+        src__components__TerminalSim__iv["iv"]
+        TODO__oqlos_landing__highlightOQL["highlightOQL"]
+        TODO__oqlos_landing__html["html"]
+        TODO__oqlos_landing__highlightIQL["highlightIQL"]
+        TODO__oqlos_landing__TerminalSim["TerminalSim"]
+        ...["+11 more"]
+    end
+
+    class src__components__CodeEditor__highlightOQL,src__components__CodeEditor__html,src__components__CodeEditor__highlightIQL,src__components__CodeEditor__textareaRef,src__components__CodeEditor__preRef,src__components__CodeEditor__fn,src__components__CodeEditor__handleScroll,src__components__TerminalSim__termRef,src__components__TerminalSim__runSim,src__components__TerminalSim__idx entry

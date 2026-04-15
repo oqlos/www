@@ -1,0 +1,30 @@
+# www | 26 func | 3f | 2076L | javascript | 2026-04-15
+
+HEALTH:
+  CC̄=2.2  critical=0 (limit:10)  dup=0  cycles=0
+
+ALERTS[1]:
+  !   high_fan_out     exampleKeys = 10 (limit:10)
+
+MODULES[11] (top by size):
+  M[TODO/oqlos-landing.jsx] 1221L C:0 F:15 CC↑8 D:0 (javascript)
+  M[src/components/oql-examples.js] 144L C:0 F:0 CC↑0 D:0 (javascript)
+  M[src/components/CodeEditor.jsx] 106L C:0 F:7 CC↑3 D:0 (javascript)
+  M[src/components/TerminalSim.jsx] 86L C:0 F:4 CC↑4 D:0 (javascript)
+  M[src/components/ArchDiagram.jsx] 84L C:0 F:0 CC↑0 D:0 (javascript)
+  M[src/components/PricingCards.jsx] 71L C:0 F:0 CC↑0 D:0 (javascript)
+  M[project.sh] 35L C:0 F:0 CC↑0 D:0 (shell)
+  M[src/App.jsx] 22L C:0 F:0 CC↑0 D:0 (javascript)
+  M[vite.config.js] 19L C:0 F:0 CC↑0 D:0 (javascript)
+  M[src/main.jsx] 12L C:0 F:0 CC↑0 D:0 (javascript)
+  M[tree.sh] 1L C:0 F:0 CC↑0 D:0 (shell)
+  LANGS: javascript:9/shell:2
+
+HOTSPOTS[1]:
+  ★ exampleKeys fan=10  // Orchestrates 10 calls
+
+REFACTOR[1]:
+  [1] H/H Split god module TODO/oqlos-landing.jsx (1221L, 0 classes)
+
+EVOLUTION:
+  2026-04-15 CC̄=2.2 crit=0 2076L // Automated analysis

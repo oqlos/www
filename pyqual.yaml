@@ -1,0 +1,16 @@
+pipeline:
+  name: oqlos-portal-quality
+  metrics:
+    cc_max: 20
+    critical_max: 5
+    error_count_max: 20
+  stages:
+    - name: install
+      run: npm install
+      when: always
+    - name: build
+      run: npm run build
+      when: always
+  loop:
+    max_iterations: 2
+    on_fail: report

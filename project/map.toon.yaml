@@ -1,0 +1,67 @@
+# www | 11f 1801L | shell:2,javascript:9 | 2026-04-15
+# stats: 26 func | 0 cls | 11 mod | CC̄=2.2 | critical:0 | cycles:0
+# alerts[1]: fan-out exampleKeys=10
+# hotspots[5]: exampleKeys fan=10; TerminalSim fan=9; CodeEditor fan=7; highlightOQL fan=6; highlightIQL fan=6
+# evolution: baseline
+# Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
+M[11]:
+  TODO/oqlos-landing.jsx,1221
+  project.sh,35
+  src/App.jsx,22
+  src/components/ArchDiagram.jsx,84
+  src/components/CodeEditor.jsx,106
+  src/components/PricingCards.jsx,71
+  src/components/TerminalSim.jsx,86
+  src/components/oql-examples.js,144
+  src/main.jsx,12
+  tree.sh,1
+  vite.config.js,19
+D:
+  TODO/oqlos-landing.jsx:
+    i: react
+    e: highlightOQL,html,highlightIQL,html,TerminalSim,termRef,runSim,idx,iv,CodeEditor,textareaRef,preRef,fn,handleScroll,ArchDiagram,exampleKeys
+    highlightOQL()
+    html()
+    highlightIQL()
+    html()
+    TerminalSim()
+    termRef()
+    runSim()
+    idx()
+    iv()
+    CodeEditor()
+    textareaRef()
+    preRef()
+    fn()
+    handleScroll()
+    ArchDiagram()
+    exampleKeys()
+  src/components/TerminalSim.jsx:
+    i: react
+    e: termRef,runSim,idx,iv
+    termRef()
+    runSim()
+    idx()
+    iv()
+  src/components/CodeEditor.jsx:
+    i: react
+    e: highlightOQL,html,highlightIQL,html,textareaRef,preRef,fn,handleScroll
+    highlightOQL()
+    html()
+    highlightIQL()
+    html()
+    textareaRef()
+    preRef()
+    fn()
+    handleScroll()
+  tree.sh:
+  project.sh:
+  vite.config.js:
+    i: @vitejs/plugin-react,vite
+  src/App.jsx:
+    i: ./pages/Billing,./pages/Dashboard,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/Scenarios,react-router-dom
+  src/main.jsx:
+    i: ./App,react,react-dom/client,react-router-dom
+  src/components/oql-examples.js:
+  src/components/ArchDiagram.jsx:
+  src/components/PricingCards.jsx:
