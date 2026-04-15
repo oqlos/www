@@ -1,5 +1,7 @@
 FROM node:20-alpine AS build
 WORKDIR /app
+ARG VITE_FORCE_MOCK_API=false
+ENV VITE_FORCE_MOCK_API=${VITE_FORCE_MOCK_API}
 COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .

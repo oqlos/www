@@ -27,6 +27,8 @@ services:
     build:
       context: ../../../
       dockerfile: Dockerfile
+      args:
+        VITE_FORCE_MOCK_API: "true"
     ports:
       - "8090:80"
     environment:

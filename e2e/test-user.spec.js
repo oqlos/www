@@ -339,6 +339,7 @@ test.describe('Scenarios — IQL', () => {
 
   test('IQL api-test tab loads with correct syntax', async ({ page }) => {
     await page.locator('.example-tab', { hasText: /API|TestQL/ }).click();
+    await page.waitForTimeout(100);
     const code = await page.locator('.editor-textarea').inputValue();
 
     expect(code).toContain('API');
@@ -349,8 +350,10 @@ test.describe('Scenarios — IQL', () => {
 
   test('IQL session recording tab loads', async ({ page }) => {
     await page.locator('.example-tab', { hasText: /Record|Nagrywanie/ }).click();
+    await page.waitForTimeout(100);
     const code = await page.locator('.editor-textarea').inputValue();
 
+    // Tab shows IQL session recording commands
     expect(code).toContain('RECORD_START');
     expect(code).toContain('SELECT_DEVICE');
     expect(code).toContain('START_TEST');
