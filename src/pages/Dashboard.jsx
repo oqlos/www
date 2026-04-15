@@ -1,24 +1,26 @@
 import { useAuth } from "../hooks/useAuth";
 import SharedNav from "../components/SharedNav";
+import { useI18n } from "../i18n/I18nProvider";
 
 export default function Dashboard() {
   const { user, logout, navigate } = useAuth();
+  const { t } = useI18n();
 
   return (
     <div className="dashboard">
       <SharedNav user={user} onLogout={logout} />
 
       <div className="dash-content">
-        <h2 style={{ marginBottom: 8 }}>Dashboard</h2>
-        <p className="section-desc">Overview of your OqlOS environment.</p>
+        <h2 style={{ marginBottom: 8 }}>{t("dashboard.title")}</h2>
+        <p className="section-desc">{t("dashboard.subtitle")}</p>
 
         <div className="dash-grid">
           <div className="dash-stat">
-            <h4>Scenarios</h4>
+            <h4>{t("dashboard.scenarios")}</h4>
             <div className="value blue">3</div>
           </div>
           <div className="dash-stat">
-            <h4>Devices</h4>
+            <h4>{t("dashboard.devices")}</h4>
             <div className="value green">2</div>
           </div>
           <div className="dash-stat">

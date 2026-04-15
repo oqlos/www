@@ -43,7 +43,6 @@ export default defineConfig({
   webServer: {
     command: 'npm run dev',
     url: process.env.VITE_TEST_URL || 'http://localhost:3000',
-    port: parseInt(process.env.VITE_DEV_PORT || '3000'),
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

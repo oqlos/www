@@ -18,11 +18,19 @@ export default defineConfig({
         target: process.env.VITE_BACKEND_URL || "http://localhost:8101",
         changeOrigin: true,
       },
-      "/billing": {
+      "/billing/subscribe": {
         target: process.env.VITE_BACKEND_URL || "http://localhost:8101",
         changeOrigin: true,
       },
-      "/nlp": {
+      "/nlp/to-oql": {
+        target: process.env.VITE_BACKEND_URL || "http://localhost:8101",
+        changeOrigin: true,
+      },
+      "/nlp/to-iql": {
+        target: process.env.VITE_BACKEND_URL || "http://localhost:8101",
+        changeOrigin: true,
+      },
+      "/nlp/devops": {
         target: process.env.VITE_BACKEND_URL || "http://localhost:8101",
         changeOrigin: true,
       },

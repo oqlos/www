@@ -1,0 +1,31 @@
+[Unit]
+Description=Traefik reverse proxy for OqlOS
+After=network-online.target
+Wants=network-online.target
+
+[Container]
+Image=docker.io/library/traefik:v3.2
+ContainerName=oqlos-traefik
+Network=oqlos.network
+PublishPort=80:80
+PublishPort=443:443
+PublishPort=8080:8080
+Volume=/var/run/podman/podman.sock:/var/run/docker.sock:ro
+Volume=oqlos-letsencrypt:/letsencrypt
+Exec=--providers.docker=true \
+     --providers.docker.exposedByDefault=false \
+     --entrypoints.web.address=:80 \
+     --entrypoints.websecure.address=:443 \
+     --entrypoints.web.http.redirections.entrypoint.to=websecure \
+     --entrypoints.web.http.redirections.entrypoint.scheme=https \
+     --certificatesresolvers.le.acme.tlschallenge=true \
+     --certificatesresolvers.le.acme.email=admin@oqlos.io \
+     --certificatesresolvers.le.acme.storage=/letsencrypt/acme.json \
+     --api.dashboard=true \
+     --log.level=WARN
+
+[Service]
+Restart=always
+
+[Install]
+WantedBy=multi-user.target default.target

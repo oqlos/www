@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import "../styles/global.css";
+import { useI18n } from "../i18n/I18nProvider";
 
 export default function Login() {
+  const { t } = useI18n();
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
@@ -23,18 +24,18 @@ export default function Login() {
         if (res.ok && data.token) {
           localStorage.setItem("jwt", data.token);
           localStorage.setItem("user", JSON.stringify(data.user));
-          setMsg({ type: "success", text: "Logged in! Redirecting…" });
+          setMsg({ type: "success", text: t("login.success_logged_in") });
           setTimeout(() => navigate("/dashboard"), 800);
         } else {
-          setMsg({ type: "error", text: data.detail || "Invalid or expired link" });
+          setMsg({ type: "error", text: data.detail || t("login.error_invalid_link") });
         }
       } catch {
-        setMsg({ type: "error", text: "Connection error" });
+        setMsg({ type: "error", text: t("login.error_connection") });
       } finally {
         setLoading(false);
       }
     })();
-  }, [token, navigate]);
+  }, [token, navigate, t]);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -49,13 +50,13 @@ export default function Login() {
       });
       const data = await res.json();
       if (res.ok) {
-        setMsg({ type: "success", text: "Check your email for a login link!" });
+        setMsg({ type: "success", text: t("login.check_email") });
         setEmail("");
       } else {
         setMsg({ type: "error", text: data.detail || "Request failed" });
       }
     } catch {
-      setMsg({ type: "error", text: "Connection error" });
+      setMsg({ type: "error", text: t("login.error_connection") });
     } finally {
       setLoading(false);
     }
@@ -75,13 +76,13 @@ export default function Login() {
           </>
         ) : (
           <>
-            <h2>Passwordless Login</h2>
-            <p>Enter your email and we'll send a magic login link. No passwords needed.</p>
+            <h2>{t("login.title")}</h2>
+            <p>{t("login.subtitle")}</p>
             <form onSubmit={handleSubmit}>
               <input
                 className="auth-input"
                 type="email"
-                placeholder="you@company.com"
+                placeholder={t("login.email_placeholder")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -93,7 +94,7 @@ export default function Login() {
                 disabled={loading}
                 style={{ width: "100%", justifyContent: "center" }}
               >
-                {loading ? "Sending…" : "Send Magic Link"}
+                {loading ? t("login.sending") : t("login.send_link")}
               </button>
             </form>
           </>

@@ -4,9 +4,11 @@ import CodeEditor from "../components/CodeEditor";
 import TerminalSim from "../components/TerminalSim";
 import { useAuth } from "../hooks/useAuth";
 import SharedNav from "../components/SharedNav";
+import { useI18n } from "../i18n/I18nProvider";
 
 export default function Scenarios() {
   const { user, logout } = useAuth();
+  const { t } = useI18n();
   const [activeExample, setActiveExample] = useState("pump-test");
   const exampleKeys = Object.keys(OQL_EXAMPLES);
 
@@ -16,9 +18,9 @@ export default function Scenarios() {
 
       <div className="dash-content">
         <div className="section-label">Scenarios</div>
-        <h2>OQL / TestQL Editor</h2>
+        <h2>{t("scenarios.title")}</h2>
         <p className="section-desc">
-          Create, edit, and run test scenarios. Choose an example or write your own.
+          {t("scenarios.subtitle")}
         </p>
 
         <div className="editor-section">

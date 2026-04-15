@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "scenarios": "Scenarios",
+    "nlp": "NLP Console",
+    "billing": "Billing",
+    "logout": "Logout"
+  },
+  "landing": {
+    "hero_title": "Industrial Test Automation",
+    "hero_subtitle": "Write hardware tests in natural language. OqlOS converts them to executable scenarios for pumps, sensors, valves, and PLCs.",
+    "get_started": "Get Started",
+    "view_docs": "Docs",
+    "github": "GitHub",
+    "features_label": "FEATURES",
+    "features_title": "Why OqlOS?",
+    "install_label": "INSTALL",
+    "install_title": "Get Started in Seconds",
+    "copy": "📋 Copy",
+    "copied": "✓ Copied!",
+    "pricing_label": "PRICING",
+    "pricing_title": "Choose Your Plan"
+  },
+  "login": {
+    "title": "Sign In to OqlOS",
+    "subtitle": "Enter your email — we'll send a magic login link.",
+    "email_placeholder": "you@company.com",
+    "send_link": "Send Login Link",
+    "sending": "Sending…",
+    "back_home": "← Back to Home",
+    "success_logged_in": "Logged in! Redirecting…",
+    "error_invalid_link": "Invalid or expired link",
+    "error_connection": "Connection error",
+    "check_email": "Check your email for a login link!"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Overview of your OqlOS environment.",
+    "scenarios": "Scenarios",
+    "devices": "Devices",
+    "tests_today": "Tests Today",
+    "uptime": "Uptime",
+    "recent_activity": "Recent Activity",
+    "run_scenarios": "Run Scenarios",
+    "nlp_console": "NLP Console"
+  },
+  "scenarios": {
+    "title": "OQL / TestQL Editor",
+    "subtitle": "Create, edit, and run test scenarios. Choose an example or write your own."
+  },
+  "nlp_console": {
+    "title": "Natural Language → DSL",
+    "subtitle": "Describe what you want in plain language. The system converts it to OQL, IQL, or DevOps commands.",
+    "placeholder": "Describe what you want to test or automate…",
+    "generate": "Generate",
+    "generating": "Generating…"
+  },
+  "billing": {
+    "title": "Manage Your Plan",
+    "on_plan": "You are currently on the {plan} plan.",
+    "on_free": "You are currently on the Free plan. Upgrade for fleet management, reports, and more."
+  },
+  "offline": {
+    "title": "You're offline",
+    "message": "OqlOS Portal requires a network connection."
+  },
+  "error": {
+    "title": "Something went wrong",
+    "back_home": "Back to Home"
+  }
+}

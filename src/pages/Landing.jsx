@@ -7,7 +7,6 @@ import PricingCards from "../components/PricingCards";
 import ArchDiagram from "../components/ArchDiagram";
 import logger from "../utils/logger";
 import { INSTALL_DOCKER, INSTALL_PIP, INSTALL_RPI } from "../data/install-commands";
-import "../styles/global.css";
 
 const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO || "https://github.com/softreck/oqlos";
 const API_DEV_URL = import.meta.env.VITE_API_DEV_URL || "http://api.oqlos.localhost";

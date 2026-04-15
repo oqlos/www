@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
 import SharedNav from "../components/SharedNav";
+import { useI18n } from "../i18n/I18nProvider";
 
 const MOCK_OQL = `SCENARIO: "NLP Generated Test"
 DEVICE_TYPE: "BA"
@@ -13,6 +14,7 @@ GOAL: Auto-generated from NLP
 
 export default function NlpConsole() {
   const { user, jwt, logout } = useAuth();
+  const { t } = useI18n();
   const [prompt, setPrompt] = useState("");
   const [targetLang, setTargetLang] = useState("oql");
   const [output, setOutput] = useState("");
@@ -53,9 +55,9 @@ export default function NlpConsole() {
 
       <div className="dash-content">
         <div className="section-label">NLP Console</div>
-        <h2>Natural Language → DSL</h2>
+        <h2>{t("nlp_console.title")}</h2>
         <p className="section-desc">
-          Describe what you want in plain language. The system converts it to OQL, IQL, or DevOps commands.
+          {t("nlp_console.subtitle")}
         </p>
 
         <div className="nlp-console">
@@ -64,13 +66,13 @@ export default function NlpConsole() {
               { id: "oql", label: "⚙ → OQL" },
               { id: "iql", label: "🧪 → IQL" },
               { id: "devops", label: "🔧 → DevOps" },
-            ].map((t) => (
+            ].map((tab) => (
               <button
-                key={t.id}
-                className={`install-tab ${targetLang === t.id ? "active" : ""}`}
-                onClick={() => setTargetLang(t.id)}
+                key={tab.id}
+                className={`install-tab ${targetLang === tab.id ? "active" : ""}`}
+                onClick={() => setTargetLang(tab.id)}
               >
-                {t.label}
+                {tab.label}
               </button>
             ))}
           </div>
@@ -89,7 +91,7 @@ export default function NlpConsole() {
               onChange={(e) => setPrompt(e.target.value)}
             />
             <button className="btn btn-primary" type="submit" disabled={loading}>
-              {loading ? "Generating…" : "Generate"}
+              {loading ? t("nlp_console.generating") : t("nlp_console.generate")}
             </button>
           </form>
 

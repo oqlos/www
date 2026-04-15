@@ -3,10 +3,12 @@ import { useSearchParams } from "react-router-dom";
 import PricingCards from "../components/PricingCards";
 import { useAuth } from "../hooks/useAuth";
 import SharedNav from "../components/SharedNav";
+import { useI18n } from "../i18n/I18nProvider";
 
 export default function Billing() {
   const [searchParams] = useSearchParams();
   const { user, jwt, logout, navigate } = useAuth();
+  const { t } = useI18n();
   const [plan, setPlan] = useState("free");
   const [sessionId] = useState(searchParams.get("session"));
 
@@ -41,11 +43,11 @@ export default function Billing() {
 
       <div className="dash-content">
         <div className="section-label">Billing</div>
-        <h2>Manage Your Plan</h2>
+        <h2>{t("billing.title")}</h2>
         <p className="section-desc">
           {plan !== "free"
-            ? `You are currently on the ${plan.charAt(0).toUpperCase() + plan.slice(1)} plan.`
-            : "You are currently on the Free plan. Upgrade for fleet management, reports, and more."}
+            ? t("billing.on_plan", { plan: plan.charAt(0).toUpperCase() + plan.slice(1) })
+            : t("billing.on_free")}
         </p>
 
         {sessionId && (

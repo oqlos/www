@@ -1,0 +1,71 @@
+{
+  "nav": {
+    "dashboard": "Panel",
+    "scenarios": "Scenariusze",
+    "nlp": "Konsola NLP",
+    "billing": "Płatności",
+    "logout": "Wyloguj"
+  },
+  "landing": {
+    "hero_title": "Automatyzacja Testów Przemysłowych",
+    "hero_subtitle": "Pisz testy sprzętu w języku naturalnym. OqlOS zamienia je w wykonywalne scenariusze dla pomp, czujników, zaworów i PLC.",
+    "get_started": "Rozpocznij",
+    "view_docs": "Dokumentacja",
+    "github": "GitHub",
+    "features_label": "FUNKCJE",
+    "features_title": "Dlaczego OqlOS?",
+    "install_label": "INSTALACJA",
+    "install_title": "Zacznij w kilka sekund",
+    "copy": "📋 Kopiuj",
+    "copied": "✓ Skopiowane!",
+    "pricing_label": "CENNIK",
+    "pricing_title": "Wybierz plan"
+  },
+  "login": {
+    "title": "Zaloguj się do OqlOS",
+    "subtitle": "Podaj swój email — wyślemy link logowania.",
+    "email_placeholder": "ty@firma.pl",
+    "send_link": "Wyślij link",
+    "sending": "Wysyłanie…",
+    "back_home": "← Powrót",
+    "success_logged_in": "Zalogowano! Przekierowanie…",
+    "error_invalid_link": "Nieprawidłowy lub wygasły link",
+    "error_connection": "Błąd połączenia",
+    "check_email": "Sprawdź email — wysłaliśmy link logowania!"
+  },
+  "dashboard": {
+    "title": "Panel",
+    "subtitle": "Przegląd środowiska OqlOS.",
+    "scenarios": "Scenariusze",
+    "devices": "Urządzenia",
+    "tests_today": "Testy dziś",
+    "uptime": "Czas pracy",
+    "recent_activity": "Ostatnia aktywność",
+    "run_scenarios": "Uruchom scenariusze",
+    "nlp_console": "Konsola NLP"
+  },
+  "scenarios": {
+    "title": "Edytor OQL / TestQL",
+    "subtitle": "Twórz, edytuj i uruchamiaj scenariusze testowe. Wybierz przykład lub napisz własny."
+  },
+  "nlp_console": {
+    "title": "Język naturalny → DSL",
+    "subtitle": "Opisz co chcesz w naturalnym języku. System zamieni to na OQL, IQL lub polecenia DevOps.",
+    "placeholder": "Opisz co chcesz przetestować lub zautomatyzować…",
+    "generate": "Generuj",
+    "generating": "Generowanie…"
+  },
+  "billing": {
+    "title": "Zarządzaj planem",
+    "on_plan": "Aktualny plan: {plan}.",
+    "on_free": "Aktualny plan: Free. Uaktualnij po zarządzanie flotą, raporty i więcej."
+  },
+  "offline": {
+    "title": "Jesteś offline",
+    "message": "Portal OqlOS wymaga połączenia z siecią."
+  },
+  "error": {
+    "title": "Coś poszło nie tak",
+    "back_home": "Wróć na stronę główną"
+  }
+}
