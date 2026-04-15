@@ -1,11 +1,12 @@
 # OqlOS Portal - Makefile
-.PHONY: help dev build preview test test-e2e test-unit clean install lint deploy ansible-test ansible-deploy analyze docker-build docker-run dev-docker dev-docker-down prod prod-down
+.PHONY: help dev build preview test test-e2e test-unit clean install lint deploy ansible-test ansible-deploy analyze docker-build docker-run dev-docker dev-docker-down dev-open prod prod-down
 
 # Default target
 help:
 	@echo "OqlOS Portal - Available commands:"
 	@echo "  make dev          - Start development server (npm)"
 	@echo "  make dev-docker   - Start development server (Docker)"
+	@echo "  make dev-open     - Start dev containers and open browser"
 	@echo "  make build        - Build for production (npm)"
 	@echo "  make preview      - Preview production build"
 	@echo "  make install      - Install dependencies"
@@ -100,6 +101,27 @@ dev-docker:
 
 dev-docker-down:
 	docker compose -f infra/docker/dev/docker-compose.dev.yml down
+
+dev-open:
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  OqlOS Portal - Development Environment"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo ""
+	@echo "Starting Docker containers..."
+	@docker compose -f infra/docker/dev/docker-compose.dev.yml up -d
+	@echo ""
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  Services available at:"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  🌐 Portal:        http://localhost:8090"
+	@echo "  📊 Traefik:       http://localhost:8080"
+	@echo "  📧 Mailpit:       http://localhost:8025 (via Traefik)"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo ""
+	@echo "Open this URL in your browser: http://localhost:8090"
+	@echo ""
+	@echo "To stop containers, run: make dev-docker-down"
+	@echo "══════════════════════════════════════════════════════════════"
 
 prod:
 	docker compose -f infra/docker/prod/docker-compose.prod.yml up -d

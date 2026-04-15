@@ -15,6 +15,14 @@ const TEST_USERS = {
     role: 'admin',
     plan: 'pro',
     created_at: new Date().toISOString()
+  },
+  [import.meta.env.VITE_DEMO_USER_EMAIL || 'demo@oqlos.com']: {
+    id: 3,
+    email: import.meta.env.VITE_DEMO_USER_EMAIL || 'demo@oqlos.com',
+    name: import.meta.env.VITE_DEMO_USER_NAME || 'Demo User',
+    role: import.meta.env.VITE_DEMO_USER_ROLE || 'user',
+    plan: 'free',
+    created_at: new Date().toISOString()
   }
 };
 
@@ -42,17 +50,35 @@ export function mockFetch(url, options) {
   if (url.includes('/auth/login')) {
     const body = options.body ? JSON.parse(options.body) : {};
     const email = body.email;
-    
-    // Special handling for test@test.com - return immediate success for testing
+    const password = body.password;
+
+    // Special handling for test users
     if (email === 'test@test.com' || email === 'demo@oqlos.io') {
       const user = TEST_USERS[email];
-      return fakeResponse({ 
-        message: "Test login successful - redirecting...", 
+      return fakeResponse({
+        message: "Test login successful - redirecting...",
         testMode: true,
         user: user
       });
     }
-    
+
+    // Demo user from .env
+    if (email === (import.meta.env.VITE_DEMO_USER_EMAIL || 'demo@oqlos.com')) {
+      if (password === (import.meta.env.VITE_DEMO_USER_PASSWORD || 'demo123')) {
+        const user = TEST_USERS[email];
+        return fakeResponse({
+          message: "Demo login successful",
+          testMode: true,
+          user: user
+        });
+      } else {
+        return fakeResponse({
+          error: "Invalid password",
+          message: "Demo password is incorrect"
+        }, 400);
+      }
+    }
+
     return fakeResponse({ message: "Check your email for a login link!" });
   }
   if (url.includes('/auth/verify')) {
