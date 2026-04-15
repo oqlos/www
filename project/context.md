@@ -6,10 +6,10 @@
 - **Primary Language**: javascript
 - **Languages**: javascript: 18, shell: 2
 - **Analysis Mode**: static
-- **Total Functions**: 60
+- **Total Functions**: 62
 - **Total Classes**: 0
 - **Modules**: 20
-- **Entry Points**: 52
+- **Entry Points**: 55
 
 ## Architecture by Module
 
@@ -37,25 +37,25 @@
 - **Functions**: 5
 - **File**: `landing.spec.js`
 
+### src.pages.Landing
+- **Functions**: 5
+- **File**: `Landing.jsx`
+
 ### src.components.TerminalSim
 - **Functions**: 4
 - **File**: `TerminalSim.jsx`
-
-### src.pages.Scenarios
-- **Functions**: 4
-- **File**: `Scenarios.jsx`
 
 ### src.pages.Dashboard
 - **Functions**: 4
 - **File**: `Dashboard.jsx`
 
+### src.pages.Scenarios
+- **Functions**: 4
+- **File**: `Scenarios.jsx`
+
 ### e2e.smoke.spec
 - **Functions**: 3
 - **File**: `smoke.spec.js`
-
-### src.pages.Landing
-- **Functions**: 1
-- **File**: `Landing.jsx`
 
 ## Key Entry Points
 
@@ -63,6 +63,12 @@ Main execution flows into the system:
 
 ### TODO.oqlos-landing.exampleKeys
 - **Calls**: TODO.oqlos-landing.url, TODO.oqlos-landing.var, TODO.oqlos-landing.gradient, TODO.oqlos-landing.rgba, TODO.oqlos-landing.clamp, TODO.oqlos-landing.translateY, TODO.oqlos-landing.repeat, TODO.oqlos-landing.minmax
+
+### src.pages.Login.token
+- **Calls**: src.pages.Login.useCallback, src.pages.Login.setLoading, src.pages.Login.fetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.setTimeout
+
+### src.pages.Login.verifyToken
+- **Calls**: src.pages.Login.useCallback, src.pages.Login.setLoading, src.pages.Login.fetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.setTimeout
 
 ### TODO.oqlos-landing.TerminalSim
 - **Calls**: TODO.oqlos-landing.useState, TODO.oqlos-landing.useRef, TODO.oqlos-landing.run, TODO.oqlos-landing.02s, TODO.oqlos-landing.setRunning, TODO.oqlos-landing.setLines, TODO.oqlos-landing.setInterval, TODO.oqlos-landing.clearInterval
@@ -100,6 +106,9 @@ Main execution flows into the system:
 ### src.pages.Billing.handleSubscribe
 - **Calls**: src.pages.Billing.navigate, src.pages.Billing.fetch, src.pages.Billing.json, src.pages.Billing.alert
 
+### src.pages.Landing.extractTextFromJSX
+- **Calls**: src.pages.Landing.String, src.pages.Landing.isArray, src.pages.Landing.map, src.pages.Landing.join
+
 ### TODO.oqlos-landing.runSim
 - **Calls**: TODO.oqlos-landing.setRunning, TODO.oqlos-landing.setLines, TODO.oqlos-landing.setInterval, TODO.oqlos-landing.clearInterval
 
@@ -133,23 +142,14 @@ Main execution flows into the system:
 ### src.pages.NlpConsole.res
 - **Calls**: src.pages.NlpConsole.fetch, src.pages.NlpConsole.stringify
 
-### src.pages.Login.token
-- **Calls**: src.pages.Login.useEffect, src.pages.Login.verifyToken
-
-### src.pages.Login.res
-- **Calls**: src.pages.Login.fetch, src.pages.Login.stringify
-
-### src.pages.Login.data
-- **Calls**: src.pages.Login.setMsg, src.pages.Login.setEmail
-
-### src.pages.Scenarios.user
-- **Calls**: src.pages.Scenarios.parse, src.pages.Scenarios.getItem
-
 ### src.pages.Billing.user
 - **Calls**: src.pages.Billing.parse, src.pages.Billing.getItem
 
 ### src.pages.Billing.jwt
 - **Calls**: src.pages.Billing.useEffect, src.pages.Billing.setPlan
+
+### src.pages.Login.res
+- **Calls**: src.pages.Login.fetch, src.pages.Login.stringify
 
 ## Process Flows
 
@@ -160,50 +160,49 @@ Key execution flows identified:
 exampleKeys [TODO.oqlos-landing]
 ```
 
-### Flow 2: TerminalSim
+### Flow 2: token
+```
+token [src.pages.Login]
+```
+
+### Flow 3: verifyToken
+```
+verifyToken [src.pages.Login]
+```
+
+### Flow 4: TerminalSim
 ```
 TerminalSim [TODO.oqlos-landing]
 ```
 
-### Flow 3: handleSubmit
+### Flow 5: handleSubmit
 ```
 handleSubmit [src.pages.NlpConsole]
 ```
 
-### Flow 4: CodeEditor
+### Flow 6: CodeEditor
 ```
 CodeEditor [TODO.oqlos-landing]
 ```
 
-### Flow 5: highlightOQL
+### Flow 7: highlightOQL
 ```
 highlightOQL [src.components.CodeEditor]
 ```
 
-### Flow 6: highlightIQL
+### Flow 8: highlightIQL
 ```
 highlightIQL [src.components.CodeEditor]
 ```
 
-### Flow 7: runSim
+### Flow 9: runSim
 ```
 runSim [src.components.TerminalSim]
 ```
 
-### Flow 8: idx
+### Flow 10: idx
 ```
 idx [src.components.TerminalSim]
-```
-
-### Flow 9: iv
-```
-iv [src.components.TerminalSim]
-```
-
-### Flow 10: handleSubscribe
-```
-handleSubscribe [src.pages.Billing]
-  └─> navigate
 ```
 
 ## Data Transformation Functions
@@ -215,9 +214,11 @@ Key functions that process and transform data:
 Functions exposed as public API (no underscore prefix):
 
 - `TODO.oqlos-landing.exampleKeys` - 10 calls
+- `src.pages.Login.token` - 9 calls
+- `src.pages.Login.verifyToken` - 9 calls
 - `TODO.oqlos-landing.TerminalSim` - 9 calls
 - `src.pages.NlpConsole.handleSubmit` - 8 calls
-- `src.pages.Login.verifyToken` - 8 calls
+- `src.pages.Login.navigate` - 8 calls
 - `src.pages.Login.handleSubmit` - 7 calls
 - `TODO.oqlos-landing.CodeEditor` - 7 calls
 - `src.components.CodeEditor.highlightOQL` - 6 calls
@@ -228,6 +229,7 @@ Functions exposed as public API (no underscore prefix):
 - `src.components.TerminalSim.idx` - 4 calls
 - `src.components.TerminalSim.iv` - 4 calls
 - `src.pages.Billing.handleSubscribe` - 4 calls
+- `src.pages.Landing.extractTextFromJSX` - 4 calls
 - `TODO.oqlos-landing.runSim` - 4 calls
 - `TODO.oqlos-landing.idx` - 4 calls
 - `TODO.oqlos-landing.iv` - 4 calls
@@ -240,20 +242,17 @@ Functions exposed as public API (no underscore prefix):
 - `src.pages.NlpConsole.user` - 2 calls
 - `src.pages.NlpConsole.endpoint` - 2 calls
 - `src.pages.NlpConsole.res` - 2 calls
-- `src.pages.Login.navigate` - 2 calls
-- `src.pages.Login.token` - 2 calls
-- `src.pages.Login.res` - 2 calls
-- `src.pages.Login.data` - 2 calls
-- `src.pages.Scenarios.navigate` - 2 calls
-- `src.pages.Scenarios.user` - 2 calls
 - `src.pages.Billing.navigate` - 2 calls
 - `src.pages.Billing.user` - 2 calls
 - `src.pages.Billing.jwt` - 2 calls
+- `src.pages.Login.res` - 2 calls
+- `src.pages.Login.data` - 2 calls
 - `src.pages.Dashboard.navigate` - 2 calls
 - `src.pages.Dashboard.user` - 2 calls
 - `src.pages.Dashboard.logout` - 2 calls
+- `src.pages.Scenarios.navigate` - 2 calls
+- `src.pages.Scenarios.user` - 2 calls
 - `TODO.oqlos-landing.textareaRef` - 2 calls
-- `TODO.oqlos-landing.preRef` - 2 calls
 
 ## System Interactions
 
@@ -266,6 +265,16 @@ graph TD
     exampleKeys --> gradient
     exampleKeys --> rgba
     exampleKeys --> clamp
+    token --> useCallback
+    token --> setLoading
+    token --> fetch
+    token --> json
+    token --> setItem
+    verifyToken --> useCallback
+    verifyToken --> setLoading
+    verifyToken --> fetch
+    verifyToken --> json
+    verifyToken --> setItem
     TerminalSim --> useState
     TerminalSim --> useRef
     TerminalSim --> run
@@ -281,16 +290,6 @@ graph TD
     CodeEditor --> useState
     CodeEditor --> useRef
     CodeEditor --> useEffect
-    CodeEditor --> setCode
-    CodeEditor --> setHighlighted
-    highlightOQL --> split
-    highlightOQL --> map
-    highlightOQL --> replace
-    highlightOQL --> b
-    highlightOQL --> String
-    highlightIQL --> split
-    highlightIQL --> map
-    highlightIQL --> replace
 ```
 
 ## Reverse Engineering Guidelines

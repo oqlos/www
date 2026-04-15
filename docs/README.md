@@ -1,7 +1,7 @@
 <!-- code2docs:start --># www
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-60-green)
-> **60** functions | **0** classes | **20** files | CC̄ = 2.3
+![version](https://img.shields.io/badge/version-0.1.1-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-62-green)
+> **62** functions | **0** classes | **20** files | CC̄ = 2.4
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,12 +141,16 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 www/
-├── tree├── project    ├── config    ├── config    ├── main    ├── App        ├── oql-examples        ├── ArchDiagram        ├── CodeEditor        ├── PricingCards        ├── TerminalSim        ├── NlpConsole        ├── Login        ├── Landing        ├── Scenarios        ├── Billing        ├── Dashboard        ├── spec        ├── spec    ├── oqlos-landing```
+├── tree├── project    ├── App    ├── config    ├── config    ├── main        ├── ArchDiagram        ├── oql-examples        ├── PricingCards        ├── TerminalSim        ├── CodeEditor        ├── NlpConsole        ├── Login        ├── Scenarios        ├── Billing        ├── Landing        ├── Dashboard        ├── spec        ├── spec    ├── oqlos-landing```
 
 ## API Overview
 
 ### Functions
 
+- `termRef()` — —
+- `runSim()` — —
+- `idx()` — —
+- `iv()` — —
 - `highlightOQL()` — —
 - `html()` — —
 - `highlightIQL()` — —
@@ -154,10 +158,6 @@ www/
 - `preRef()` — —
 - `fn()` — —
 - `handleScroll()` — —
-- `termRef()` — —
-- `runSim()` — —
-- `idx()` — —
-- `iv()` — —
 - `navigate()` — —
 - `user()` — —
 - `jwt()` — —
@@ -171,7 +171,6 @@ www/
 - `res()` — —
 - `data()` — —
 - `handleSubmit()` — —
-- `exampleKeys()` — —
 - `navigate()` — —
 - `user()` — —
 - `jwt()` — —
@@ -182,6 +181,9 @@ www/
 - `handleSubscribe()` — —
 - `res()` — —
 - `data()` — —
+- `extractTextFromJSX()` — —
+- `exampleKeys()` — —
+- `code()` — —
 - `navigate()` — —
 - `user()` — —
 - `jwt()` — —
@@ -225,7 +227,7 @@ www/
 📄 `src.main`
 📄 `src.pages.Billing` (6 functions)
 📄 `src.pages.Dashboard` (4 functions)
-📄 `src.pages.Landing` (1 functions)
+📄 `src.pages.Landing` (5 functions)
 📄 `src.pages.Login` (8 functions)
 📄 `src.pages.NlpConsole` (7 functions)
 📄 `src.pages.Scenarios` (4 functions)
@@ -284,3 +286,49 @@ pytest
 | `mkdocs.yml` | MkDocs configuration | — |
 
 <!-- code2docs:end -->
+
+## Additional Features
+
+### Logger Utility (`src/utils/logger.js`)
+
+Advanced logging system with SQLite persistence and file output support.
+
+**Configuration (Environment Variables):**
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `VITE_LOG_LEVEL` | `info` | Minimum log level |
+| `VITE_LOG_TO_FILE` | `false` | Enable file logging to localStorage |
+| `VITE_LOG_TO_DB` | `false` | Enable SQLite database logging |
+| `VITE_SQLITE_DB_PATH` | `./logs/oqlos-portal.db` | Database identifier in localStorage |
+
+**Usage:**
+
+```javascript
+import logger from './utils/logger';
+
+// Basic logging
+logger.info('Application started');
+logger.error('Failed to load data', 'Dashboard', { userId: 123 });
+
+// Query logs
+const logs = logger.getLogs('error', 10);
+
+// Export all logs
+const allLogs = logger.exportLogs();
+
+// Clear logs
+logger.clearLogs();
+```
+
+### Testing Configuration
+
+**Playwright Environment Variables:**
+- `VITE_TEST_URL` - Base URL for E2E tests (default: `http://localhost:3000`)
+- `VITE_DEV_PORT` - Dev server port (default: `3000`)
+
+**Ansible Environment Variables:**
+- `DEPLOY_DIR` - Deployment directory (default: `/opt/oqlos/www`)
+- `APP_PORT` - Application port (default: `3000`)
+- `SERVICE_NAME` - Systemd service name (default: `oqlos-portal`)
+- `TEST_TIMEOUT` - Test timeout in seconds (default: `60`)

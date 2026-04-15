@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import "../styles/global.css";
 
@@ -9,32 +9,32 @@ export default function Login() {
   const [msg, setMsg] = useState(null);
   const [loading, setLoading] = useState(false);
   const token = searchParams.get("token");
-
-  const verifyToken = useCallback(async (t) => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/auth/verify?token=${t}`);
-      const data = await res.json();
-      if (res.ok && data.token) {
-        localStorage.setItem("jwt", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        setMsg({ type: "success", text: "Logged in! Redirecting…" });
-        setTimeout(() => navigate("/dashboard"), 800);
-      } else {
-        setMsg({ type: "error", text: data.detail || "Invalid or expired link" });
-      }
-    } catch {
-      setMsg({ type: "error", text: "Connection error" });
-    } finally {
-      setLoading(false);
-    }
-  }, [navigate]);
+  const verifyTokenRef = useRef(false);
 
   useEffect(() => {
-    if (token) {
-      verifyToken(token);
-    }
-  }, [token, verifyToken]);
+    if (!token || verifyTokenRef.current) return;
+    verifyTokenRef.current = true;
+
+    (async () => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/auth/verify?token=${token}`);
+        const data = await res.json();
+        if (res.ok && data.token) {
+          localStorage.setItem("jwt", data.token);
+          localStorage.setItem("user", JSON.stringify(data.user));
+          setMsg({ type: "success", text: "Logged in! Redirecting…" });
+          setTimeout(() => navigate("/dashboard"), 800);
+        } else {
+          setMsg({ type: "error", text: data.detail || "Invalid or expired link" });
+        }
+      } catch {
+        setMsg({ type: "error", text: "Connection error" });
+      } finally {
+        setLoading(false);
+      }
+    })();
+  }, [token, navigate]);
 
   async function handleSubmit(e) {
     e.preventDefault();

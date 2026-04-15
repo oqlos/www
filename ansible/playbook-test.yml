@@ -3,8 +3,8 @@
   hosts: local
   gather_facts: yes
   vars:
-    app_port: 3000
-    test_timeout: 60
+    app_port: "{{ lookup('env', 'APP_PORT') | default('3000', true) }}"
+    test_timeout: "{{ lookup('env', 'TEST_TIMEOUT') | default('60', true) }}"
     project_dir: "{{ playbook_dir }}/.."
 
   tasks:
@@ -27,7 +27,7 @@
         msg: "npm version: {{ npm_version.stdout }}"
 
     - name: Install dependencies
-      ansible.builtin.command: npm ci
+      ansible.builtin.command: npm install
       args:
         chdir: "{{ project_dir }}"
       register: npm_install

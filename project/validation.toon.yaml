@@ -1,7 +1,7 @@
-# vallm batch | 49f | 13✓ 14⚠ 0✗ | 2026-04-15
+# vallm batch | 65f | 13✓ 14⚠ 0✗ | 2026-04-15
 
 SUMMARY:
-  scanned: 49  passed: 13 (26.5%)  warnings: 14  errors: 0  unsupported: 23
+  scanned: 65  passed: 13 (20.0%)  warnings: 14  errors: 0  unsupported: 39
 
 WARNINGS[14]{path,score}:
   TODO/oqlos-landing.jsx,0.74
@@ -49,8 +49,8 @@ WARNINGS[14]{path,score}:
       js.import.resolvable,warning,Module 'vite' not found,1
 
 UNSUPPORTED[5]{bucket,count}:
-  *.md,6
+  *.md,20
   Dockerfile*,1
   *.txt,1
   *.yml,2
-  other,13
+  other,15

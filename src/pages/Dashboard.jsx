@@ -1,34 +1,12 @@
-import { Link, useNavigate } from "react-router-dom";
-import "../styles/global.css";
+import { useAuth } from "../hooks/useAuth";
+import SharedNav from "../components/SharedNav";
 
 export default function Dashboard() {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const jwt = localStorage.getItem("jwt");
-
-  if (!jwt) {
-    navigate("/login");
-    return null;
-  }
-
-  function logout() {
-    localStorage.removeItem("jwt");
-    localStorage.removeItem("user");
-    navigate("/");
-  }
+  const { user, logout, navigate } = useAuth();
 
   return (
     <div className="dashboard">
-      <nav className="nav">
-        <Link to="/" className="nav-logo"><em>OqlOS</em></Link>
-        <div className="nav-links">
-          <Link to="/scenarios">Scenarios</Link>
-          <Link to="/nlp">NLP Console</Link>
-          <Link to="/billing">Billing</Link>
-          <span style={{ color: "var(--text-muted)", fontSize: 13 }}>{user.email}</span>
-          <button className="btn btn-outline btn-sm" onClick={logout}>Logout</button>
-        </div>
-      </nav>
+      <SharedNav user={user} onLogout={logout} />
 
       <div className="dash-content">
         <h2 style={{ marginBottom: 8 }}>Dashboard</h2>

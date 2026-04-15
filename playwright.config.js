@@ -12,7 +12,7 @@ export default defineConfig({
   workers: process.env.CI ? 1 : undefined,
   reporter: [['html', { open: 'never' }], ['line']],
   use: {
-    baseURL: process.env.TEST_URL || 'http://localhost:3000',
+    baseURL: process.env.VITE_TEST_URL || process.env.TEST_URL || 'http://localhost:3000',
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },
@@ -42,7 +42,8 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run dev',
-    url: 'http://localhost:3000',
+    url: process.env.VITE_TEST_URL || 'http://localhost:3000',
+    port: parseInt(process.env.VITE_DEV_PORT || '3000'),
     reuseExistingServer: !process.env.CI,
     timeout: 120 * 1000,
   },

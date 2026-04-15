@@ -81,7 +81,7 @@ GOAL: Detect and validate hardware
     title: "Test API / TestQL",
     lang: "iql",
     code: `# TestQL — API & GUI Test Scenario
-SET api_url "http://localhost:8101"
+SET api_url "${import.meta.env.VITE_API_URL || 'http://localhost:8101'}"
 
 LOG "Starting API test suite"
 

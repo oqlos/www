@@ -3,9 +3,9 @@
   hosts: webservers
   become: yes
   vars:
-    deploy_dir: /opt/oqlos/www
-    app_port: 3000
-    service_name: oqlos-portal
+    deploy_dir: "{{ lookup('env', 'DEPLOY_DIR') | default('/opt/oqlos/www', true) }}"
+    app_port: "{{ lookup('env', 'APP_PORT') | default('3000', true) }}"
+    service_name: "{{ lookup('env', 'SERVICE_NAME') | default('oqlos-portal', true) }}"
 
   tasks:
     - name: Ensure deploy directory exists

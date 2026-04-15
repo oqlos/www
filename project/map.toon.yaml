@@ -1,8 +1,8 @@
-# www | 20f 2636L | shell:2,javascript:18 | 2026-04-15
-# stats: 60 func | 0 cls | 20 mod | CC̄=2.3 | critical:0 | cycles:0
+# www | 20f 2726L | shell:2,javascript:18 | 2026-04-15
+# stats: 62 func | 0 cls | 20 mod | CC̄=2.4 | critical:0 | cycles:0
 # alerts[1]: fan-out exampleKeys=10
-# hotspots[5]: exampleKeys fan=10; TerminalSim fan=9; handleSubmit fan=8; verifyToken fan=8; handleSubmit fan=7
-# evolution: CC̄ 2.3→2.3 (flat 0.0)
+# hotspots[5]: exampleKeys fan=10; token fan=9; verifyToken fan=9; TerminalSim fan=9; handleSubmit fan=8
+# evolution: CC̄ 2.3→2.4 (regressed +0.1)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
 M[20]:
   TODO/oqlos-landing.jsx,1221
@@ -19,7 +19,7 @@ M[20]:
   src/main.jsx,12
   src/pages/Billing.jsx,70
   src/pages/Dashboard.jsx,80
-  src/pages/Landing.jsx,275
+  src/pages/Landing.jsx,365
   src/pages/Login.jsx,110
   src/pages/NlpConsole.jsx,118
   src/pages/Scenarios.jsx,58
@@ -55,6 +55,14 @@ D:
     handleScroll()
     ArchDiagram()
     exampleKeys()
+  src/pages/Landing.jsx:
+    i: ../components/ArchDiagram,../components/CodeEditor,../components/PricingCards,../components/TerminalSim,../components/oql-examples,react,react-router-dom
+    e: extractTextFromJSX,exampleKeys,code,code,code
+    extractTextFromJSX()
+    exampleKeys()
+    code()
+    code()
+    code()
   src/pages/Login.jsx:
     i: react,react-router-dom
     e: navigate,token,verifyToken,res,data,handleSubmit,res,data
@@ -93,6 +101,13 @@ D:
     preRef()
     fn()
     handleScroll()
+  src/pages/Dashboard.jsx:
+    i: react-router-dom
+    e: navigate,user,jwt,logout
+    navigate()
+    user()
+    jwt()
+    logout()
   src/pages/Scenarios.jsx:
     i: ../components/CodeEditor,../components/TerminalSim,../components/oql-examples,react,react-router-dom
     e: navigate,user,jwt,exampleKeys
@@ -106,17 +121,6 @@ D:
     response()
     response()
     status()
-  src/pages/Dashboard.jsx:
-    i: react-router-dom
-    e: navigate,user,jwt,logout
-    navigate()
-    user()
-    jwt()
-    logout()
-  src/pages/Landing.jsx:
-    i: ../components/ArchDiagram,../components/CodeEditor,../components/PricingCards,../components/TerminalSim,../components/oql-examples,react,react-router-dom
-    e: exampleKeys
-    exampleKeys()
   e2e/landing.spec.js:
     i: @playwright/test
     e: heading,nav,errorMessages,response,response
@@ -129,12 +133,12 @@ D:
   project.sh:
   playwright.config.js:
     i: @playwright/test
-  src/main.jsx:
-    i: ./App,react,react-dom/client,react-router-dom
-  vite.config.js:
-    i: @vitejs/plugin-react,vite
   src/App.jsx:
     i: ./pages/Billing,./pages/Dashboard,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/Scenarios,react-router-dom
+  vite.config.js:
+    i: @vitejs/plugin-react,vite
   src/components/oql-examples.js:
   src/components/ArchDiagram.jsx:
   src/components/PricingCards.jsx:
+  src/main.jsx:
+    i: ./App,react,react-dom/client,react-router-dom

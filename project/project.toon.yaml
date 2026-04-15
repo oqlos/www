@@ -1,14 +1,14 @@
-# www | 60 func | 11f | 2726L | javascript | 2026-04-15
+# www | 62 func | 11f | 2816L | javascript | 2026-04-15
 
 HEALTH:
-  CC̄=2.3  critical=1 (limit:10)  dup=0  cycles=1
+  CC̄=2.4  critical=1 (limit:10)  dup=0  cycles=0
 
 ALERTS[1]:
   !   high_fan_out     exampleKeys = 10 (limit:10)
 
 MODULES[20] (top by size):
   M[TODO/oqlos-landing.jsx] 1221L C:0 F:15 CC↑8 D:0 (javascript)
-  M[src/pages/Landing.jsx] 275L C:0 F:1 CC↑1 D:0 (javascript)
+  M[src/pages/Landing.jsx] 365L C:0 F:3 CC↑7 D:0 (javascript)
   M[src/components/oql-examples.js] 144L C:0 F:0 CC↑0 D:0 (javascript)
   M[src/pages/NlpConsole.jsx] 118L C:0 F:7 CC↑11 D:0 (javascript)
   M[src/pages/Login.jsx] 110L C:0 F:6 CC↑6 D:0 (javascript)
@@ -27,9 +27,8 @@ MODULES[20] (top by size):
 HOTSPOTS[1]:
   ★ exampleKeys fan=10  // Orchestrates 10 calls
 
-REFACTOR[2]:
+REFACTOR[1]:
   [1] H/H Split god module TODO/oqlos-landing.jsx (1221L, 0 classes)
-  [2] M/L Break circular dependency: src.pages.Login.navigate → src.pages.Login.verifyToken
 
 EVOLUTION:
-  2026-04-15 CC̄=2.3 crit=1 2726L // Automated analysis
+  2026-04-15 CC̄=2.4 crit=1 2816L // Automated analysis

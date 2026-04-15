@@ -1,13 +1,11 @@
-# code2llm | 20f 2636L | javascript:18,shell:2 | 2026-04-15
-# CC̄=2.3 | critical:0/60 | dups:0 | cycles:1
+# code2llm | 20f 2726L | javascript:18,shell:2 | 2026-04-15
+# CC̄=2.4 | critical:0/62 | dups:0 | cycles:0
 
-HEALTH[1]:
-  🔴 CYCLE Circular dependency detected: src.pages.Login.navigate -> src.pages.Login.verifyToken. This indicates high coupling and may lead to infinite recursion or initialization issues.
+HEALTH[0]: ok
 
-REFACTOR[1]:
-  1. break 1 circular dependencies
+REFACTOR[0]: none needed
 
-PIPELINES[42]:
+PIPELINES[44]:
   [1] Src [highlightOQL]: highlightOQL
       PURITY: 100% pure
   [2] Src [highlightIQL]: highlightIQL
@@ -20,8 +18,8 @@ PIPELINES[42]:
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=2.5    ←in:0  →out:0
-  │ Landing.jsx                275L  0C    1m  CC=1      ←0
+  src/                            CC̄=2.6    ←in:0  →out:0
+  │ Landing.jsx                365L  0C    3m  CC=7      ←0
   │ oql-examples.js            144L  0C    0m  CC=0.0    ←0
   │ NlpConsole.jsx             118L  0C    7m  CC=11     ←0
   │ Login.jsx                  110L  0C    6m  CC=6      ←0

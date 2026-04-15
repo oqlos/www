@@ -9,27 +9,26 @@ flowchart LR
     end
     subgraph src__pages
         src__pages__Login__token["token"]
-        src__pages__Login__verifyToken["verifyToken"]
-        src__pages__NlpConsole__jwt["jwt"]
-        src__pages__Scenarios__navigate["navigate"]
-        src__pages__Dashboard__logout["logout"]
-        src__pages__Scenarios__jwt["jwt"]
         src__pages__Scenarios__exampleKeys["exampleKeys"]
-        src__pages__NlpConsole__navigate["navigate"]
-        src__pages__Billing__handleSubscribe["handleSubscribe"]
-        src__pages__Dashboard__navigate["navigate"]
-        src__pages__Login__navigate["navigate"]
-        src__pages__Billing__navigate["navigate"]
         src__pages__Dashboard__jwt["jwt"]
+        src__pages__Login__navigate["navigate"]
+        src__pages__Billing__handleSubscribe["handleSubscribe"]
+        src__pages__Scenarios__jwt["jwt"]
+        src__pages__Scenarios__navigate["navigate"]
+        src__pages__Login__verifyToken["verifyToken"]
+        src__pages__NlpConsole__navigate["navigate"]
+        src__pages__Billing__navigate["navigate"]
+        src__pages__Dashboard__logout["logout"]
+        src__pages__NlpConsole__jwt["jwt"]
+        src__pages__Dashboard__navigate["navigate"]
     end
     src__pages__NlpConsole__jwt --> src__pages__NlpConsole__navigate
-    src__pages__Login__navigate --> src__pages__Login__verifyToken
-    src__pages__Login__token --> src__pages__Login__verifyToken
-    src__pages__Login__verifyToken --> src__pages__Login__navigate
-    src__pages__Scenarios__jwt --> src__pages__Scenarios__navigate
-    src__pages__Scenarios__exampleKeys --> src__pages__Scenarios__navigate
     src__pages__Billing__handleSubscribe --> src__pages__Billing__navigate
-    e2e__smoke__spec__response --> e2e__smoke__spec__status
+    src__pages__Login__token --> src__pages__Login__navigate
+    src__pages__Login__verifyToken --> src__pages__Login__navigate
     src__pages__Dashboard__jwt --> src__pages__Dashboard__navigate
     src__pages__Dashboard__logout --> src__pages__Dashboard__navigate
+    src__pages__Scenarios__jwt --> src__pages__Scenarios__navigate
+    src__pages__Scenarios__exampleKeys --> src__pages__Scenarios__navigate
+    e2e__smoke__spec__response --> e2e__smoke__spec__status
     TODO__oqlos_landing__CodeEditor --> TODO__oqlos_landing__fn

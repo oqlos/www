@@ -4,11 +4,11 @@
   "version": "0.1.1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --port ${VITE_DEV_PORT:-3000}",
     "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 || echo 'ESLint not configured'",
-    "test:unit": "echo 'No unit tests configured - add vitest/jest'",
+    "test:unit": "vitest run --reporter=verbose",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
     "test": "bash test.sh",
@@ -16,14 +16,22 @@
     "ansible:deploy": "ansible-playbook -i ansible/inventory.ini ansible/playbook-deploy.yml"
   },
   "dependencies": {
+    "loglevel": "^1.9.2",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.26.0"
+    "react-router-dom": "^6.28.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.59.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@vitejs/plugin-react": "^4.3.1",
-    "vite": "^5.4.0"
+    "@vitest/coverage-v8": "^4.1.4",
+    "@vitest/ui": "^4.1.4",
+    "happy-dom": "^20.9.0",
+    "jsdom": "^29.0.2",
+    "vite": "^5.4.0",
+    "vitest": "^4.1.4"
   },
   "author": {
     "name": "Tom Sapletta",

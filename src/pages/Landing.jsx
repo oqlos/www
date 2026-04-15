@@ -1,16 +1,52 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { OQL_EXAMPLES } from "../components/oql-examples";
 import CodeEditor from "../components/CodeEditor";
 import TerminalSim from "../components/TerminalSim";
 import PricingCards from "../components/PricingCards";
 import ArchDiagram from "../components/ArchDiagram";
+import logger from "../utils/logger";
+import { INSTALL_DOCKER, INSTALL_PIP, INSTALL_RPI } from "../data/install-commands";
 import "../styles/global.css";
+
+const GITHUB_REPO = import.meta.env.VITE_GITHUB_REPO || "https://github.com/softreck/oqlos";
+const API_DEV_URL = import.meta.env.VITE_API_DEV_URL || "http://api.oqlos.localhost";
+const IDE_DEV_URL = import.meta.env.VITE_IDE_DEV_URL || "http://ide.oqlos.localhost";
+const TRAEFIK_DEV_URL = import.meta.env.VITE_TRAEFIK_DEV_URL || "http://localhost:8080";
+const DOCKER_IMAGE = import.meta.env.VITE_DOCKER_IMAGE || "ghcr.io/softreck/oqlagent:latest";
+const API_WS_URL = import.meta.env.VITE_API_WS_URL || "wss://api.oqlos.io/ws/agent";
+const HARDWARE_MODE = import.meta.env.VITE_HARDWARE_MODE || "real";
+const MODBUS_SERIAL_PORT = import.meta.env.VITE_MODBUS_SERIAL_PORT || "/dev/ttyACM1";
+const I2C_BUS = import.meta.env.VITE_I2C_BUS || "/dev/i2c-1";
+const USB_DEVICE = import.meta.env.VITE_USB_DEVICE || "/dev/ttyACM0";
+const OQLAGENT_PORT = import.meta.env.VITE_OQLAGENT_PORT || "8200";
 
 export default function Landing() {
   const [activeExample, setActiveExample] = useState("pump-test");
   const [activeTab, setActiveTab] = useState("docker");
+  const [copiedTab, setCopiedTab] = useState(null);
   const exampleKeys = Object.keys(OQL_EXAMPLES);
+
+  useEffect(() => {
+    logger.info("Landing page loaded", "Landing", { exampleCount: exampleKeys.length });
+  }, [exampleKeys.length]);
+
+  const handleExampleChange = (key) => {
+    setActiveExample(key);
+    logger.debug(`Example changed to: ${key}`, "Landing", { key });
+  };
+
+  const handleTabChange = (tabId) => {
+    setActiveTab(tabId);
+    logger.debug(`Tab changed to: ${tabId}`, "Landing", { tabId });
+  };
+
+  const handleCopy = (tab, code) => {
+    navigator.clipboard.writeText(code);
+    setCopiedTab(tab);
+    logger.info(`Code copied for tab: ${tab}`, "Landing", { tab });
+    setTimeout(() => setCopiedTab(null), 2000);
+  };
 
   return (
     <div className="oqlos-root">
@@ -175,21 +211,33 @@ export default function Landing() {
 
         {activeTab === "docker" && (
           <div className="install-code">
+            <button
+              className="copy-btn"
+              onClick={() => handleCopy('docker', INSTALL_DOCKER({ repo: GITHUB_REPO, apiUrl: API_DEV_URL, ideUrl: IDE_DEV_URL, traefikUrl: TRAEFIK_DEV_URL }))}
+            >
+              {copiedTab === 'docker' ? '✓ Skopiowane!' : '📋 Kopiuj'}
+            </button>
             <span className="cm"># Clone the monorepo</span>{"\n"}
-            <span className="kw">git clone</span> <span className="str">https://github.com/softreck/oqlos.git</span>{"\n"}
+            <span className="kw">git clone</span> <span className="str">{GITHUB_REPO}</span>{"\n"}
             <span className="kw">cd</span> oqlos{"\n\n"}
             <span className="cm"># Development mode (API + IDE + Traefik)</span>{"\n"}
             <span className="kw">docker-compose</span> <span className="fl">-f infra/docker/dev/docker-compose.dev.yml</span> up{"\n\n"}
             <span className="cm"># Access points:</span>{"\n"}
-            <span className="cm">#   API:       http://api.oqlos.localhost</span>{"\n"}
-            <span className="cm">#   IDE:       http://ide.oqlos.localhost</span>{"\n"}
-            <span className="cm">#   Traefik:   http://localhost:8080</span>{"\n\n"}
+            <span className="cm">#   API:       {API_DEV_URL}</span>{"\n"}
+            <span className="cm">#   IDE:       {IDE_DEV_URL}</span>{"\n"}
+            <span className="cm">#   Traefik:   {TRAEFIK_DEV_URL}</span>{"\n\n"}
             <span className="cm"># Production mode (TLS + Let's Encrypt)</span>{"\n"}
             <span className="kw">docker-compose</span> <span className="fl">-f infra/docker/prod/docker-compose.prod.yml</span> up -d{"\n"}
           </div>
         )}
         {activeTab === "pip" && (
           <div className="install-code">
+            <button
+              className="copy-btn"
+              onClick={() => handleCopy('pip', INSTALL_PIP)}
+            >
+              {copiedTab === 'pip' ? '✓ Skopiowane!' : '📋 Kopiuj'}
+            </button>
             <span className="cm"># Install OqlOS runtime</span>{"\n"}
             <span className="kw">pip install</span> oqlos{"\n\n"}
             <span className="cm"># Install CLI tool</span>{"\n"}
@@ -207,20 +255,26 @@ export default function Landing() {
         )}
         {activeTab === "rpi" && (
           <div className="install-code">
+            <button
+              className="copy-btn"
+              onClick={() => handleCopy('rpi', INSTALL_RPI({ usbDevice: USB_DEVICE, i2cBus: I2C_BUS, wsUrl: API_WS_URL, dockerImage: DOCKER_IMAGE, hwMode: HARDWARE_MODE, modbusPort: MODBUS_SERIAL_PORT, agentPort: OQLAGENT_PORT }))}
+            >
+              {copiedTab === 'rpi' ? '✓ Skopiowane!' : '📋 Kopiuj'}
+            </button>
             <span className="cm"># On Raspberry Pi 3B+ / 4 / 5</span>{"\n\n"}
             <span className="cm"># Option A: Docker agent</span>{"\n"}
             <span className="kw">docker run</span> -d \{"\n"}
-            {"  "}<span className="fl">--device=/dev/ttyACM0</span> \{"\n"}
-            {"  "}<span className="fl">--device=/dev/i2c-1</span> \{"\n"}
+            {"  "}<span className="fl">--device={USB_DEVICE}</span> \{"\n"}
+            {"  "}<span className="fl">--device={I2C_BUS}</span> \{"\n"}
             {"  "}<span className="fl">-e AGENT_ID=rpi-node-01</span> \{"\n"}
-            {"  "}<span className="fl">-e API_WS_URL=wss://api.oqlos.io/ws/agent</span> \{"\n"}
+            {"  "}<span className="fl">-e API_WS_URL={API_WS_URL}</span> \{"\n"}
             {"  "}<span className="fl">-e HARDWARE_MODE=rpi</span> \{"\n"}
-            {"  "}<span className="str">ghcr.io/softreck/oqlagent:latest</span>{"\n\n"}
+            {"  "}<span className="str">{DOCKER_IMAGE}</span>{"\n\n"}
             <span className="cm"># Option B: Native install</span>{"\n"}
             <span className="kw">pip install</span> oqlos oql{"\n"}
-            <span className="kw">export</span> OQLOS_HARDWARE_MODE=real{"\n"}
-            <span className="kw">export</span> MODBUS_SERIAL_PORT=/dev/ttyACM1{"\n"}
-            <span className="kw">oqlos-server</span> <span className="fl">--port 8200</span>{"\n\n"}
+            <span className="kw">export</span> OQLOS_HARDWARE_MODE={HARDWARE_MODE}{"\n"}
+            <span className="kw">export</span> MODBUS_SERIAL_PORT={MODBUS_SERIAL_PORT}{"\n"}
+            <span className="kw">oqlos-server</span> <span className="fl">--port {OQLAGENT_PORT}</span>{"\n\n"}
             <span className="cm"># Hardware diagnostics</span>{"\n"}
             <span className="kw">python -m</span> oqlos.tools.hardware_diagnose <span className="fl">--diagnose</span>{"\n"}
           </div>
@@ -263,7 +317,7 @@ export default function Landing() {
       {/* ═══ FOOTER ═══ */}
       <footer className="footer">
         <p>
-          OqlOS © 2024–2026 · <a href="https://github.com/softreck/oqlos">GitHub</a> · Apache 2.0 ·
+          OqlOS © {import.meta.env.VITE_APP_COPYRIGHT || "2024-2026"} · <a href="{GITHUB_REPO}">GitHub</a> · Apache 2.0 ·
           Python 3.10+ · FastAPI · React · Docker
         </p>
         <p style={{marginTop:8}}>

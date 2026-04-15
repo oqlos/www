@@ -1,13 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import PricingCards from "../components/PricingCards";
-import "../styles/global.css";
+import { useAuth } from "../hooks/useAuth";
+import SharedNav from "../components/SharedNav";
 
 export default function Billing() {
   const [searchParams] = useSearchParams();
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const jwt = localStorage.getItem("jwt");
+  const { user, jwt, logout, navigate } = useAuth();
   const [plan, setPlan] = useState("free");
   const [sessionId] = useState(searchParams.get("session"));
 
@@ -38,15 +37,7 @@ export default function Billing() {
 
   return (
     <div className="dashboard">
-      <nav className="nav">
-        <Link to="/" className="nav-logo"><em>OqlOS</em></Link>
-        <div className="nav-links">
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/scenarios">Scenarios</Link>
-          <Link to="/nlp">NLP Console</Link>
-          <span style={{ color: "var(--text-muted)", fontSize: 13 }}>{user.email || "Guest"}</span>
-        </div>
-      </nav>
+      <SharedNav user={user} onLogout={logout} />
 
       <div className="dash-content">
         <div className="section-label">Billing</div>

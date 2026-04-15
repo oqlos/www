@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import "../styles/global.css";
+import { useAuth } from "../hooks/useAuth";
+import SharedNav from "../components/SharedNav";
 
 const MOCK_OQL = `SCENARIO: "NLP Generated Test"
 DEVICE_TYPE: "BA"
@@ -12,18 +12,11 @@ GOAL: Auto-generated from NLP
   SAVE 'AI01'`;
 
 export default function NlpConsole() {
-  const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem("user") || "{}");
-  const jwt = localStorage.getItem("jwt");
+  const { user, jwt, logout } = useAuth();
   const [prompt, setPrompt] = useState("");
   const [targetLang, setTargetLang] = useState("oql");
   const [output, setOutput] = useState("");
   const [loading, setLoading] = useState(false);
-
-  if (!jwt) {
-    navigate("/login");
-    return null;
-  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -56,15 +49,7 @@ export default function NlpConsole() {
 
   return (
     <div className="dashboard">
-      <nav className="nav">
-        <Link to="/" className="nav-logo"><em>OqlOS</em></Link>
-        <div className="nav-links">
-          <Link to="/dashboard">Dashboard</Link>
-          <Link to="/scenarios">Scenarios</Link>
-          <Link to="/billing">Billing</Link>
-          <span style={{ color: "var(--text-muted)", fontSize: 13 }}>{user.email}</span>
-        </div>
-      </nav>
+      <SharedNav user={user} onLogout={logout} />
 
       <div className="dash-content">
         <div className="section-label">NLP Console</div>
