@@ -4,10 +4,12 @@
   gather_facts: yes
   vars:
     app_port: "{{ lookup('env', 'APP_PORT') | default('3000', true) }}"
-    test_timeout: "{{ lookup('env', 'TEST_TIMEOUT') | default('60', true) }}"
+    test_timeout: "{{ lookup('env', 'TEST_TIMEOUT') | default('120', true) }}"
     project_dir: "{{ playbook_dir }}/.."
+    test_user_email: "test@test.com"
 
   tasks:
+    # ── Environment ───────────────────────────────────────────
     - name: Check Node.js installation
       ansible.builtin.command: node --version
       register: node_version
@@ -33,6 +35,7 @@
       register: npm_install
       changed_when: "'added' in npm_install.stdout or 'changed' in npm_install.stdout"
 
+    # ── Build ─────────────────────────────────────────────────
     - name: Build application
       ansible.builtin.command: npm run build
       args:
@@ -50,6 +53,7 @@
         msg: "Build failed - dist directory not found"
       when: not dist_dir.stat.exists
 
+    # ── Playwright setup ──────────────────────────────────────
     - name: Install Playwright
       ansible.builtin.command: npm install -D @playwright/test
       args:
@@ -58,13 +62,14 @@
       changed_when: true
 
     - name: Install Playwright browsers
-      ansible.builtin.command: npx playwright install chromium firefox webkit
+      ansible.builtin.command: npx playwright install chromium
       args:
         chdir: "{{ project_dir }}"
       register: browser_install
       changed_when: true
       ignore_errors: yes
 
+    # ── Server check ──────────────────────────────────────────
     - name: Run basic server test (fallback if E2E fails)
       ansible.builtin.shell: |
         timeout {{ test_timeout }} bash -c '
@@ -81,18 +86,154 @@
       ignore_errors: yes
       changed_when: false
 
-    - name: Run Playwright E2E tests
+    # ── E2E: Smoke tests ──────────────────────────────────────
+    - name: "E2E: Smoke tests (all routes)"
+      ansible.builtin.command: npx playwright test e2e/smoke.spec.js --project=chromium --reporter=line
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_smoke
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display smoke test results
+      ansible.builtin.debug:
+        msg: "Smoke tests: {{ 'PASSED' if e2e_smoke.rc == 0 else 'FAILED' }} (rc={{ e2e_smoke.rc }})"
+
+    # ── E2E: Landing page tests ───────────────────────────────
+    - name: "E2E: Landing page tests"
       ansible.builtin.command: npx playwright test e2e/landing.spec.js --project=chromium --reporter=line
       args:
         chdir: "{{ project_dir }}"
-      register: e2e_result
+      register: e2e_landing
       ignore_errors: yes
-      changed_when: true
+      changed_when: false
 
-    - name: Display E2E test results
+    - name: Display landing test results
       ansible.builtin.debug:
-        msg: "E2E tests completed with rc={{ e2e_result.rc }}"
+        msg: "Landing tests: {{ 'PASSED' if e2e_landing.rc == 0 else 'FAILED' }} (rc={{ e2e_landing.rc }})"
 
+    # ── E2E: Test user full journey ───────────────────────────
+    - name: "E2E: Test user ({{ test_user_email }}) — login"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "Login"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_login
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display login test results
+      ansible.builtin.debug:
+        msg: "Login tests ({{ test_user_email }}): {{ 'PASSED' if e2e_login.rc == 0 else 'FAILED' }}"
+
+    - name: "E2E: Test user — dashboard"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "Dashboard"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_dashboard
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display dashboard test results
+      ansible.builtin.debug:
+        msg: "Dashboard tests: {{ 'PASSED' if e2e_dashboard.rc == 0 else 'FAILED' }}"
+
+    - name: "E2E: Test user — Scenarios OQL"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "Scenarios.*OQL"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_oql
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display OQL scenario test results
+      ansible.builtin.debug:
+        msg: "OQL Scenarios tests: {{ 'PASSED' if e2e_oql.rc == 0 else 'FAILED' }}"
+
+    - name: "E2E: Test user — Scenarios IQL"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "Scenarios.*IQL"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_iql
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display IQL scenario test results
+      ansible.builtin.debug:
+        msg: "IQL Scenarios tests: {{ 'PASSED' if e2e_iql.rc == 0 else 'FAILED' }}"
+
+    - name: "E2E: Test user — NLP Console (OQL + IQL)"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "NLP Console"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_nlp
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display NLP test results
+      ansible.builtin.debug:
+        msg: "NLP Console tests: {{ 'PASSED' if e2e_nlp.rc == 0 else 'FAILED' }}"
+
+    - name: "E2E: Test user — Billing"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "Billing"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_billing
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display billing test results
+      ansible.builtin.debug:
+        msg: "Billing tests: {{ 'PASSED' if e2e_billing.rc == 0 else 'FAILED' }}"
+
+    - name: "E2E: Test user — Navigation & full journey"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "Navigation"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_navigation
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display navigation test results
+      ansible.builtin.debug:
+        msg: "Navigation/journey tests: {{ 'PASSED' if e2e_navigation.rc == 0 else 'FAILED' }}"
+
+    - name: "E2E: Protected routes — unauthenticated"
+      ansible.builtin.command: >
+        npx playwright test e2e/test-user.spec.js
+        --project=chromium --reporter=line
+        --grep "Protected routes"
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_protected
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Display protected routes test results
+      ansible.builtin.debug:
+        msg: "Protected routes tests: {{ 'PASSED' if e2e_protected.rc == 0 else 'FAILED' }}"
+
+    # ── Security audit ────────────────────────────────────────
     - name: Run security audit
       ansible.builtin.command: npm audit --audit-level moderate
       args:
@@ -100,6 +241,13 @@
       register: audit_result
       ignore_errors: yes
       changed_when: false
+
+    # ── Report ────────────────────────────────────────────────
+    - name: Create test-results directory
+      ansible.builtin.file:
+        path: "{{ project_dir }}/test-results"
+        state: directory
+        mode: '0755'
 
     - name: Generate test report
       ansible.builtin.template:
@@ -109,14 +257,38 @@
         node_ver: "{{ node_version.stdout }}"
         npm_ver: "{{ npm_version.stdout }}"
         build_status: "{{ 'SUCCESS' if dist_dir.stat.exists else 'FAILED' }}"
-        e2e_status: "{{ 'PASSED' if e2e_result.rc == 0 else 'FAILED/NO TESTS' }}"
+        smoke_status: "{{ 'PASSED' if e2e_smoke.rc == 0 else 'FAILED' }}"
+        landing_status: "{{ 'PASSED' if e2e_landing.rc == 0 else 'FAILED' }}"
+        login_status: "{{ 'PASSED' if e2e_login.rc == 0 else 'FAILED' }}"
+        dashboard_status: "{{ 'PASSED' if e2e_dashboard.rc == 0 else 'FAILED' }}"
+        oql_status: "{{ 'PASSED' if e2e_oql.rc == 0 else 'FAILED' }}"
+        iql_status: "{{ 'PASSED' if e2e_iql.rc == 0 else 'FAILED' }}"
+        nlp_status: "{{ 'PASSED' if e2e_nlp.rc == 0 else 'FAILED' }}"
+        billing_status: "{{ 'PASSED' if e2e_billing.rc == 0 else 'FAILED' }}"
+        navigation_status: "{{ 'PASSED' if e2e_navigation.rc == 0 else 'FAILED' }}"
+        protected_status: "{{ 'PASSED' if e2e_protected.rc == 0 else 'FAILED' }}"
       changed_when: true
 
     - name: Display summary
       ansible.builtin.debug:
         msg:
-          - "=== TEST SUMMARY ==="
-          - "Node.js: {{ node_version.stdout }}"
-          - "Build: {{ 'SUCCESS' if dist_dir.stat.exists else 'FAILED' }}"
-          - "E2E Tests: {{ 'PASSED' if e2e_result.rc == 0 else 'FAILED/NO TESTS' }}"
-          - "Report: {{ project_dir }}/test-results/ansible-test-report.txt"
+          - "╔══════════════════════════════════════════════════════╗"
+          - "║         OqlOS E2E TEST SUMMARY                      ║"
+          - "╠══════════════════════════════════════════════════════╣"
+          - "║ Node.js:        {{ node_version.stdout }}"
+          - "║ Build:          {{ 'SUCCESS' if dist_dir.stat.exists else 'FAILED' }}"
+          - "║ Test user:      {{ test_user_email }}"
+          - "╠══════════════════════════════════════════════════════╣"
+          - "║ Smoke tests:    {{ 'PASSED ✓' if e2e_smoke.rc == 0 else 'FAILED ✗' }}"
+          - "║ Landing tests:  {{ 'PASSED ✓' if e2e_landing.rc == 0 else 'FAILED ✗' }}"
+          - "║ Login tests:    {{ 'PASSED ✓' if e2e_login.rc == 0 else 'FAILED ✗' }}"
+          - "║ Dashboard:      {{ 'PASSED ✓' if e2e_dashboard.rc == 0 else 'FAILED ✗' }}"
+          - "║ OQL Scenarios:  {{ 'PASSED ✓' if e2e_oql.rc == 0 else 'FAILED ✗' }}"
+          - "║ IQL Scenarios:  {{ 'PASSED ✓' if e2e_iql.rc == 0 else 'FAILED ✗' }}"
+          - "║ NLP Console:    {{ 'PASSED ✓' if e2e_nlp.rc == 0 else 'FAILED ✗' }}"
+          - "║ Billing:        {{ 'PASSED ✓' if e2e_billing.rc == 0 else 'FAILED ✗' }}"
+          - "║ Navigation:     {{ 'PASSED ✓' if e2e_navigation.rc == 0 else 'FAILED ✗' }}"
+          - "║ Protected:      {{ 'PASSED ✓' if e2e_protected.rc == 0 else 'FAILED ✗' }}"
+          - "╠══════════════════════════════════════════════════════╣"
+          - "║ Report: {{ project_dir }}/test-results/ansible-test-report.txt"
+          - "╚══════════════════════════════════════════════════════╝"

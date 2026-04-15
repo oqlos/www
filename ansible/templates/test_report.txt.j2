@@ -1,4 +1,4 @@
-OQLos Portal - Ansible E2E Test Report
+OqlOS Portal - Ansible E2E Test Report
 ========================================
 Generated: {{ ansible_date_time.iso8601 }}
 Host: {{ inventory_hostname }}
@@ -8,16 +8,28 @@ Environment:
   npm: {{ npm_ver }}
   Working Directory: {{ project_dir }}
 
-Test Results:
-  Build Status: {{ build_status }}
-  E2E Tests: {{ e2e_status }}
+Build:
+  Status: {{ build_status }}
+
+Test User: test@test.com (admin / pro)
+
+E2E Test Results:
+  ┌────────────────────────┬──────────┐
+  │ Suite                  │ Status   │
+  ├────────────────────────┼──────────┤
+  │ Smoke tests            │ {{ smoke_status }}   │
+  │ Landing page           │ {{ landing_status }}   │
+  │ Login (test@test.com)  │ {{ login_status }}   │
+  │ Dashboard              │ {{ dashboard_status }}   │
+  │ OQL Scenarios          │ {{ oql_status }}   │
+  │ IQL Scenarios          │ {{ iql_status }}   │
+  │ NLP Console (OQL+IQL)  │ {{ nlp_status }}   │
+  │ Billing                │ {{ billing_status }}   │
+  │ Navigation / Journey   │ {{ navigation_status }}   │
+  │ Protected routes       │ {{ protected_status }}   │
+  └────────────────────────┴──────────┘
 
 Artifacts:
   Build Output: {{ project_dir }}/dist
   Test Results: {{ project_dir }}/test-results
   Playwright Report: {{ project_dir }}/playwright-report
-
-Raw Output:
-  - Build completed successfully
-  - Security audit executed
-  - E2E tests executed

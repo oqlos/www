@@ -65,7 +65,12 @@ export default function Login() {
         body: JSON.stringify({ email }),
       });
       const data = await res.json();
-      if (res.ok) {
+      if (res.ok && data.testMode) {
+        localStorage.setItem("jwt", "test-jwt-token");
+        localStorage.setItem("user", JSON.stringify(data.user));
+        setMsg({ type: "success", text: t("login.success_logged_in") });
+        setTimeout(() => navigate(plan ? "/billing" : "/dashboard"), 600);
+      } else if (res.ok) {
         setMsg({ type: "success", text: t("login.check_email") });
         setEmail("");
       } else {
