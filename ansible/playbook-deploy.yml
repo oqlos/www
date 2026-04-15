@@ -1,0 +1,71 @@
+---
+- name: Deploy OqlOS Portal
+  hosts: webservers
+  become: yes
+  vars:
+    deploy_dir: /opt/oqlos/www
+    app_port: 3000
+    service_name: oqlos-portal
+
+  tasks:
+    - name: Ensure deploy directory exists
+      ansible.builtin.file:
+        path: "{{ deploy_dir }}"
+        state: directory
+        mode: '0755'
+        owner: www-data
+        group: www-data
+
+    - name: Copy build artifacts
+      ansible.builtin.copy:
+        src: "{{ playbook_dir }}/../dist/"
+        dest: "{{ deploy_dir }}"
+        mode: '0644'
+        owner: www-data
+        group: www-data
+      when: ansible_connection != 'local'
+
+    - name: Install Node.js (if not present)
+      ansible.builtin.apt:
+        name: nodejs
+        state: present
+        update_cache: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Create systemd service
+      ansible.builtin.template:
+        src: oqlos-portal.service.j2
+        dest: "/etc/systemd/system/{{ service_name }}.service"
+        mode: '0644'
+      notify:
+        - Reload systemd
+        - Restart oqlos-portal
+
+    - name: Enable and start service
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        enabled: yes
+        state: started
+
+    - name: Wait for service to respond
+      ansible.builtin.uri:
+        url: "http://localhost:{{ app_port }}"
+        status_code: 200
+      register: health_check
+      until: health_check.status == 200
+      retries: 5
+      delay: 2
+
+    - name: Verify deployment
+      ansible.builtin.debug:
+        msg: "OqlOS Portal deployed successfully at http://localhost:{{ app_port }}"
+
+  handlers:
+    - name: Reload systemd
+      ansible.builtin.systemd:
+        daemon_reload: yes
+
+    - name: Restart oqlos-portal
+      ansible.builtin.systemd:
+        name: "{{ service_name }}"
+        state: restarted

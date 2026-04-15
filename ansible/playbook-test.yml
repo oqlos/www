@@ -1,0 +1,122 @@
+---
+- name: OqlOS Portal E2E Tests
+  hosts: local
+  gather_facts: yes
+  vars:
+    app_port: 3000
+    test_timeout: 60
+    project_dir: "{{ playbook_dir }}/.."
+
+  tasks:
+    - name: Check Node.js installation
+      ansible.builtin.command: node --version
+      register: node_version
+      changed_when: false
+
+    - name: Display Node.js version
+      ansible.builtin.debug:
+        msg: "Node.js version: {{ node_version.stdout }}"
+
+    - name: Check npm installation
+      ansible.builtin.command: npm --version
+      register: npm_version
+      changed_when: false
+
+    - name: Display npm version
+      ansible.builtin.debug:
+        msg: "npm version: {{ npm_version.stdout }}"
+
+    - name: Install dependencies
+      ansible.builtin.command: npm ci
+      args:
+        chdir: "{{ project_dir }}"
+      register: npm_install
+      changed_when: "'added' in npm_install.stdout or 'changed' in npm_install.stdout"
+
+    - name: Build application
+      ansible.builtin.command: npm run build
+      args:
+        chdir: "{{ project_dir }}"
+      register: build_result
+      changed_when: true
+
+    - name: Check build output exists
+      ansible.builtin.stat:
+        path: "{{ project_dir }}/dist"
+      register: dist_dir
+
+    - name: Verify build success
+      ansible.builtin.fail:
+        msg: "Build failed - dist directory not found"
+      when: not dist_dir.stat.exists
+
+    - name: Install Playwright
+      ansible.builtin.command: npm install -D @playwright/test
+      args:
+        chdir: "{{ project_dir }}"
+      register: playwright_install
+      changed_when: true
+
+    - name: Install Playwright browsers
+      ansible.builtin.command: npx playwright install chromium firefox webkit
+      args:
+        chdir: "{{ project_dir }}"
+      register: browser_install
+      changed_when: true
+      ignore_errors: yes
+
+    - name: Run basic server test (fallback if E2E fails)
+      ansible.builtin.shell: |
+        timeout {{ test_timeout }} bash -c '
+          npm run dev &
+          SERVER_PID=$!
+          sleep 5
+          curl -s -o /dev/null -w "%{http_code}" http://localhost:{{ app_port }} | grep -q "200" && echo "OK" || echo "FAIL"
+          kill $SERVER_PID 2>/dev/null || true
+          wait $SERVER_PID 2>/dev/null || true
+        '
+      args:
+        chdir: "{{ project_dir }}"
+      register: server_test
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Run Playwright E2E tests
+      ansible.builtin.command: npx playwright test e2e/landing.spec.js --project=chromium --reporter=line
+      args:
+        chdir: "{{ project_dir }}"
+      register: e2e_result
+      ignore_errors: yes
+      changed_when: true
+
+    - name: Display E2E test results
+      ansible.builtin.debug:
+        msg: "E2E tests completed with rc={{ e2e_result.rc }}"
+
+    - name: Run security audit
+      ansible.builtin.command: npm audit --audit-level moderate
+      args:
+        chdir: "{{ project_dir }}"
+      register: audit_result
+      ignore_errors: yes
+      changed_when: false
+
+    - name: Generate test report
+      ansible.builtin.template:
+        src: test_report.txt.j2
+        dest: "{{ project_dir }}/test-results/ansible-test-report.txt"
+      vars:
+        node_ver: "{{ node_version.stdout }}"
+        npm_ver: "{{ npm_version.stdout }}"
+        build_status: "{{ 'SUCCESS' if dist_dir.stat.exists else 'FAILED' }}"
+        e2e_status: "{{ 'PASSED' if e2e_result.rc == 0 else 'FAILED/NO TESTS' }}"
+      changed_when: true
+
+    - name: Display summary
+      ansible.builtin.debug:
+        msg:
+          - "=== TEST SUMMARY ==="
+          - "Node.js: {{ node_version.stdout }}"
+          - "Build: {{ 'SUCCESS' if dist_dir.stat.exists else 'FAILED' }}"
+          - "E2E Tests: {{ 'PASSED' if e2e_result.rc == 0 else 'FAILED/NO TESTS' }}"
+          - "Report: {{ project_dir }}/test-results/ansible-test-report.txt"

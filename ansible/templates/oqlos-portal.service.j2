@@ -1,0 +1,17 @@
+[Unit]
+Description=OqlOS Portal - Industrial Test Automation DSL
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory={{ deploy_dir }}
+Environment=NODE_ENV=production
+Environment=PORT={{ app_port }}
+ExecStart=/usr/bin/npx serve -s . -l {{ app_port }}
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

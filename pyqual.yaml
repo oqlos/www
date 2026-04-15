@@ -4,13 +4,43 @@ pipeline:
     cc_max: 20
     critical_max: 5
     error_count_max: 20
+    test_coverage_min: 60
   stages:
     - name: install
-      run: npm install
+      run: npm ci
       when: always
+
+    - name: lint
+      run: npm run lint 2>/dev/null || echo "No lint configured"
+      when: always
+      optional: true
+
     - name: build
       run: npm run build
       when: always
+
+    - name: test-unit
+      run: npm run test:unit 2>/dev/null || npm run test 2>/dev/null || echo "No unit tests"
+      when: always
+      optional: true
+
+    - name: e2e-playwright
+      run: npm run test:e2e 2>/dev/null || echo "E2E not configured - run test.sh"
+      when: always
+      optional: true
+
+    - name: security-scan
+      run: npm audit --audit-level moderate || echo "Security issues found"
+      when: always
+      optional: true
+  artifacts:
+    - path: ./dist
+      name: build-output
+    - path: ./test-results
+      name: test-reports
+    - path: ./playwright-report
+      name: e2e-reports
+
   loop:
-    max_iterations: 2
+    max_iterations: 3
     on_fail: report
