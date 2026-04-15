@@ -50,7 +50,6 @@ export function mockFetch(url, options) {
   if (url.includes('/auth/login')) {
     const body = options.body ? JSON.parse(options.body) : {};
     const email = body.email;
-    console.log('[mockFetch] Login attempt for email:', email);
 
     // Special handling for test users
     if (email === 'test@test.com' || email === 'demo@oqlos.io') {

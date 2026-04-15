@@ -1,13 +1,22 @@
-# vallm batch | 65f | 13✓ 14⚠ 0✗ | 2026-04-15
+# vallm batch | 86f | 27✓ 25⚠ 1✗ | 2026-04-15
 
 SUMMARY:
-  scanned: 65  passed: 13 (20.0%)  warnings: 14  errors: 0  unsupported: 39
+  scanned: 86  passed: 27 (31.4%)  warnings: 25  errors: 1  unsupported: 36
 
-WARNINGS[14]{path,score}:
-  TODO/oqlos-landing.jsx,0.74
+WARNINGS[25]{path,score}:
+  src/hooks/useAuth.js,0.67
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'react-router-dom' not found,1
+  src/utils/logger.js,0.67
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'loglevel' not found,1
+  vitest.config.js,0.67
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'vitest/config' not found,1
+  src/pages/Landing.jsx,0.74
     issues[2]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
-      complexity.lizard_length,warning,(anonymous): 268 lines exceeds limit 100,923
+      complexity.lizard_length,warning,(anonymous): 201 lines exceeds limit 100,69
   src/App.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
@@ -17,10 +26,31 @@ WARNINGS[14]{path,score}:
   src/components/CodeEditor.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/ErrorBoundary.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/LangSwitch.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/LoadingSpinner.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
   src/components/PricingCards.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/ProtectedRoute.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/SharedNav.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
   src/components/TerminalSim.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/ThemeToggle.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/i18n/I18nProvider.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
   src/main.jsx,0.78
@@ -32,9 +62,6 @@ WARNINGS[14]{path,score}:
   src/pages/Dashboard.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
-  src/pages/Landing.jsx,0.78
-    issues[1]{rule,severity,message,line}:
-      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
   src/pages/Login.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
@@ -44,13 +71,24 @@ WARNINGS[14]{path,score}:
   src/pages/Scenarios.jsx,0.78
     issues[1]{rule,severity,message,line}:
       syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/utils/logger.spec.js,0.83
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'vitest' not found,1
   vite.config.js,0.83
     issues[1]{rule,severity,message,line}:
       js.import.resolvable,warning,Module 'vite' not found,1
+  src/mocks/api.js,0.97
+    issues[1]{rule,severity,message,line}:
+      complexity.lizard_cc,warning,mockFetch: CC=17 exceeds limit 15,46
+
+ERRORS[1]{path,score}:
+  infra/docker/dev/init-test-data.sql,0.00
+    issues[1]{rule,severity,message,line}:
+      syntax.tree_sitter,error,tree-sitter found 3 parse error(s) in sql,
 
 UNSUPPORTED[5]{bucket,count}:
-  *.md,20
+  *.md,8
   Dockerfile*,1
   *.txt,1
-  *.yml,2
-  other,15
+  *.yml,5
+  other,21

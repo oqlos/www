@@ -29,19 +29,25 @@ npm run preview
 | `APP_PORT` | `3000` | Application port for Ansible |
 | `SERVICE_NAME` | `oqlos-portal` | Systemd service name |
 
-## Test User
+## Test Users
 
-A built-in test account is available for development and E2E testing:
+Built-in test accounts are available for development and E2E testing:
 
 | Email | Password | Role | Plan |
 |-------|----------|------|------|
 | `test@test.com` | _(magic link / auto-login)_ | admin | pro |
+| `demo@oqlos.com` | _(magic link / auto-login)_ | user | free |
 
 ### Quick test login
 ```
+# Test user (admin, pro plan)
 http://localhost:3000/login?plan=pro
+
+# Demo user (user, free plan)
+http://localhost:3000/login
 ```
-This auto-fills `test@test.com`, submits the form, sets JWT in localStorage, and redirects to the dashboard.
+
+The `?plan=pro` query auto-fills `test@test.com`, submits the form, sets JWT in localStorage, and redirects to the dashboard. For the demo user, simply enter `demo@oqlos.com` in the login form.
 
 ## Testing
 
@@ -75,6 +81,26 @@ Full test coverage for the `test@test.com` user journey with Playwright route mo
 # Run all test-user E2E tests
 VITE_TEST_URL=http://localhost:3000 npx playwright test e2e/test-user.spec.js --project=chromium
 ```
+
+### E2E Demo User Suite (6 tests)
+
+Test coverage for the `demo@oqlos.com` user from `.env`:
+
+```bash
+# Run all demo-user E2E tests
+VITE_TEST_URL=http://localhost:3000 npx playwright test e2e/demo-user.spec.js --project=chromium
+```
+
+### E2E GUI Button Tests (20 tests)
+
+Comprehensive GUI button and interaction tests covering all buttons across the application:
+
+```bash
+# Run all GUI button tests
+VITE_TEST_URL=http://localhost:3000 npx playwright test e2e/gui-buttons.spec.js --project=chromium
+```
+
+Covers: Landing page buttons, Login submit, Dashboard cards, Scenarios tabs/run button, NLP console submit, Billing subscribe, Navigation, Theme toggle, and full user journey.
 
 | Suite | Tests | What it covers |
 |-------|-------|----------------|
