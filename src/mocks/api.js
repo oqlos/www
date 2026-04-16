@@ -123,8 +123,9 @@ const MOCK_HANDLERS = {
       data: { scenarios: TEST_SCENARIOS[1] || [] },
     }),
   }),
-  // Billing endpoints
+  // Billing endpoints - 5-tier pricing support
   ...(MOCK_CONFIG.billing && {
+    // Legacy endpoint (backward compat)
     '/billing/subscribe': (url, options) => {
       const plan = url.match(/\/subscribe\/(\w+)/)?.[1] || 'pro';
       return {
@@ -134,14 +135,107 @@ const MOCK_HANDLERS = {
         },
       };
     },
+    // New 5-tier pricing endpoints
+    '/billing/create-checkout-session': (_url, options) => {
+      const body = parseMockRequestBody(options);
+      const { plan, amount, currency } = body;
+      const sessionId = `mock_${plan}_${Date.now()}`;
+      
+      console.log(`[MOCK] Creating checkout session for ${plan} @ ${amount} ${currency}`);
+      
+      // Simulate Stripe checkout URL
+      const successUrl = body.success_url?.replace('{CHECKOUT_SESSION_ID}', sessionId) 
+        || `${window.location.origin}/billing?session=${sessionId}`;
+      
+      return {
+        data: {
+          checkout_url: successUrl,
+          session_id: sessionId,
+          plan,
+          amount,
+          currency,
+          message: "Mock checkout session created (dev mode)"
+        },
+        delay: 800 // Simulate network latency
+      };
+    },
+    '/billing/verify-session': (url) => {
+      const sessionId = url.match(/session_id=([^&]+)/)?.[1] || 'unknown';
+      const plan = sessionId.includes('starter') ? 'starter' 
+        : sessionId.includes('business') ? 'business'
+        : sessionId.includes('pro') ? 'pro'
+        : 'free';
+      
+      // Update test user's plan
+      const testUser = TEST_USERS['test@test.com'];
+      if (testUser) testUser.plan = plan;
+      
+      return {
+        data: {
+          verified: true,
+          plan,
+          session_id: sessionId,
+          customer_email: testUser?.email,
+          message: "Payment verified (mock)"
+        },
+        delay: 500
+      };
+    },
+    '/billing/cancel': () => {
+      const testUser = TEST_USERS['test@test.com'];
+      const previousPlan = testUser?.plan;
+      if (testUser) testUser.plan = 'free';
+      
+      return {
+        data: {
+          success: true,
+          previous_plan: previousPlan,
+          current_plan: 'free',
+          message: "Subscription cancelled. Plan active until period end.",
+          cancel_at_period_end: true
+        },
+        delay: 600
+      };
+    },
+    '/billing/downgrade': () => {
+      const testUser = TEST_USERS['test@test.com'];
+      const previousPlan = testUser?.plan;
+      if (testUser) testUser.plan = 'free';
+      
+      return {
+        data: {
+          success: true,
+          previous_plan: previousPlan,
+          current_plan: 'free',
+          message: "Downgraded to Free plan immediately."
+        },
+        delay: 400
+      };
+    },
     '/billing/subscription': () => ({
-      data: { plan: 'pro', status: 'active', cancel_at_period_end: false },
+      data: { 
+        plan: TEST_USERS['test@test.com']?.plan || 'free', 
+        status: 'active', 
+        cancel_at_period_end: false 
+      },
     }),
     '/billing/subscription/cancel': () => ({
       data: { success: true, message: "Subscription cancelled (mock)" },
     }),
     '/billing/subscription/reactivate': () => ({
       data: { success: true, message: "Subscription reactivated (mock)" },
+    }),
+    // Available plans info
+    '/billing/plans': () => ({
+      data: {
+        plans: [
+          { id: 'free', name: 'Free', price: 0, currency: 'eur', features: ['Open source', '1 device'] },
+          { id: 'starter', name: 'Starter', price: 1900, currency: 'eur', features: ['5 devices', 'Web IDE'] },
+          { id: 'pro', name: 'Pro', price: 4900, currency: 'eur', features: ['Unlimited devices', 'Fleet mgmt'] },
+          { id: 'business', name: 'Business', price: 14900, currency: 'eur', features: ['20 users', 'SSO', 'SLA'] },
+          { id: 'enterprise', name: 'Enterprise', price: null, currency: 'eur', features: ['Custom', 'On-premise'] }
+        ]
+      }
     }),
   }),
   // NLP endpoints (only if explicitly enabled)

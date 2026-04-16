@@ -13,6 +13,9 @@ export default function SharedNav({ user, onLogout }) {
         <Link to="/scenarios">{t("nav.scenarios")}</Link>
         <Link to="/nlp">{t("nav.nlp")}</Link>
         <Link to="/billing">{t("nav.billing")}</Link>
+        <Link to="/demo">{t("nav.demo")}</Link>
+        <Link to="/roi">{t("nav.roi")}</Link>
+        <Link to="/case-studies">{t("nav.case_studies")}</Link>
         <Link to="/account">{t("nav.account")}</Link>
         <Link to="/status">{t("nav.status")}</Link>
         <Link to="/academy">{t("nav.academy")}</Link>
