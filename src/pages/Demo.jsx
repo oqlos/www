@@ -133,6 +133,17 @@ export default function Demo() {
   const { user, logout } = useAuth();
   const { t } = useI18n();
   const [loaded, setLoaded] = useState(IS_MOCK ? true : false);
+  const [iframeError, setIframeError] = useState(false);
+
+  // Handle iframe load errors (e.g., 404 from Cal.com)
+  const handleIframeLoad = () => {
+    setLoaded(true);
+  };
+
+  const handleIframeError = () => {
+    setIframeError(true);
+    setLoaded(true);
+  };
 
   return (
     <div className="dashboard">
@@ -152,7 +163,7 @@ export default function Demo() {
           border: "1px solid var(--border)",
           background: "var(--bg-card)"
         }}>
-          {IS_MOCK ? (
+          {IS_MOCK || iframeError ? (
             <MockCalendar />
           ) : (
             <>
@@ -176,17 +187,32 @@ export default function Demo() {
                   <p style={{ color: "var(--text-muted)" }}>{t("demo.loading")}</p>
                 </div>
               )}
-              
+
+              {iframeError && (
+                <div style={{
+                  padding: 24,
+                  textAlign: "center",
+                  color: "var(--text-muted)",
+                  background: "var(--bg-hover)",
+                  borderRadius: 8,
+                  margin: "16px auto",
+                  maxWidth: 600
+                }}>
+                  <p style={{ marginBottom: 16 }}>⚠️ {t("demo.iframe_error") || "Cal.com booking unavailable - showing demo mode"}</p>
+                </div>
+              )}
+
               <iframe
                 src={CAL_URL}
                 width="100%"
-                height={loaded ? 700 : 0}
+                height={loaded && !iframeError ? 700 : 0}
                 frameBorder="0"
                 allowFullScreen
                 title={t("demo.iframe_title")}
-                onLoad={() => setLoaded(true)}
+                onLoad={handleIframeLoad}
+                onError={handleIframeError}
                 style={{
-                  opacity: loaded ? 1 : 0,
+                  opacity: loaded && !iframeError ? 1 : 0,
                   transition: "opacity 0.3s ease"
                 }}
               />

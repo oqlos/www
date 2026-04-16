@@ -40,9 +40,9 @@ export default function Login() {
     })();
   }, [token, navigate, t]);
 
-  // Auto-fill test email when plan=pro
+  // Auto-fill test email when plan=business
   useEffect(() => {
-    if (plan === "pro" && !autoSubmitRef.current) {
+    if (plan === "business" && !autoSubmitRef.current) {
       setEmail("test@test.com");
       autoSubmitRef.current = true;
       
