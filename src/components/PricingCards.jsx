@@ -29,6 +29,8 @@ const PLANS = [
       "Everything from Free +",
       "Web IDE (OqlIDE)",
       "Scenario library",
+      "Basic PDF reports",
+      "Email support (48h)",
       "Advanced compliance reports",
       "Docker prod with TLS",
       "Priority email support (24h)",
