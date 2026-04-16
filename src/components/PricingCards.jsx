@@ -166,7 +166,6 @@ export default function PricingCards({ onSubscribe, currentPlan = "free" }) {
                 gap: 8,
                 marginBottom: 8
               }}>
-                <span style={{ color: "var(--success)", flexShrink: 0 }}>✓</span>
                 <span style={{ color: "var(--text-muted)" }}>{feature}</span>
               </li>
             ))}
