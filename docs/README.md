@@ -1,7 +1,7 @@
 <!-- code2docs:start --># www
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-93-green)
-> **93** functions | **1** classes | **34** files | CC̄ = 4.9
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-156-green)
+> **156** functions | **1** classes | **53** files | CC̄ = 2.8
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,7 +141,7 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 www/
-├── docker-entrypoint├── tree├── project    ├── config    ├── main    ├── config    ├── sw    ├── App        ├── useAuth        ├── LangSwitch        ├── ProtectedRoute        ├── LoadingSpinner        ├── oql-examples        ├── ArchDiagram        ├── SharedNav        ├── CodeEditor        ├── TerminalSim        ├── ThemeToggle        ├── ErrorBoundary        ├── PricingCards        ├── NlpConsole        ├── Billing        ├── Scenarios        ├── Dashboard        ├── Login        ├── logger        ├── I18nProvider        ├── api        ├── install-commands            ├── spec        ├── spec        ├── spec        ├── spec        ├── Landing```
+├── docker-entrypoint├── tree├── project    ├── config    ├── config    ├── sw    ├── App    ├── main    ├── config        ├── LangSwitch        ├── ProtectedRoute        ├── useAuth        ├── LoadingSpinner        ├── ArchDiagram        ├── oql-examples        ├── SharedNav        ├── CodeEditor        ├── ThemeToggle        ├── TerminalSim        ├── ErrorBoundary        ├── PricingCards        ├── RoiCalculator        ├── NlpConsole        ├── Login        ├── Landing        ├── Scenarios        ├── Billing        ├── Account        ├── Dashboard        ├── Academy            ├── DangerZoneSection            ├── SubscriptionSection            ├── PaymentHistorySection            ├── ProfileSection        ├── Status        ├── logger        ├── I18nProvider        ├── install-commands            ├── spec        ├── spec        ├── spec        ├── api        ├── spec        ├── spec            ├── spec        ├── spec        ├── spec            ├── spec            ├── spec            ├── spec            ├── spec            ├── spec            ├── spec```
 
 ## API Overview
 
@@ -151,13 +151,14 @@ www/
 
 ### Functions
 
+- `env()` — —
+- `jwt()` — —
 - `useAuth()` — —
 - `navigate()` — —
 - `jwt()` — —
 - `isAuthenticated()` — —
 - `logout()` — —
 - `requireAuth()` — —
-- `jwt()` — —
 - `highlightOQL()` — —
 - `html()` — —
 - `highlightIQL()` — —
@@ -169,14 +170,19 @@ www/
 - `runSim()` — —
 - `idx()` — —
 - `iv()` — —
+- `calculateROI()` — —
+- `currentMonthlyCost()` — —
+- `oqlMonthlyCost()` — —
+- `monthlySavings()` — —
+- `annualSavings()` — —
+- `roiPercentage()` — —
+- `roi()` — —
+- `BACKEND_URL()` — —
 - `handleSubmit()` — —
 - `endpoint()` — —
+- `url()` — —
 - `res()` — —
 - `data()` — —
-- `handleSubscribe()` — —
-- `res()` — —
-- `data()` — —
-- `exampleKeys()` — —
 - `navigate()` — —
 - `token()` — —
 - `plan()` — —
@@ -186,6 +192,36 @@ www/
 - `data()` — —
 - `form()` — —
 - `handleSubmit()` — —
+- `exampleKeys()` — —
+- `getVariant()` — —
+- `params()` — —
+- `paramVariant()` — —
+- `heroSubtitle()` — —
+- `handleExampleChange()` — —
+- `handleTabChange()` — —
+- `handleCopy()` — —
+- `exampleKeys()` — —
+- `handleSubscribe()` — —
+- `res()` — —
+- `data()` — —
+- `handleProfileUpdate()` — —
+- `res()` — —
+- `handleCancelSubscription()` — —
+- `handleReactivateSubscription()` — —
+- `handleExportData()` — —
+- `blob()` — —
+- `url()` — —
+- `link()` — —
+- `MOCK_ENABLED()` — —
+- `BACKEND_URL()` — —
+- `MockStatus()` — —
+- `activeModuleData()` — —
+- `handleSubmit()` — —
+- `status()` — —
+- `getStatusColor()` — —
+- `getStatusBg()` — —
+- `getStatusBorder()` — —
+- `copyAsYaml()` — —
 - `LOG_LEVEL()` — —
 - `MAX_BUFFER()` — —
 - `filtered()` — —
@@ -202,48 +238,85 @@ www/
 - `val()` — —
 - `useI18n()` — —
 - `ctx()` — —
-- `mockFetch()` — —
-- `body()` — —
-- `email()` — —
-- `user()` — —
-- `fakeResponse()` — —
 - `INSTALL_DOCKER()` — —
 - `INSTALL_RPI()` — —
 - `exported()` — —
 - `logs()` — —
 - `last()` — —
 - `warns()` — —
+- `downloadPromise()` — —
+- `download()` — —
+- `fileContent()` — —
+- `data()` — —
 - `heading()` — —
 - `nav()` — —
 - `errorMessages()` — —
 - `response()` — —
+- `FORCE_MOCK_ALL()` — —
+- `MOCK_ENABLED()` — —
+- `parseMockRequestBody()` — —
+- `createMockLoginData()` — —
+- `email()` — —
+- `user()` — —
+- `plan()` — —
+- `mockFetch()` — —
+- `match()` — —
+- `fakeResponse()` — —
 - `response()` — —
 - `status()` — —
+- `buttons()` — —
+- `freeCardBtn()` — —
+- `proCardBtn()` — —
+- `enterpriseCardBtn()` — —
+- `subscribeButton()` — —
+- `url()` — —
+- `contactButton()` — —
+- `downloadButton()` — —
 - `mockBackendRoutes()` — —
 - `request()` — —
 - `emailInput()` — —
 - `jwt()` — —
 - `user()` — —
-- `GITHUB_REPO()` — —
-- `API_DEV_URL()` — —
-- `IDE_DEV_URL()` — —
-- `TRAEFIK_DEV_URL()` — —
-- `DOCKER_IMAGE()` — —
-- `API_WS_URL()` — —
-- `HARDWARE_MODE()` — —
-- `MODBUS_SERIAL_PORT()` — —
-- `I2C_BUS()` — —
-- `USB_DEVICE()` — —
-- `OQLAGENT_PORT()` — —
-- `exampleKeys()` — —
-- `handleExampleChange()` — —
-- `handleTabChange()` — —
-- `handleCopy()` — —
+- `featureCards()` — —
+- `runBtn()` — —
+- `nlpBtn()` — —
+- `submitBtn()` — —
+- `emailInput()` — —
+- `backBtn()` — —
+- `tabs()` — —
+- `input()` — —
+- `submitBtn()` — —
+- `output()` — —
+- `getStartedBtn()` — —
+- `useCasesSection()` — —
+- `outlineBtns()` — —
+- `count()` — —
+- `editorSection()` — —
+- `copyBtns()` — —
+- `useCasesTabs()` — —
+- `logoutBtn()` — —
+- `jwt()` — —
+- `scenariosLink()` — —
+- `logo()` — —
+- `tabs()` — —
+- `count()` — —
+- `runBtn()` — —
+- `stepBtn()` — —
 
 
 ## Project Structure
 
 📄 `docker-entrypoint`
+📄 `e2e.account-export.spec` (4 functions)
+📄 `e2e.account.spec`
+📄 `e2e.billing-payment.spec` (6 functions)
+📄 `e2e.buttons.billing-buttons.spec` (5 functions)
+📄 `e2e.buttons.dashboard-buttons.spec` (3 functions)
+📄 `e2e.buttons.landing-buttons.spec` (9 functions)
+📄 `e2e.buttons.login-buttons.spec` (3 functions)
+📄 `e2e.buttons.navigation-buttons.spec` (4 functions)
+📄 `e2e.buttons.nlp-buttons.spec` (10 functions)
+📄 `e2e.buttons.scenarios-buttons.spec` (6 functions)
 📄 `e2e.demo-user.spec` (6 functions)
 📄 `e2e.landing.spec` (5 functions)
 📄 `e2e.smoke.spec` (3 functions)
@@ -262,17 +335,26 @@ www/
 📄 `src.components.TerminalSim` (4 functions)
 📄 `src.components.ThemeToggle`
 📄 `src.components.oql-examples`
+📄 `src.config` (1 functions)
 📄 `src.data.install-commands` (2 functions)
 📄 `src.hooks.useAuth` (6 functions)
 📄 `src.i18n.I18nProvider` (13 functions)
 📄 `src.main`
-📄 `src.mocks.api` (6 functions)
+📄 `src.mocks.api` (10 functions)
+📄 `src.pages.Academy` (1 functions)
+📄 `src.pages.Account` (10 functions)
 📄 `src.pages.Billing` (3 functions)
-📄 `src.pages.Dashboard`
-📄 `src.pages.Landing` (15 functions)
+📄 `src.pages.Dashboard` (3 functions)
+📄 `src.pages.Landing` (8 functions)
 📄 `src.pages.Login` (11 functions)
-📄 `src.pages.NlpConsole` (4 functions)
+📄 `src.pages.NlpConsole` (6 functions)
+📄 `src.pages.RoiCalculator` (7 functions)
 📄 `src.pages.Scenarios` (1 functions)
+📄 `src.pages.Status` (5 functions)
+📄 `src.pages.account.DangerZoneSection`
+📄 `src.pages.account.PaymentHistorySection`
+📄 `src.pages.account.ProfileSection` (1 functions)
+📄 `src.pages.account.SubscriptionSection`
 📄 `src.utils.logger` (4 functions)
 📄 `src.utils.logger.spec` (4 functions)
 📄 `tree`

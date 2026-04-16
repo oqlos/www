@@ -1,18 +1,28 @@
-# www | 34f 2223L | shell:3,javascript:31 | 2026-04-15
-# stats: 93 func | 0 cls | 34 mod | CC̄=4.9 | critical:12 | cycles:0
-# alerts[5]: fan-out API_DEV_URL=26; fan-out API_WS_URL=26; fan-out DOCKER_IMAGE=26; fan-out GITHUB_REPO=26; fan-out HARDWARE_MODE=26
-# hotspots[5]: GITHUB_REPO fan=26; API_DEV_URL fan=26; IDE_DEV_URL fan=26; TRAEFIK_DEV_URL fan=26; DOCKER_IMAGE fan=26
-# evolution: CC̄ 2.4→4.9 (regressed +2.5)
+# www | 53f 3817L | shell:3,javascript:50 | 2026-04-16
+# stats: 152 func | 0 cls | 53 mod | CC̄=2.8 | critical:1 | cycles:0
+# alerts[5]: CC BACKEND_URL=18; fan-out BACKEND_URL=15; fan-out handleExportData=14; fan-out handleSubmit=11; fan-out autoSubmitRef=10
+# hotspots[5]: BACKEND_URL fan=15; handleExportData fan=14; handleSubmit fan=11; token fan=10; plan fan=10
+# evolution: CC̄ 2.9→2.8 (improved -0.1)
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[34]:
-  docker-entrypoint.sh,5
+M[53]:
+  docker-entrypoint.sh,8
+  e2e/account-export.spec.js,66
+  e2e/account.spec.js,77
+  e2e/billing-payment.spec.js,66
+  e2e/buttons/billing-buttons.spec.js,62
+  e2e/buttons/dashboard-buttons.spec.js,56
+  e2e/buttons/landing-buttons.spec.js,70
+  e2e/buttons/login-buttons.spec.js,39
+  e2e/buttons/navigation-buttons.spec.js,50
+  e2e/buttons/nlp-buttons.spec.js,89
+  e2e/buttons/scenarios-buttons.spec.js,68
   e2e/demo-user.spec.js,200
   e2e/landing.spec.js,44
   e2e/smoke.spec.js,31
   playwright.config.js,49
   project.sh,35
   public/sw.js,26
-  src/App.jsx,23
+  src/App.jsx,31
   src/components/ArchDiagram.jsx,84
   src/components/CodeEditor.jsx,106
   src/components/ErrorBoundary.jsx,47
@@ -20,61 +30,74 @@ M[34]:
   src/components/LoadingSpinner.jsx,17
   src/components/PricingCards.jsx,71
   src/components/ProtectedRoute.jsx,7
-  src/components/SharedNav.jsx,25
+  src/components/SharedNav.jsx,27
   src/components/TerminalSim.jsx,86
   src/components/ThemeToggle.jsx,29
   src/components/oql-examples.js,144
+  src/config.js,16
   src/data/install-commands.js,53
   src/hooks/useAuth.js,32
-  src/i18n/I18nProvider.jsx,53
+  src/i18n/I18nProvider.jsx,54
   src/main.jsx,19
-  src/mocks/api.js,139
+  src/mocks/api.js,190
+  src/pages/Academy.jsx,152
+  src/pages/Account.jsx,190
   src/pages/Billing.jsx,64
-  src/pages/Dashboard.jsx,60
-  src/pages/Landing.jsx,328
-  src/pages/Login.jsx,136
-  src/pages/NlpConsole.jsx,106
+  src/pages/Dashboard.jsx,109
+  src/pages/Landing.jsx,229
+  src/pages/Login.jsx,133
+  src/pages/NlpConsole.jsx,100
+  src/pages/RoiCalculator.jsx,188
   src/pages/Scenarios.jsx,45
+  src/pages/Status.jsx,188
+  src/pages/account/DangerZoneSection.jsx,18
+  src/pages/account/PaymentHistorySection.jsx,41
+  src/pages/account/ProfileSection.jsx,75
+  src/pages/account/SubscriptionSection.jsx,77
   src/utils/logger.js,33
   src/utils/logger.spec.js,62
   tree.sh,1
   vite.config.js,39
 D:
-  src/mocks/api.js:
-    e: mockFetch,body,email,user,user,fakeResponse
-    mockFetch()
-    body()
-    email()
-    user()
-    user()
-    fakeResponse()
-  src/pages/Landing.jsx:
-    i: ../components/ArchDiagram,../components/CodeEditor,../components/PricingCards,../components/TerminalSim,../components/oql-examples,../data/install-commands,../utils/logger,react,react-router-dom
-    e: GITHUB_REPO,API_DEV_URL,IDE_DEV_URL,TRAEFIK_DEV_URL,DOCKER_IMAGE,API_WS_URL,HARDWARE_MODE,MODBUS_SERIAL_PORT,I2C_BUS,USB_DEVICE,OQLAGENT_PORT,exampleKeys,handleExampleChange,handleTabChange,handleCopy
-    GITHUB_REPO()
-    API_DEV_URL()
-    IDE_DEV_URL()
-    TRAEFIK_DEV_URL()
-    DOCKER_IMAGE()
-    API_WS_URL()
-    HARDWARE_MODE()
-    MODBUS_SERIAL_PORT()
-    I2C_BUS()
-    USB_DEVICE()
-    OQLAGENT_PORT()
-    exampleKeys()
-    handleExampleChange()
-    handleTabChange()
-    handleCopy()
   src/pages/NlpConsole.jsx:
     i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,react
-    e: handleSubmit,endpoint,res,data
+    e: BACKEND_URL,handleSubmit,endpoint,url,res,data
+    BACKEND_URL()
     handleSubmit()
     endpoint()
+    url()
     res()
     data()
+  src/config.js:
+    e: env
+    env()
+  src/pages/Account.jsx:
+    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,./account/DangerZoneSection,./account/PaymentHistorySection,./account/ProfileSection,./account/SubscriptionSection,react
+    e: handleProfileUpdate,res,handleCancelSubscription,res,handleReactivateSubscription,res,handleExportData,blob,url,link
+    handleProfileUpdate()
+    res()
+    handleCancelSubscription()
+    res()
+    handleReactivateSubscription()
+    res()
+    handleExportData()
+    blob()
+    url()
+    link()
+  src/mocks/api.js:
+    e: FORCE_MOCK_ALL,MOCK_ENABLED,parseMockRequestBody,createMockLoginData,email,user,plan,mockFetch,match,fakeResponse
+    FORCE_MOCK_ALL()
+    MOCK_ENABLED()
+    parseMockRequestBody()
+    createMockLoginData()
+    email()
+    user()
+    plan()
+    mockFetch()
+    match()
+    fakeResponse()
   src/i18n/I18nProvider.jsx:
-    i: ./en.json,./pl.json,react
+    i: ./de.json,./en.json,./pl.json,react
     e: SUPPORTED_LANGS,I18nContext,getInitialLang,saved,browser,I18nProvider,setLang,dict,t,keys,val,useI18n,ctx
     SUPPORTED_LANGS()
     I18nContext()
@@ -103,6 +126,14 @@ D:
     handleSubmit()
     res()
     data()
+  src/pages/Status.jsx:
+    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,react
+    e: status,getStatusColor,getStatusBg,getStatusBorder,copyAsYaml
+    status()
+    getStatusColor()
+    getStatusBg()
+    getStatusBorder()
+    copyAsYaml()
   e2e/demo-user.spec.js:
     i: @playwright/test
     e: mockBackendRoutes,request,emailInput,jwt,user,user
@@ -149,12 +180,41 @@ D:
     preRef()
     fn()
     handleScroll()
-  e2e/smoke.spec.js:
-    i: @playwright/test
-    e: response,response,status
-    response()
-    response()
-    status()
+  src/pages/Dashboard.jsx:
+    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider
+    e: MOCK_ENABLED,BACKEND_URL,MockStatus
+    MOCK_ENABLED()
+    BACKEND_URL()
+    MockStatus()
+  e2e/buttons/landing-buttons.spec.js:
+    i: ../helpers/test-helpers,@playwright/test
+    e: getStartedBtn,useCasesSection,outlineBtns,count,editorSection,copyBtns,count,useCasesTabs,count
+    getStartedBtn()
+    useCasesSection()
+    outlineBtns()
+    count()
+    editorSection()
+    copyBtns()
+    count()
+    useCasesTabs()
+    count()
+  src/pages/RoiCalculator.jsx:
+    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,react
+    e: calculateROI,currentMonthlyCost,oqlMonthlyCost,monthlySavings,annualSavings,roiPercentage,roi
+    calculateROI()
+    currentMonthlyCost()
+    oqlMonthlyCost()
+    monthlySavings()
+    annualSavings()
+    roiPercentage()
+    roi()
+  src/pages/Landing.jsx:
+    i: ../components/CodeEditor,../components/LangSwitch,../components/PricingCards,../components/TerminalSim,../components/oql-examples,../config,../data/install-commands,../i18n/I18nProvider,../utils/logger,react,react-router-dom
+    e: exampleKeys,handleExampleChange,handleTabChange,handleCopy
+    exampleKeys()
+    handleExampleChange()
+    handleTabChange()
+    handleCopy()
   src/utils/logger.js:
     i: loglevel
     e: LOG_LEVEL,MAX_BUFFER,_push,filtered
@@ -162,6 +222,43 @@ D:
     MAX_BUFFER()
     _push()
     filtered()
+  e2e/account-export.spec.js:
+    i: @playwright/test
+    e: downloadPromise,download,fileContent,data
+    downloadPromise()
+    download()
+    fileContent()
+    data()
+  e2e/smoke.spec.js:
+    i: @playwright/test
+    e: response,response,status
+    response()
+    response()
+    status()
+  e2e/buttons/billing-buttons.spec.js:
+    i: ../helpers/test-helpers,@playwright/test
+    e: buttons,freeCardBtn,proCardBtn,proCardBtn,enterpriseCardBtn
+    buttons()
+    freeCardBtn()
+    proCardBtn()
+    proCardBtn()
+    enterpriseCardBtn()
+  e2e/buttons/navigation-buttons.spec.js:
+    i: ../helpers/test-helpers,@playwright/test
+    e: logoutBtn,jwt,scenariosLink,logo
+    logoutBtn()
+    jwt()
+    scenariosLink()
+    logo()
+  e2e/buttons/scenarios-buttons.spec.js:
+    i: ../helpers/test-helpers,@playwright/test
+    e: tabs,count,runBtn,runBtn,runBtn,stepBtn
+    tabs()
+    count()
+    runBtn()
+    runBtn()
+    runBtn()
+    stepBtn()
   src/components/ProtectedRoute.jsx:
     i: react-router-dom
     e: jwt
@@ -170,6 +267,18 @@ D:
     i: ../components/CodeEditor,../components/SharedNav,../components/TerminalSim,../components/oql-examples,../hooks/useAuth,../i18n/I18nProvider,react
     e: exampleKeys
     exampleKeys()
+  src/pages/Academy.jsx:
+    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,react
+    e: activeModuleData
+    activeModuleData()
+  src/pages/account/ProfileSection.jsx:
+    i: ../../i18n/I18nProvider,react
+    e: handleSubmit
+    handleSubmit()
+  src/data/install-commands.js:
+    e: INSTALL_DOCKER,INSTALL_RPI
+    INSTALL_DOCKER()
+    INSTALL_RPI()
   src/utils/logger.spec.js:
     i: ./logger.js,vitest
     e: exported,logs,last,warns
@@ -177,10 +286,6 @@ D:
     logs()
     last()
     warns()
-  src/data/install-commands.js:
-    e: INSTALL_DOCKER,INSTALL_RPI
-    INSTALL_DOCKER()
-    INSTALL_RPI()
   e2e/landing.spec.js:
     i: @playwright/test
     e: heading,nav,errorMessages,response,response
@@ -189,6 +294,40 @@ D:
     errorMessages()
     response()
     response()
+  e2e/billing-payment.spec.js:
+    i: @playwright/test
+    e: subscribeButton,url,contactButton,url,downloadButton,url
+    subscribeButton()
+    url()
+    contactButton()
+    url()
+    downloadButton()
+    url()
+  e2e/buttons/nlp-buttons.spec.js:
+    i: ../helpers/test-helpers,@playwright/test
+    e: tabs,input,submitBtn,output,input,submitBtn,submitBtn,output,input,submitBtn
+    tabs()
+    input()
+    submitBtn()
+    output()
+    input()
+    submitBtn()
+    submitBtn()
+    output()
+    input()
+    submitBtn()
+  e2e/buttons/login-buttons.spec.js:
+    i: ../helpers/test-helpers,@playwright/test
+    e: submitBtn,emailInput,backBtn
+    submitBtn()
+    emailInput()
+    backBtn()
+  e2e/buttons/dashboard-buttons.spec.js:
+    i: ../helpers/test-helpers,@playwright/test
+    e: featureCards,runBtn,nlpBtn
+    featureCards()
+    runBtn()
+    nlpBtn()
   docker-entrypoint.sh:
   tree.sh:
   project.sh:
@@ -196,20 +335,26 @@ D:
     i: @vitejs/plugin-react,vite
   playwright.config.js:
     i: @playwright/test
+  src/App.jsx:
+    i: ./components/ProtectedRoute,./pages/Academy,./pages/Account,./pages/Billing,./pages/Dashboard,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/RoiCalculator,./pages/Scenarios,./pages/Status,react-router-dom
   src/main.jsx:
     i: ./App,./components/ErrorBoundary,./i18n/I18nProvider,react,react-dom/client,react-router-dom
   public/sw.js:
   src/components/LangSwitch.jsx:
     i: ../i18n/I18nProvider
-  src/App.jsx:
-    i: ./components/ProtectedRoute,./pages/Billing,./pages/Dashboard,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/Scenarios,react-router-dom
-  src/components/ArchDiagram.jsx:
-  src/components/oql-examples.js:
   src/components/LoadingSpinner.jsx:
+  src/components/oql-examples.js:
+  src/components/ArchDiagram.jsx:
   src/components/SharedNav.jsx:
     i: ../i18n/I18nProvider,./LangSwitch,./ThemeToggle,react-router-dom
   src/components/ThemeToggle.jsx:
     i: react
   src/components/PricingCards.jsx:
-  src/pages/Dashboard.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider
+  src/pages/account/DangerZoneSection.jsx:
+    i: ../../i18n/I18nProvider
+  src/pages/account/PaymentHistorySection.jsx:
+    i: ../../i18n/I18nProvider
+  src/pages/account/SubscriptionSection.jsx:
+    i: ../../i18n/I18nProvider
+  e2e/account.spec.js:
+    i: @playwright/test

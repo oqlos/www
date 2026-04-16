@@ -58,15 +58,18 @@ function highlightIQL(code) {
   });
 }
 
-export default function CodeEditor({ example }) {
-  const [code, setCode] = useState(example.code);
+export default function CodeEditor({ example, value, onChange }) {
+  const [localCode, setLocalCode] = useState(value || example.code);
   const [highlighted, setHighlighted] = useState([]);
   const textareaRef = useRef(null);
   const preRef = useRef(null);
 
+  // Sync with external value when example changes and no external value provided
   useEffect(() => {
-    setCode(example.code);
-  }, [example]);
+    if (value === undefined) {
+      setLocalCode(example.code);
+    }
+  }, [example, value]);
 
   useEffect(() => {
     const fn = example.lang === "oql" ? highlightOQL : highlightIQL;
@@ -79,6 +82,15 @@ export default function CodeEditor({ example }) {
       preRef.current.scrollLeft = textareaRef.current.scrollLeft;
     }
   };
+
+  const handleChange = (e) => {
+    const newCode = e.target.value;
+    setLocalCode(newCode);
+    onChange?.(newCode);
+  };
+
+  // Use external value if provided, otherwise local state
+  const code = value !== undefined ? value : localCode;
 
   return (
     <div className="editor-wrapper">
@@ -96,7 +108,7 @@ export default function CodeEditor({ example }) {
           ref={textareaRef}
           className="editor-textarea"
           value={code}
-          onChange={(e) => setCode(e.target.value)}
+          onChange={handleChange}
           onScroll={handleScroll}
           spellCheck={false}
         />

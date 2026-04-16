@@ -1,33 +1,93 @@
 import { useState, useRef } from "react";
 
-export default function TerminalSim() {
+// Parse OQL/IQL code to extract scenario info and steps
+function parseScenarioCode(code, scenarioData) {
+  const lines = code.split('\n');
+  const steps = [];
+  let scenarioName = scenarioData?.title || "Scenario";
+  let device = "Device";
+  
+  lines.forEach((line) => {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) return;
+    
+    // Extract SCENARIO name
+    const scenarioMatch = trimmed.match(/SCENARIO:\s*"([^"]+)"/);
+    if (scenarioMatch) scenarioName = scenarioMatch[1];
+    
+    // Extract DEVICE_MODEL
+    const deviceMatch = trimmed.match(/DEVICE_MODEL:\s*"([^"]+)"/);
+    if (deviceMatch) device = deviceMatch[1];
+    
+    // Parse commands as steps
+    if (/^(SET|WAIT|LOG|API|NAVIGATE|CLICK|INPUT|ASSERT|STEP_COMPLETE|RECORD)/.test(trimmed)) {
+      steps.push(trimmed);
+    }
+  });
+  
+  return { scenarioName, device, steps };
+}
+
+function generateTermLines(scenarioData, code) {
+  const { scenarioName, device, steps } = parseScenarioCode(code, scenarioData);
+  const fileName = scenarioData?.lang === 'iql' ? 'test.iql' : 'test.oql';
+  const lang = scenarioData?.lang === 'iql' ? 'TestQL' : 'OQL';
+  
+  const lines = [
+    { text: `$ oqlctl run ${fileName} --mode dry-run`, type: "cmd" },
+    { text: "", type: "blank" },
+    { text: `╭─ ${lang} Scenario: ${scenarioName} ─╮`, type: "header" },
+    { text: `│  Device: ${device.padEnd(28)} │`, type: "header" },
+    { text: "│  Mode:   dry-run (simulated)     │", type: "header" },
+    { text: "╰──────────────────────────────────╯", type: "header" },
+    { text: "", type: "blank" },
+  ];
+  
+  // Add parsed steps or default steps
+  if (steps.length > 0) {
+    lines.push({ text: `▶ Executing ${steps.length} step${steps.length > 1 ? 's' : ''}`, type: "goal" });
+    steps.slice(0, 8).forEach((step, idx) => {
+      const isLast = idx === steps.length - 1 || idx === 7;
+      const prefix = isLast ? "  └─" : "  ├─";
+      const shortStep = step.length > 35 ? step.substring(0, 32) + '...' : step;
+      lines.push({ text: `${prefix} ${shortStep.padEnd(35)} ✓`, type: "pass" });
+    });
+    if (steps.length > 8) {
+      lines.push({ text: `  ... and ${steps.length - 8} more steps`, type: "info" });
+    }
+  } else {
+    // Fallback: show code preview
+    lines.push({ text: "▶ Code preview:", type: "goal" });
+    const previewLines = code.split('\n').slice(0, 5);
+    previewLines.forEach((line, idx) => {
+      const isLast = idx === previewLines.length - 1;
+      const prefix = isLast ? "  └─" : "  ├─";
+      const cleanLine = line.trim() || "(empty line)";
+      lines.push({ text: `${prefix} ${cleanLine.substring(0, 35)}`, type: idx % 2 === 0 ? "pass" : "info" });
+    });
+  }
+  
+  lines.push({ text: "", type: "blank" });
+  lines.push({ text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" });
+  lines.push({ text: `  Result: PASS  │  Steps: ${steps.length || 'ok'}  │  0 errors`, type: "result" });
+  lines.push({ text: "  Duration: " + (2 + steps.length * 0.3).toFixed(2) + "s (simulated)", type: "info" });
+  lines.push({ text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" });
+  
+  return lines;
+}
+
+export default function TerminalSim({ scenarioData, code }) {
   const [lines, setLines] = useState([]);
   const [running, setRunning] = useState(false);
   const termRef = useRef(null);
 
-  const termLines = [
-    { text: "$ oqlctl run test-pompy.oql --mode dry-run", type: "cmd" },
-    { text: "", type: "blank" },
-    { text: "╭─ OQL Scenario: Pump Flow Test ─╮", type: "header" },
-    { text: "│  Device: PSS 7000 (Dräger)      │", type: "header" },
-    { text: "│  Mode:   dry-run (simulated)     │", type: "header" },
-    { text: "╰──────────────────────────────────╯", type: "header" },
-    { text: "", type: "blank" },
-    { text: "▶ GOAL: Test przepływu", type: "goal" },
-    { text: "  ├─ SET pompa 1 → 2 l/min          ✓", type: "pass" },
-    { text: "  ├─ WAIT 2000ms                     ✓", type: "pass" },
-    { text: "  ├─ SET pompa 1 → -2 l/min          ✓", type: "pass" },
-    { text: "  ├─ WAIT 2000ms                     ✓", type: "pass" },
-    { text: "  └─ SET pompa 1 → 0                 ✓", type: "pass" },
-    { text: "", type: "blank" },
-    { text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" },
-    { text: "  Result: PASS  │  Steps: 5/5  │  0 errors", type: "result" },
-    { text: "  Duration: 4.02s (simulated)", type: "info" },
-    { text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" },
-  ];
-
   const runSim = () => {
     if (running) return;
+    
+    // Generate dynamic output based on current scenario and code
+    const effectiveCode = code || scenarioData?.code || '';
+    const termLines = generateTermLines(scenarioData, effectiveCode);
+    
     setRunning(true);
     setLines([]);
     let idx = 0;
@@ -63,7 +123,7 @@ export default function TerminalSim() {
           <span className="dot dot-y" />
           <span className="dot dot-g" />
         </div>
-        <span className="terminal-title">oqlctl — dry-run simulation</span>
+        <span className="terminal-title">oqlctl — {scenarioData?.title || 'dry-run simulation'}</span>
         <button className="run-btn" onClick={runSim} disabled={running}>
           {running ? "Running..." : "▶ Run"}
         </button>

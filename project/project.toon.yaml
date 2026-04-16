@@ -1,51 +1,46 @@
-# www | 93 func | 18f | 2973L | javascript | 2026-04-15
+# www | 152 func | 34f | 4655L | javascript | 2026-04-16
 
 HEALTH:
-  CC̄=4.9  critical=13 (limit:10)  dup=0  cycles=0
+  CC̄=2.8  critical=5 (limit:10)  dup=0  cycles=0
 
-ALERTS[20]:
-  !!! high_fan_out     GITHUB_REPO = 26 (limit:10)
-  !!! high_fan_out     API_DEV_URL = 26 (limit:10)
-  !!! high_fan_out     IDE_DEV_URL = 26 (limit:10)
-  !!! high_fan_out     TRAEFIK_DEV_URL = 26 (limit:10)
-  !!! high_fan_out     DOCKER_IMAGE = 26 (limit:10)
-  !!! high_fan_out     API_WS_URL = 26 (limit:10)
-  !!! high_fan_out     HARDWARE_MODE = 26 (limit:10)
-  !!! high_fan_out     MODBUS_SERIAL_PORT = 26 (limit:10)
-  !!! high_fan_out     I2C_BUS = 26 (limit:10)
-  !!! high_fan_out     USB_DEVICE = 26 (limit:10)
+ALERTS[8]:
+  !!  high_fan_out     BACKEND_URL = 15 (limit:10)
+  !   cc_exceeded      BACKEND_URL = 18 (limit:15)
+  !   high_fan_out     handleExportData = 14 (limit:10)
+  !   high_fan_out     handleSubmit = 11 (limit:10)
+  !   high_fan_out     token = 10 (limit:10)
+  !   high_fan_out     plan = 10 (limit:10)
+  !   high_fan_out     verifyTokenRef = 10 (limit:10)
+  !   high_fan_out     autoSubmitRef = 10 (limit:10)
 
-MODULES[34] (top by size):
-  M[src/pages/Landing.jsx] 328L C:0 F:15 CC↑20 D:0 (javascript)
+MODULES[53] (top by size):
+  M[src/pages/Landing.jsx] 229L C:0 F:4 CC↑2 D:0 (javascript)
   M[e2e/demo-user.spec.js] 200L C:0 F:5 CC↑8 D:0 (javascript)
+  M[src/pages/Account.jsx] 190L C:0 F:8 CC↑12 D:0 (javascript)
+  M[src/mocks/api.js] 190L C:0 F:10 CC↑11 D:0 (javascript)
+  M[src/pages/Status.jsx] 188L C:0 F:5 CC↑8 D:0 (javascript)
+  M[src/pages/RoiCalculator.jsx] 188L C:0 F:7 CC↑2 D:0 (javascript)
+  M[src/pages/Academy.jsx] 152L C:0 F:1 CC↑1 D:0 (javascript)
   M[src/components/oql-examples.js] 144L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/mocks/api.js] 139L C:0 F:5 CC↑20 D:0 (javascript)
-  M[src/pages/Login.jsx] 136L C:0 F:9 CC↑8 D:0 (javascript)
-  M[src/pages/NlpConsole.jsx] 106L C:0 F:4 CC↑11 D:0 (javascript)
+  M[src/pages/Login.jsx] 133L C:0 F:9 CC↑8 D:0 (javascript)
+  M[src/pages/Dashboard.jsx] 109L C:0 F:3 CC↑3 D:0 (javascript)
   M[src/components/CodeEditor.jsx] 106L C:0 F:7 CC↑3 D:0 (javascript)
+  M[src/pages/NlpConsole.jsx] 100L C:0 F:6 CC↑18 D:0 (javascript)
+  M[e2e/buttons/nlp-buttons.spec.js] 89L C:0 F:4 CC↑1 D:0 (javascript)
   M[src/components/TerminalSim.jsx] 86L C:0 F:4 CC↑4 D:0 (javascript)
   M[src/components/ArchDiagram.jsx] 84L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/components/PricingCards.jsx] 71L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/pages/Billing.jsx] 64L C:0 F:3 CC↑5 D:0 (javascript)
-  M[src/utils/logger.spec.js] 62L C:0 F:4 CC↑1 D:0 (javascript)
-  M[src/pages/Dashboard.jsx] 60L C:0 F:0 CC↑0 D:0 (javascript)
-  M[src/i18n/I18nProvider.jsx] 53L C:0 F:13 CC↑9 D:0 (javascript)
-  M[src/data/install-commands.js] 53L C:0 F:2 CC↑1 D:0 (javascript)
-  LANGS: javascript:31/shell:3
+  LANGS: javascript:50/shell:3
 
-HOTSPOTS[10]:
-  ★ GITHUB_REPO fan=26  // Orchestrates 26 calls
-  ★ API_DEV_URL fan=26  // Orchestrates 26 calls
-  ★ IDE_DEV_URL fan=26  // Orchestrates 26 calls
-  ★ TRAEFIK_DEV_URL fan=26  // Orchestrates 26 calls
-  ★ DOCKER_IMAGE fan=26  // Orchestrates 26 calls
+HOTSPOTS[7]:
+  ★ BACKEND_URL fan=15  // Orchestrates 15 calls
+  ★ handleExportData fan=14  // Export with 14 outputs
+  ★ handleSubmit fan=11  // Orchestrates 11 calls
+  ★ token fan=10  // Orchestrates 10 calls
+  ★ plan fan=10  // Orchestrates 10 calls
 
-REFACTOR[15]:
-  [1] M/L Split mockFetch (CC=20 → target CC<10)
-  [2] M/L Split GITHUB_REPO (CC=20 → target CC<10)
-  [3] M/L Split API_DEV_URL (CC=20 → target CC<10)
-  [4] M/L Split IDE_DEV_URL (CC=20 → target CC<10)
-  [5] M/L Split TRAEFIK_DEV_URL (CC=20 → target CC<10)
+REFACTOR[2]:
+  [1] M/L Split BACKEND_URL (CC=18 → target CC<10)
+  [2] M/M Reduce BACKEND_URL fan-out (currently 15)
 
 EVOLUTION:
-  2026-04-15 CC̄=4.9 crit=13 2973L // Automated analysis
+  2026-04-16 CC̄=2.8 crit=5 4655L // Automated analysis

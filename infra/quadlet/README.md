@@ -26,7 +26,7 @@ systemctl start oqlos-portal     # starts portal + api (via dependencies)
 
 | Unit | Image | Port |
 |---|---|---|
-| `oqlos-traefik` | `traefik:v3.2` | 80, 443, 8080 |
+| `oqlos-traefik` | `traefik:v3.6.2` | 80, 443, 8080 |
 | `oqlos-api` | `ghcr.io/softreck/oqlapi:latest` | 8101 (internal) |
 | `oqlos-portal` | `ghcr.io/softreck/oqlos-portal:latest` | 80 (internal) |
 

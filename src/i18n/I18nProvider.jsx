@@ -1,8 +1,9 @@
 import { createContext, useContext, useState, useCallback } from "react";
 import en from "./en.json";
 import pl from "./pl.json";
+import de from "./de.json";
 
-const dictionaries = { en, pl };
+const dictionaries = { en, pl, de };
 const SUPPORTED_LANGS = Object.keys(dictionaries);
 
 const I18nContext = createContext();

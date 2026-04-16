@@ -4,14 +4,7 @@ import SharedNav from "../components/SharedNav";
 import { useI18n } from "../i18n/I18nProvider";
 import { mockFetch } from "../mocks/api";
 
-const MOCK_OQL = `SCENARIO: "NLP Generated Test"
-DEVICE_TYPE: "BA"
-
-GOAL: Auto-generated from NLP
-  SET 'pompa 1' '2 l/min'
-  WAIT 2000ms
-  SET 'pompa 1' '0'
-  SAVE 'AI01'`;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL;
 
 export default function NlpConsole() {
   const { user, jwt, logout } = useAuth();
@@ -29,7 +22,8 @@ export default function NlpConsole() {
 
     try {
       const endpoint = targetLang === "oql" ? "/nlp/to-oql" : targetLang === "iql" ? "/nlp/to-iql" : "/nlp/devops";
-      const res = await mockFetch(endpoint, {
+      const url = BACKEND_URL ? `${BACKEND_URL}${endpoint}` : endpoint;
+      const res = await mockFetch(url, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -44,7 +38,7 @@ export default function NlpConsole() {
         setOutput(`Error: ${data.detail || "NLP service unavailable"}`);
       }
     } catch {
-      setOutput(MOCK_OQL + "\n\n# ⚠ NLP service not connected — showing mock output");
+      setOutput(`Error: NLP service not connected. Backend URL: ${BACKEND_URL || "not configured"}`);
     } finally {
       setLoading(false);
     }

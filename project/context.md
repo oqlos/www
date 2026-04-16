@@ -4,18 +4,14 @@
 
 - **Project**: /home/tom/github/oqlos/www
 - **Primary Language**: javascript
-- **Languages**: javascript: 31, shell: 3
+- **Languages**: javascript: 50, shell: 3
 - **Analysis Mode**: static
-- **Total Functions**: 93
+- **Total Functions**: 152
 - **Total Classes**: 1
-- **Modules**: 34
-- **Entry Points**: 87
+- **Modules**: 53
+- **Entry Points**: 145
 
 ## Architecture by Module
-
-### src.pages.Landing
-- **Functions**: 15
-- **File**: `Landing.jsx`
 
 ### src.i18n.I18nProvider
 - **Functions**: 13
@@ -25,25 +21,61 @@
 - **Functions**: 11
 - **File**: `Login.jsx`
 
+### src.pages.Account
+- **Functions**: 10
+- **File**: `Account.jsx`
+
+### src.mocks.api
+- **Functions**: 10
+- **File**: `api.js`
+
+### e2e.buttons.nlp-buttons.spec
+- **Functions**: 10
+- **File**: `nlp-buttons.spec.js`
+
+### e2e.buttons.landing-buttons.spec
+- **Functions**: 9
+- **File**: `landing-buttons.spec.js`
+
 ### src.components.CodeEditor
 - **Functions**: 8
 - **File**: `CodeEditor.jsx`
+
+### src.pages.RoiCalculator
+- **Functions**: 7
+- **File**: `RoiCalculator.jsx`
 
 ### src.hooks.useAuth
 - **Functions**: 6
 - **File**: `useAuth.js`
 
-### src.mocks.api
+### src.pages.NlpConsole
 - **Functions**: 6
-- **File**: `api.js`
+- **File**: `NlpConsole.jsx`
+
+### e2e.billing-payment.spec
+- **Functions**: 6
+- **File**: `billing-payment.spec.js`
 
 ### e2e.demo-user.spec
 - **Functions**: 6
 - **File**: `demo-user.spec.js`
 
+### e2e.buttons.scenarios-buttons.spec
+- **Functions**: 6
+- **File**: `scenarios-buttons.spec.js`
+
+### src.pages.Status
+- **Functions**: 5
+- **File**: `Status.jsx`
+
 ### e2e.landing.spec
 - **Functions**: 5
 - **File**: `landing.spec.js`
+
+### e2e.buttons.billing-buttons.spec
+- **Functions**: 5
+- **File**: `billing-buttons.spec.js`
 
 ### src.components.TerminalSim
 - **Functions**: 4
@@ -54,77 +86,26 @@
 - **Classes**: 1
 - **File**: `ErrorBoundary.jsx`
 
-### src.pages.NlpConsole
+### src.pages.Landing
 - **Functions**: 4
-- **File**: `NlpConsole.jsx`
-
-### src.utils.logger.spec
-- **Functions**: 4
-- **File**: `logger.spec.js`
+- **File**: `Landing.jsx`
 
 ### src.utils.logger
 - **Functions**: 4
 - **File**: `logger.js`
 
-### src.pages.Billing
-- **Functions**: 3
-- **File**: `Billing.jsx`
-
-### e2e.smoke.spec
-- **Functions**: 3
-- **File**: `smoke.spec.js`
-
-### src.data.install-commands
-- **Functions**: 2
-- **File**: `install-commands.js`
-
-### src.components.ProtectedRoute
-- **Functions**: 1
-- **File**: `ProtectedRoute.jsx`
-
-### src.pages.Scenarios
-- **Functions**: 1
-- **File**: `Scenarios.jsx`
-
 ## Key Entry Points
 
 Main execution flows into the system:
 
-### src.pages.Landing.GITHUB_REPO
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+### src.pages.NlpConsole.BACKEND_URL
+- **Calls**: src.pages.NlpConsole.useAuth, src.pages.NlpConsole.useI18n, src.pages.NlpConsole.useState, src.pages.NlpConsole.preventDefault, src.pages.NlpConsole.trim, src.pages.NlpConsole.setLoading, src.pages.NlpConsole.setOutput, src.pages.NlpConsole.mockFetch
 
-### src.pages.Landing.API_DEV_URL
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.IDE_DEV_URL
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.TRAEFIK_DEV_URL
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.DOCKER_IMAGE
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.API_WS_URL
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.HARDWARE_MODE
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.MODBUS_SERIAL_PORT
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.I2C_BUS
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.USB_DEVICE
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
-
-### src.pages.Landing.OQLAGENT_PORT
-- **Calls**: src.pages.Landing.useState, src.pages.Landing.keys, src.pages.Landing.useEffect, src.pages.Landing.info, src.pages.Landing.setActiveExample, src.pages.Landing.debug, src.pages.Landing.setActiveTab, src.pages.Landing.writeText
+### src.pages.Account.handleExportData
+- **Calls**: src.pages.Account.Date, src.pages.Account.toISOString, src.pages.Account.Blob, src.pages.Account.stringify, src.pages.Account.createObjectURL, src.pages.Account.createElement, src.pages.Account.split, src.pages.Account.appendChild
 
 ### src.pages.Login.handleSubmit
-- **Calls**: src.pages.Login.preventDefault, src.pages.Login.setLoading, src.pages.Login.setMsg, src.pages.Login.log, src.pages.Login.mockFetch, src.pages.Login.stringify, src.pages.Login.json, src.pages.Login.setItem
+- **Calls**: src.pages.Login.preventDefault, src.pages.Login.setLoading, src.pages.Login.setMsg, src.pages.Login.mockFetch, src.pages.Login.stringify, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.t
 
 ### src.pages.Login.token
 - **Calls**: src.pages.Login.useEffect, src.pages.Login.setLoading, src.pages.Login.mockFetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t
@@ -147,6 +128,24 @@ Main execution flows into the system:
 ### src.pages.Login.data
 - **Calls**: src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t, src.pages.Login.setTimeout, src.pages.Login.navigate, src.pages.Login.setEmail
 
+### src.pages.Status.status
+- **Calls**: src.pages.Status.Date, src.pages.Status.toISOString, src.pages.Status.entries, src.pages.Status.forEach, src.pages.Status.writeText, src.pages.Status.setCopied, src.pages.Status.setTimeout
+
+### src.pages.Status.getStatusColor
+- **Calls**: src.pages.Status.Date, src.pages.Status.toISOString, src.pages.Status.entries, src.pages.Status.forEach, src.pages.Status.writeText, src.pages.Status.setCopied, src.pages.Status.setTimeout
+
+### src.pages.Status.getStatusBg
+- **Calls**: src.pages.Status.Date, src.pages.Status.toISOString, src.pages.Status.entries, src.pages.Status.forEach, src.pages.Status.writeText, src.pages.Status.setCopied, src.pages.Status.setTimeout
+
+### src.pages.Status.getStatusBorder
+- **Calls**: src.pages.Status.Date, src.pages.Status.toISOString, src.pages.Status.entries, src.pages.Status.forEach, src.pages.Status.writeText, src.pages.Status.setCopied, src.pages.Status.setTimeout
+
+### src.pages.Status.copyAsYaml
+- **Calls**: src.pages.Status.Date, src.pages.Status.toISOString, src.pages.Status.entries, src.pages.Status.forEach, src.pages.Status.writeText, src.pages.Status.setCopied, src.pages.Status.setTimeout
+
+### src.mocks.api.mockFetch
+- **Calls**: src.mocks.api.fetch, src.mocks.api.entries, src.mocks.api.find, src.mocks.api.includes, src.mocks.api.handler, src.mocks.api.log, src.mocks.api.fakeResponse
+
 ### src.hooks.useAuth.useAuth
 - **Calls**: src.hooks.useAuth.useNavigate, src.hooks.useAuth.getItem, src.hooks.useAuth.parse, src.hooks.useAuth.Boolean, src.hooks.useAuth.removeItem, src.hooks.useAuth.navigate
 
@@ -156,11 +155,32 @@ Main execution flows into the system:
 ### src.components.CodeEditor.highlightIQL
 - **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.b, src.components.CodeEditor.String, src.components.CodeEditor.padStart
 
+### src.pages.Account.handleCancelSubscription
+- **Calls**: src.pages.Account.confirm, src.pages.Account.t, src.pages.Account.setLoading, src.pages.Account.mockFetch, src.pages.Account.setSubscription, src.pages.Account.setMessage
+
 ### src.i18n.I18nProvider.I18nProvider
 - **Calls**: src.i18n.I18nProvider.useState, src.i18n.I18nProvider.useCallback, src.i18n.I18nProvider.setLangState, src.i18n.I18nProvider.setItem, src.i18n.I18nProvider.split, src.i18n.I18nProvider.replace
 
-### src.mocks.api.mockFetch
-- **Calls**: src.mocks.api.fetch, src.mocks.api.includes, src.mocks.api.parse, src.mocks.api.log, src.mocks.api.fakeResponse
+### e2e.buttons.navigation-buttons.spec.scenariosLink
+- **Calls**: e2e.buttons.navigation-buttons.spec.count, e2e.buttons.navigation-buttons.spec.click, e2e.buttons.navigation-buttons.spec.waitForURL, e2e.buttons.navigation-buttons.spec.expect, e2e.buttons.navigation-buttons.spec.locator, e2e.buttons.navigation-buttons.spec.toBeVisible
+
+### src.pages.Account.handleProfileUpdate
+- **Calls**: src.pages.Account.setLoading, src.pages.Account.setMessage, src.pages.Account.mockFetch, src.pages.Account.stringify, src.pages.Account.t
+
+### src.pages.Account.handleReactivateSubscription
+- **Calls**: src.pages.Account.setLoading, src.pages.Account.mockFetch, src.pages.Account.setSubscription, src.pages.Account.setMessage, src.pages.Account.t
+
+### e2e.buttons.landing-buttons.spec.count
+- **Calls**: e2e.buttons.landing-buttons.spec.nth, e2e.buttons.landing-buttons.spec.click, e2e.buttons.landing-buttons.spec.waitForTimeout, e2e.buttons.landing-buttons.spec.expect, e2e.buttons.landing-buttons.spec.toHaveClass
+
+### e2e.buttons.landing-buttons.spec.copyBtns
+- **Calls**: e2e.buttons.landing-buttons.spec.nth, e2e.buttons.landing-buttons.spec.click, e2e.buttons.landing-buttons.spec.waitForTimeout, e2e.buttons.landing-buttons.spec.expect, e2e.buttons.landing-buttons.spec.toBeVisible
+
+### e2e.buttons.landing-buttons.spec.useCasesTabs
+- **Calls**: e2e.buttons.landing-buttons.spec.nth, e2e.buttons.landing-buttons.spec.click, e2e.buttons.landing-buttons.spec.waitForTimeout, e2e.buttons.landing-buttons.spec.expect, e2e.buttons.landing-buttons.spec.toHaveClass
+
+### e2e.buttons.scenarios-buttons.spec.tabs
+- **Calls**: e2e.buttons.scenarios-buttons.spec.nth, e2e.buttons.scenarios-buttons.spec.click, e2e.buttons.scenarios-buttons.spec.expect, e2e.buttons.scenarios-buttons.spec.toHaveClass, e2e.buttons.scenarios-buttons.spec.waitForTimeout
 
 ### src.components.TerminalSim.runSim
 - **Calls**: src.components.TerminalSim.setRunning, src.components.TerminalSim.setLines, src.components.TerminalSim.setInterval, src.components.TerminalSim.clearInterval
@@ -168,70 +188,59 @@ Main execution flows into the system:
 ### src.components.TerminalSim.idx
 - **Calls**: src.components.TerminalSim.setInterval, src.components.TerminalSim.setLines, src.components.TerminalSim.clearInterval, src.components.TerminalSim.setRunning
 
-### src.components.TerminalSim.iv
-- **Calls**: src.components.TerminalSim.setInterval, src.components.TerminalSim.setLines, src.components.TerminalSim.clearInterval, src.components.TerminalSim.setRunning
-
-### src.pages.Billing.handleSubscribe
-- **Calls**: src.pages.Billing.navigate, src.pages.Billing.mockFetch, src.pages.Billing.json, src.pages.Billing.alert
-
-### src.utils.logger.LOG_LEVEL
-- **Calls**: src.utils.logger.push, src.utils.logger.Date, src.utils.logger.toISOString, src.utils.logger.shift
-
-### src.utils.logger.MAX_BUFFER
-- **Calls**: src.utils.logger.push, src.utils.logger.Date, src.utils.logger.toISOString, src.utils.logger.shift
-
 ## Process Flows
 
 Key execution flows identified:
 
-### Flow 1: GITHUB_REPO
+### Flow 1: BACKEND_URL
 ```
-GITHUB_REPO [src.pages.Landing]
-```
-
-### Flow 2: API_DEV_URL
-```
-API_DEV_URL [src.pages.Landing]
+BACKEND_URL [src.pages.NlpConsole]
 ```
 
-### Flow 3: IDE_DEV_URL
+### Flow 2: handleExportData
 ```
-IDE_DEV_URL [src.pages.Landing]
-```
-
-### Flow 4: TRAEFIK_DEV_URL
-```
-TRAEFIK_DEV_URL [src.pages.Landing]
+handleExportData [src.pages.Account]
 ```
 
-### Flow 5: DOCKER_IMAGE
+### Flow 3: handleSubmit
 ```
-DOCKER_IMAGE [src.pages.Landing]
-```
-
-### Flow 6: API_WS_URL
-```
-API_WS_URL [src.pages.Landing]
+handleSubmit [src.pages.Login]
 ```
 
-### Flow 7: HARDWARE_MODE
+### Flow 4: token
 ```
-HARDWARE_MODE [src.pages.Landing]
-```
-
-### Flow 8: MODBUS_SERIAL_PORT
-```
-MODBUS_SERIAL_PORT [src.pages.Landing]
+token [src.pages.Login]
 ```
 
-### Flow 9: I2C_BUS
+### Flow 5: plan
 ```
-I2C_BUS [src.pages.Landing]
+plan [src.pages.Login]
 ```
 
-### Flow 10: USB_DEVICE
+### Flow 6: verifyTokenRef
 ```
-USB_DEVICE [src.pages.Landing]
+verifyTokenRef [src.pages.Login]
+```
+
+### Flow 7: autoSubmitRef
+```
+autoSubmitRef [src.pages.Login]
+```
+
+### Flow 8: mockBackendRoutes
+```
+mockBackendRoutes [e2e.demo-user.spec]
+  └─> request
+```
+
+### Flow 9: data
+```
+data [src.pages.Login]
+```
+
+### Flow 10: status
+```
+status [src.pages.Status]
 ```
 
 ## Key Classes
@@ -244,22 +253,16 @@ USB_DEVICE [src.pages.Landing]
 
 Key functions that process and transform data:
 
+### src.mocks.api.parseMockRequestBody
+- **Output to**: src.mocks.api.parse
+
 ## Public API Surface
 
 Functions exposed as public API (no underscore prefix):
 
-- `src.pages.Landing.GITHUB_REPO` - 26 calls
-- `src.pages.Landing.API_DEV_URL` - 26 calls
-- `src.pages.Landing.IDE_DEV_URL` - 26 calls
-- `src.pages.Landing.TRAEFIK_DEV_URL` - 26 calls
-- `src.pages.Landing.DOCKER_IMAGE` - 26 calls
-- `src.pages.Landing.API_WS_URL` - 26 calls
-- `src.pages.Landing.HARDWARE_MODE` - 26 calls
-- `src.pages.Landing.MODBUS_SERIAL_PORT` - 26 calls
-- `src.pages.Landing.I2C_BUS` - 26 calls
-- `src.pages.Landing.USB_DEVICE` - 26 calls
-- `src.pages.Landing.OQLAGENT_PORT` - 26 calls
-- `src.pages.Login.handleSubmit` - 12 calls
+- `src.pages.NlpConsole.BACKEND_URL` - 15 calls
+- `src.pages.Account.handleExportData` - 14 calls
+- `src.pages.Login.handleSubmit` - 11 calls
 - `src.pages.Login.token` - 10 calls
 - `src.pages.Login.plan` - 10 calls
 - `src.pages.Login.verifyTokenRef` - 10 calls
@@ -268,26 +271,35 @@ Functions exposed as public API (no underscore prefix):
 - `src.pages.NlpConsole.handleSubmit` - 8 calls
 - `e2e.demo-user.spec.mockBackendRoutes` - 8 calls
 - `src.pages.Login.data` - 7 calls
+- `src.pages.Status.status` - 7 calls
+- `src.pages.Status.getStatusColor` - 7 calls
+- `src.pages.Status.getStatusBg` - 7 calls
+- `src.pages.Status.getStatusBorder` - 7 calls
+- `src.pages.Status.copyAsYaml` - 7 calls
+- `src.mocks.api.mockFetch` - 7 calls
 - `src.hooks.useAuth.useAuth` - 6 calls
 - `src.components.CodeEditor.highlightOQL` - 6 calls
 - `src.components.CodeEditor.highlightIQL` - 6 calls
+- `src.pages.Account.handleCancelSubscription` - 6 calls
 - `src.i18n.I18nProvider.I18nProvider` - 6 calls
-- `src.mocks.api.mockFetch` - 5 calls
+- `e2e.buttons.navigation-buttons.spec.scenariosLink` - 6 calls
+- `src.pages.Account.handleProfileUpdate` - 5 calls
+- `src.pages.Account.handleReactivateSubscription` - 5 calls
+- `e2e.buttons.landing-buttons.spec.count` - 5 calls
+- `e2e.buttons.landing-buttons.spec.copyBtns` - 5 calls
+- `e2e.buttons.landing-buttons.spec.useCasesTabs` - 5 calls
+- `e2e.buttons.scenarios-buttons.spec.tabs` - 5 calls
+- `e2e.buttons.scenarios-buttons.spec.count` - 5 calls
 - `src.components.TerminalSim.runSim` - 4 calls
 - `src.components.TerminalSim.idx` - 4 calls
 - `src.components.TerminalSim.iv` - 4 calls
+- `src.pages.Landing.handleCopy` - 4 calls
 - `src.pages.Billing.handleSubscribe` - 4 calls
 - `src.utils.logger.LOG_LEVEL` - 4 calls
 - `src.utils.logger.MAX_BUFFER` - 4 calls
-- `src.pages.Landing.handleCopy` - 4 calls
 - `src.pages.NlpConsole.data` - 3 calls
-- `src.i18n.I18nProvider.SUPPORTED_LANGS` - 3 calls
-- `src.i18n.I18nProvider.I18nContext` - 3 calls
-- `src.i18n.I18nProvider.getInitialLang` - 3 calls
-- `src.i18n.I18nProvider.setLang` - 3 calls
-- `src.i18n.I18nProvider.dict` - 3 calls
-- `src.i18n.I18nProvider.t` - 3 calls
-- `src.mocks.api.fakeResponse` - 3 calls
+- `src.pages.Account.url` - 3 calls
+- `src.pages.Account.link` - 3 calls
 
 ## System Interactions
 
@@ -295,36 +307,36 @@ How components interact:
 
 ```mermaid
 graph TD
-    GITHUB_REPO --> useState
-    GITHUB_REPO --> keys
-    GITHUB_REPO --> useEffect
-    GITHUB_REPO --> info
-    GITHUB_REPO --> setActiveExample
-    API_DEV_URL --> useState
-    API_DEV_URL --> keys
-    API_DEV_URL --> useEffect
-    API_DEV_URL --> info
-    API_DEV_URL --> setActiveExample
-    IDE_DEV_URL --> useState
-    IDE_DEV_URL --> keys
-    IDE_DEV_URL --> useEffect
-    IDE_DEV_URL --> info
-    IDE_DEV_URL --> setActiveExample
-    TRAEFIK_DEV_URL --> useState
-    TRAEFIK_DEV_URL --> keys
-    TRAEFIK_DEV_URL --> useEffect
-    TRAEFIK_DEV_URL --> info
-    TRAEFIK_DEV_URL --> setActiveExample
-    DOCKER_IMAGE --> useState
-    DOCKER_IMAGE --> keys
-    DOCKER_IMAGE --> useEffect
-    DOCKER_IMAGE --> info
-    DOCKER_IMAGE --> setActiveExample
-    API_WS_URL --> useState
-    API_WS_URL --> keys
-    API_WS_URL --> useEffect
-    API_WS_URL --> info
-    API_WS_URL --> setActiveExample
+    BACKEND_URL --> useAuth
+    BACKEND_URL --> useI18n
+    BACKEND_URL --> useState
+    BACKEND_URL --> preventDefault
+    BACKEND_URL --> trim
+    handleExportData --> Date
+    handleExportData --> toISOString
+    handleExportData --> Blob
+    handleExportData --> stringify
+    handleExportData --> createObjectURL
+    handleSubmit --> preventDefault
+    handleSubmit --> setLoading
+    handleSubmit --> setMsg
+    handleSubmit --> mockFetch
+    handleSubmit --> stringify
+    token --> useEffect
+    token --> setLoading
+    token --> mockFetch
+    token --> json
+    token --> setItem
+    plan --> useEffect
+    plan --> setLoading
+    plan --> mockFetch
+    plan --> json
+    plan --> setItem
+    verifyTokenRef --> useEffect
+    verifyTokenRef --> setLoading
+    verifyTokenRef --> mockFetch
+    verifyTokenRef --> json
+    verifyTokenRef --> setItem
 ```
 
 ## Reverse Engineering Guidelines

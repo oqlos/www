@@ -4,7 +4,7 @@ After=network-online.target
 Wants=network-online.target
 
 [Container]
-Image=docker.io/library/traefik:v3.2
+Image=docker.io/library/traefik:v3.6.2
 ContainerName=oqlos-traefik
 Network=oqlos.network
 PublishPort=80:80

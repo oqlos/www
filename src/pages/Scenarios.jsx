@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { OQL_EXAMPLES } from "../components/oql-examples";
 import CodeEditor from "../components/CodeEditor";
 import TerminalSim from "../components/TerminalSim";
@@ -10,7 +10,30 @@ export default function Scenarios() {
   const { user, logout } = useAuth();
   const { t } = useI18n();
   const [activeExample, setActiveExample] = useState("pump-test");
+  
+  // Store edited code for each scenario separately
+  const [scenarioCodes, setScenarioCodes] = useState(() => {
+    const initial = {};
+    Object.keys(OQL_EXAMPLES).forEach((key) => {
+      initial[key] = OQL_EXAMPLES[key].code;
+    });
+    return initial;
+  });
+  
   const exampleKeys = Object.keys(OQL_EXAMPLES);
+  const currentScenario = OQL_EXAMPLES[activeExample];
+  const currentCode = scenarioCodes[activeExample];
+
+  const handleCodeChange = useCallback((newCode) => {
+    setScenarioCodes((prev) => ({
+      ...prev,
+      [activeExample]: newCode,
+    }));
+  }, [activeExample]);
+
+  const handleTabChange = useCallback((key) => {
+    setActiveExample(key);
+  }, []);
 
   return (
     <div className="dashboard">
@@ -29,16 +52,23 @@ export default function Scenarios() {
               <button
                 key={k}
                 className={`example-tab ${activeExample === k ? "active" : ""}`}
-                onClick={() => setActiveExample(k)}
+                onClick={() => handleTabChange(k)}
               >
                 {OQL_EXAMPLES[k].title}
               </button>
             ))}
           </div>
-          <CodeEditor example={OQL_EXAMPLES[activeExample]} />
+          <CodeEditor 
+            example={currentScenario} 
+            value={currentCode}
+            onChange={handleCodeChange}
+          />
         </div>
 
-        <TerminalSim />
+        <TerminalSim 
+          scenarioData={currentScenario}
+          code={currentCode}
+        />
       </div>
     </div>
   );

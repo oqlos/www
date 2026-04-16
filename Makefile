@@ -99,7 +99,7 @@ docker-run:
 dev-docker:
 	@echo "Restarting dev Docker stack..."
 	docker compose -f infra/docker/dev/docker-compose.dev.yml down
-	docker compose -f infra/docker/dev/docker-compose.dev.yml up -d
+	docker compose -f infra/docker/dev/docker-compose.dev.yml up -d --build
 	@echo "Dev Docker stack restarted"
 
 dev-docker-down:
@@ -111,17 +111,20 @@ dev-open:
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo ""
 	@echo "Starting Docker containers..."
-	@docker compose -f infra/docker/dev/docker-compose.dev.yml up -d
+	@docker compose -f infra/docker/dev/docker-compose.dev.yml up -d --build
+	@echo ""
+	@echo "Checking /etc/hosts..."
+	@grep -q "oqlos.localhost" /etc/hosts && echo "✓ Domains already configured" || echo "⚠ Run: echo '127.0.0.1 oqlos.localhost traefik.oqlos.localhost mail.oqlos.localhost' | sudo tee -a /etc/hosts"
 	@echo ""
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo "  Services available at:"
 	@echo "══════════════════════════════════════════════════════════════"
-	@echo "  🌐 Portal:        http://localhost:8090"
-	@echo "  📊 Traefik:       http://localhost:8080"
-	@echo "  📧 Mailpit:       http://localhost:8025 (via Traefik)"
+	@echo "  🌐 Portal:        http://oqlos.localhost"
+	@echo "  📊 Traefik:       http://traefik.oqlos.localhost"
+	@echo "  📧 Mailpit:       http://mail.oqlos.localhost"
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo ""
-	@echo "Open this URL in your browser: http://localhost:8090"
+	@echo "Open in browser: http://oqlos.localhost"
 	@echo ""
 	@echo "To stop containers, run: make dev-docker-down"
 	@echo "══════════════════════════════════════════════════════════════"

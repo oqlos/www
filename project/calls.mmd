@@ -1,4 +1,9 @@
 flowchart LR
+    subgraph e2e__buttons
+        e2e__buttons__scenarios_buttons__spec__count["count"]
+        e2e__buttons__scenarios_buttons__spec__stepBtn["stepBtn"]
+        e2e__buttons__scenarios_buttons__spec__runBtn["runBtn"]
+    end
     subgraph e2e__demo_user
         e2e__demo_user__spec__mockBackendRoutes["mockBackendRoutes"]
         e2e__demo_user__spec__request["request"]
@@ -8,37 +13,42 @@ flowchart LR
         e2e__smoke__spec__response["response"]
     end
     subgraph src__hooks
-        src__hooks__useAuth__isAuthenticated["isAuthenticated"]
-        src__hooks__useAuth__navigate["navigate"]
         src__hooks__useAuth__useAuth["useAuth"]
-        src__hooks__useAuth__requireAuth["requireAuth"]
+        src__hooks__useAuth__navigate["navigate"]
+        src__hooks__useAuth__isAuthenticated["isAuthenticated"]
         src__hooks__useAuth__logout["logout"]
+        src__hooks__useAuth__requireAuth["requireAuth"]
     end
     subgraph src__mocks
+        src__mocks__api__createMockLoginData["createMockLoginData"]
+        src__mocks__api__match["match"]
         src__mocks__api__mockFetch["mockFetch"]
         src__mocks__api__fakeResponse["fakeResponse"]
-        src__mocks__api__email["email"]
-        src__mocks__api__user["user"]
+        src__mocks__api__parseMockRequestBody["parseMockRequestBody"]
     end
     subgraph src__pages
-        src__pages__Login__token["token"]
-        src__pages__Login__navigate["navigate"]
         src__pages__Login__autoSubmitRef["autoSubmitRef"]
-        src__pages__Login__plan["plan"]
-        src__pages__Login__data["data"]
+        src__pages__Login__token["token"]
         src__pages__Login__verifyTokenRef["verifyTokenRef"]
+        src__pages__Login__navigate["navigate"]
+        src__pages__Login__plan["plan"]
+        src__pages__Login__handleSubmit["handleSubmit"]
+        src__pages__Login__data["data"]
     end
     src__hooks__useAuth__useAuth --> src__hooks__useAuth__navigate
     src__hooks__useAuth__isAuthenticated --> src__hooks__useAuth__navigate
     src__hooks__useAuth__logout --> src__hooks__useAuth__navigate
     src__hooks__useAuth__requireAuth --> src__hooks__useAuth__navigate
-    src__mocks__api__mockFetch --> src__mocks__api__fakeResponse
-    src__mocks__api__email --> src__mocks__api__fakeResponse
-    src__mocks__api__user --> src__mocks__api__fakeResponse
     src__pages__Login__token --> src__pages__Login__navigate
     src__pages__Login__plan --> src__pages__Login__navigate
     src__pages__Login__verifyTokenRef --> src__pages__Login__navigate
     src__pages__Login__autoSubmitRef --> src__pages__Login__navigate
     src__pages__Login__data --> src__pages__Login__navigate
-    e2e__demo_user__spec__mockBackendRoutes --> e2e__demo_user__spec__request
+    src__pages__Login__handleSubmit --> src__pages__Login__navigate
+    src__mocks__api__createMockLoginData --> src__mocks__api__parseMockRequestBody
+    src__mocks__api__mockFetch --> src__mocks__api__fakeResponse
+    src__mocks__api__match --> src__mocks__api__fakeResponse
     e2e__smoke__spec__response --> e2e__smoke__spec__status
+    e2e__demo_user__spec__mockBackendRoutes --> e2e__demo_user__spec__request
+    e2e__buttons__scenarios_buttons__spec__runBtn --> e2e__buttons__scenarios_buttons__spec__count
+    e2e__buttons__scenarios_buttons__spec__stepBtn --> e2e__buttons__scenarios_buttons__spec__count

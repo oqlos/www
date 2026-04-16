@@ -20,6 +20,80 @@ npm run preview
 
 ## Environment Variables
 
+See `.env.example` for all available environment variables with detailed documentation.
+
+### Configuration Levels
+
+The OqlOS Portal supports three configuration levels:
+
+#### Level 1: Frontend Configuration (.env)
+Controls React portal behavior, API endpoints, service URLs, hardware settings, and development options.
+
+**Key Variables:**
+- `VITE_API_DEV_URL` - Backend API URL (dev)
+- `VITE_API_WS_URL` - WebSocket URL for agent communication
+- `VITE_TRAEFIK_DEV_URL` - Traefik dashboard URL
+- `VITE_HARDWARE_MODE` - Hardware mode: `real`|`simulated`
+- `VITE_FORCE_MOCK_API` - Force mock API responses (dev only)
+- `VITE_LOG_LEVEL` - Log level: `trace`|`debug`|`info`|`warn`|`error`
+
+#### Level 2: SQLite Database (Development)
+File-based database for local development and testing. No external services required.
+
+**Setup:**
+- Leave `DATABASE_URL` unset or set to `sqlite:///path/to/db.sqlite`
+- Backend automatically creates SQLite database
+- Default path: `/var/lib/oqlos/oqlos.db` (backend default)
+- No PostgreSQL or Redis services needed
+
+**Use Case:**
+- Local development without backend services
+- Quick testing with mock API
+- Single-machine deployments
+
+#### Level 3: PostgreSQL Database (Production)
+Production-grade database with PostgreSQL and Redis for session management and caching.
+
+**Setup:**
+- Set `DATABASE_URL` to PostgreSQL connection string
+- Set `REDIS_URL` for Redis connection
+- Ensure PostgreSQL and Redis services are running
+- Configure in `docker-compose.prod.yml` or backend `.env`
+
+**Example:**
+```bash
+DATABASE_URL=postgresql://user:password@postgres:5432/oqlos
+REDIS_URL=redis://:password@redis:6379
+```
+
+**Use Case:**
+- Production deployments
+- Multi-user environments
+- High-availability setups
+- Used with Traefik + Let's Encrypt for HTTPS
+
+### Quick Setup
+
+```bash
+# Copy environment template
+cp .env.example .env
+
+# Development (Mock API - no backend needed)
+VITE_FORCE_MOCK_API=true
+npm install && npm run dev
+
+# Development (SQLite backend)
+# Leave DATABASE_URL empty for SQLite
+npm install && npm run dev
+
+# Production (PostgreSQL + Redis)
+DATABASE_URL=postgresql://user:pass@host:5432/oqlos
+REDIS_URL=redis://:pass@host:6379
+make prod
+```
+
+### Common Variables
+
 | Variable | Default | Description |
 |----------|---------|-------------|
 | `VITE_TEST_URL` | `http://localhost:3000` | Base URL for E2E tests |

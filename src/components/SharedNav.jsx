@@ -13,6 +13,8 @@ export default function SharedNav({ user, onLogout }) {
         <Link to="/scenarios">{t("nav.scenarios")}</Link>
         <Link to="/nlp">{t("nav.nlp")}</Link>
         <Link to="/billing">{t("nav.billing")}</Link>
+        <Link to="/account">{t("nav.account")}</Link>
+        <Link to="/status">{t("nav.status")}</Link>
         <span style={{ color: "var(--text-muted)", fontSize: 13 }}>{user?.email}</span>
         <LangSwitch />
         <ThemeToggle />
