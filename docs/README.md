@@ -1,7 +1,7 @@
 <!-- code2docs:start --># www
 
-![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-156-green)
-> **156** functions | **1** classes | **53** files | CC̄ = 2.8
+![version](https://img.shields.io/badge/version-0.1.0-blue) ![python](https://img.shields.io/badge/python-%3E%3D3.9-blue) ![coverage](https://img.shields.io/badge/coverage-unknown-lightgrey) ![functions](https://img.shields.io/badge/functions-199-green)
+> **199** functions | **1** classes | **58** files | CC̄ = 2.7
 
 > Auto-generated project documentation from source code analysis.
 
@@ -141,7 +141,7 @@ Content outside the markers is preserved when regenerating. Enable this with `sy
 
 ```
 www/
-├── docker-entrypoint├── tree├── project    ├── config    ├── config    ├── sw    ├── App    ├── main    ├── config        ├── LangSwitch        ├── ProtectedRoute        ├── useAuth        ├── LoadingSpinner        ├── ArchDiagram        ├── oql-examples        ├── SharedNav        ├── CodeEditor        ├── ThemeToggle        ├── TerminalSim        ├── ErrorBoundary        ├── PricingCards        ├── RoiCalculator        ├── NlpConsole        ├── Login        ├── Landing        ├── Scenarios        ├── Billing        ├── Account        ├── Dashboard        ├── Academy            ├── DangerZoneSection            ├── SubscriptionSection            ├── PaymentHistorySection            ├── ProfileSection        ├── Status        ├── logger        ├── I18nProvider        ├── install-commands            ├── spec        ├── spec        ├── spec        ├── api        ├── spec        ├── spec            ├── spec        ├── spec        ├── spec            ├── spec            ├── spec            ├── spec            ├── spec            ├── spec            ├── spec```
+├── docker-entrypoint├── project├── tree    ├── config    ├── sw    ├── main    ├── App    ├── config    ├── config        ├── useAuth        ├── ProtectedRoute        ├── LangSwitch        ├── oql-examples        ├── LoadingSpinner        ├── SharedNav        ├── CodeEditor        ├── ArchDiagram        ├── ErrorBoundary        ├── ThemeToggle        ├── PricingCards        ├── TerminalSim        ├── NlpConsole        ├── Login        ├── RoiCalculator        ├── CaseStudies        ├── Billing        ├── Landing        ├── Scenarios        ├── Account        ├── Dashboard            ├── SubscriptionSection            ├── DangerZoneSection        ├── Academy        ├── Status        ├── Demo            ├── PaymentHistorySection            ├── ProfileSection        ├── I18nProvider            ├── spec        ├── logger        ├── install-commands        ├── spec        ├── spec        ├── api        ├── spec        ├── spec        ├── spec        ├── spec        ├── spec        ├── spec        ├── spec            ├── spec            ├── spec            ├── spec            ├── spec            ├── spec            ├── spec            ├── spec```
 
 ## API Overview
 
@@ -152,32 +152,46 @@ www/
 ### Functions
 
 - `env()` — —
-- `jwt()` — —
 - `useAuth()` — —
 - `navigate()` — —
 - `jwt()` — —
 - `isAuthenticated()` — —
 - `logout()` — —
 - `requireAuth()` — —
+- `jwt()` — —
 - `highlightOQL()` — —
 - `html()` — —
 - `highlightIQL()` — —
 - `textareaRef()` — —
 - `preRef()` — —
+- `code()` — —
 - `fn()` — —
 - `handleScroll()` — —
+- `handleChange()` — —
+- `newCode()` — —
+- `parseScenarioCode()` — —
+- `lines()` — —
+- `scenarioName()` — —
+- `trimmed()` — —
+- `scenarioMatch()` — —
+- `deviceMatch()` — —
+- `generateTermLines()` — —
+- `fileName()` — —
+- `lang()` — —
+- `isLast()` — —
+- `prefix()` — —
+- `shortStep()` — —
+- `previewLines()` — —
+- `cleanLine()` — —
 - `termRef()` — —
 - `runSim()` — —
+- `effectiveCode()` — —
+- `termLines()` — —
 - `idx()` — —
 - `iv()` — —
-- `calculateROI()` — —
-- `currentMonthlyCost()` — —
-- `oqlMonthlyCost()` — —
-- `monthlySavings()` — —
-- `annualSavings()` — —
-- `roiPercentage()` — —
-- `roi()` — —
 - `BACKEND_URL()` — —
+- `getEndpoint()` — —
+- `getPlaceholder()` — —
 - `handleSubmit()` — —
 - `endpoint()` — —
 - `url()` — —
@@ -192,6 +206,20 @@ www/
 - `data()` — —
 - `form()` — —
 - `handleSubmit()` — —
+- `calculateROI()` — —
+- `currentMonthlyCost()` — —
+- `oqlMonthlyCost()` — —
+- `monthlySavings()` — —
+- `annualSavings()` — —
+- `roiPercentage()` — —
+- `roi()` — —
+- `IndustryBadge()` — —
+- `style()` — —
+- `title()` — —
+- `subtitle()` — —
+- `handleSubscribe()` — —
+- `res()` — —
+- `data()` — —
 - `exampleKeys()` — —
 - `getVariant()` — —
 - `params()` — —
@@ -201,9 +229,10 @@ www/
 - `handleTabChange()` — —
 - `handleCopy()` — —
 - `exampleKeys()` — —
-- `handleSubscribe()` — —
-- `res()` — —
-- `data()` — —
+- `currentScenario()` — —
+- `currentCode()` — —
+- `handleCodeChange()` — —
+- `handleTabChange()` — —
 - `handleProfileUpdate()` — —
 - `res()` — —
 - `handleCancelSubscription()` — —
@@ -216,15 +245,15 @@ www/
 - `BACKEND_URL()` — —
 - `MockStatus()` — —
 - `activeModuleData()` — —
-- `handleSubmit()` — —
 - `status()` — —
 - `getStatusColor()` — —
 - `getStatusBg()` — —
 - `getStatusBorder()` — —
 - `copyAsYaml()` — —
-- `LOG_LEVEL()` — —
-- `MAX_BUFFER()` — —
-- `filtered()` — —
+- `IS_MOCK()` — —
+- `MockCalendar()` — —
+- `handleBook()` — —
+- `handleSubmit()` — —
 - `SUPPORTED_LANGS()` — —
 - `I18nContext()` — —
 - `getInitialLang()` — —
@@ -238,12 +267,15 @@ www/
 - `val()` — —
 - `useI18n()` — —
 - `ctx()` — —
-- `INSTALL_DOCKER()` — —
-- `INSTALL_RPI()` — —
 - `exported()` — —
 - `logs()` — —
 - `last()` — —
 - `warns()` — —
+- `LOG_LEVEL()` — —
+- `MAX_BUFFER()` — —
+- `filtered()` — —
+- `INSTALL_DOCKER()` — —
+- `INSTALL_RPI()` — —
 - `downloadPromise()` — —
 - `download()` — —
 - `fileContent()` — —
@@ -262,36 +294,47 @@ www/
 - `mockFetch()` — —
 - `match()` — —
 - `fakeResponse()` — —
-- `response()` — —
-- `status()` — —
-- `buttons()` — —
-- `freeCardBtn()` — —
-- `proCardBtn()` — —
-- `enterpriseCardBtn()` — —
-- `subscribeButton()` — —
-- `url()` — —
-- `contactButton()` — —
-- `downloadButton()` — —
+- `titleBeforeRun()` — —
+- `badgeBeforeRun()` — —
+- `terminalText()` — —
+- `textarea()` — —
+- `editedValue()` — —
+- `afterSwitchBack()` — —
+- `content()` — —
 - `mockBackendRoutes()` — —
 - `request()` — —
 - `emailInput()` — —
 - `jwt()` — —
 - `user()` — —
+- `response()` — —
+- `subscribeButton()` — —
+- `url()` — —
+- `contactButton()` — —
+- `downloadButton()` — —
+- `hasMockCalendar()` — —
+- `hasIframe()` — —
+- `emailLink()` — —
+- `href()` — —
+- `demoLink()` — —
+- `roiLink()` — —
 - `featureCards()` — —
 - `runBtn()` — —
 - `nlpBtn()` — —
-- `submitBtn()` — —
-- `emailInput()` — —
-- `backBtn()` — —
+- `buttons()` — —
+- `freeCardBtn()` — —
+- `proCardBtn()` — —
+- `enterpriseCardBtn()` — —
 - `tabs()` — —
 - `input()` — —
 - `submitBtn()` — —
 - `output()` — —
+- `submitBtn()` — —
+- `emailInput()` — —
+- `backBtn()` — —
 - `getStartedBtn()` — —
 - `useCasesSection()` — —
 - `outlineBtns()` — —
 - `count()` — —
-- `editorSection()` — —
 - `copyBtns()` — —
 - `useCasesTabs()` — —
 - `logoutBtn()` — —
@@ -312,27 +355,30 @@ www/
 📄 `e2e.billing-payment.spec` (6 functions)
 📄 `e2e.buttons.billing-buttons.spec` (5 functions)
 📄 `e2e.buttons.dashboard-buttons.spec` (3 functions)
-📄 `e2e.buttons.landing-buttons.spec` (9 functions)
+📄 `e2e.buttons.landing-buttons.spec` (8 functions)
 📄 `e2e.buttons.login-buttons.spec` (3 functions)
 📄 `e2e.buttons.navigation-buttons.spec` (4 functions)
 📄 `e2e.buttons.nlp-buttons.spec` (10 functions)
 📄 `e2e.buttons.scenarios-buttons.spec` (6 functions)
+📄 `e2e.case-studies.spec` (2 functions)
+📄 `e2e.demo-page.spec` (4 functions)
 📄 `e2e.demo-user.spec` (6 functions)
 📄 `e2e.landing.spec` (5 functions)
-📄 `e2e.smoke.spec` (3 functions)
+📄 `e2e.scenarios-editor.spec` (10 functions)
+📄 `e2e.smoke.spec` (1 functions)
 📄 `playwright.config`
 📄 `project`
 📄 `public.sw`
 📄 `src.App`
 📄 `src.components.ArchDiagram`
-📄 `src.components.CodeEditor` (8 functions)
+📄 `src.components.CodeEditor` (11 functions)
 📄 `src.components.ErrorBoundary` (4 functions, 1 classes)
 📄 `src.components.LangSwitch`
 📄 `src.components.LoadingSpinner`
 📄 `src.components.PricingCards`
 📄 `src.components.ProtectedRoute` (1 functions)
 📄 `src.components.SharedNav`
-📄 `src.components.TerminalSim` (4 functions)
+📄 `src.components.TerminalSim` (22 functions)
 📄 `src.components.ThemeToggle`
 📄 `src.components.oql-examples`
 📄 `src.config` (1 functions)
@@ -344,12 +390,14 @@ www/
 📄 `src.pages.Academy` (1 functions)
 📄 `src.pages.Account` (10 functions)
 📄 `src.pages.Billing` (3 functions)
+📄 `src.pages.CaseStudies` (4 functions)
 📄 `src.pages.Dashboard` (3 functions)
+📄 `src.pages.Demo` (3 functions)
 📄 `src.pages.Landing` (8 functions)
 📄 `src.pages.Login` (11 functions)
-📄 `src.pages.NlpConsole` (6 functions)
+📄 `src.pages.NlpConsole` (8 functions)
 📄 `src.pages.RoiCalculator` (7 functions)
-📄 `src.pages.Scenarios` (1 functions)
+📄 `src.pages.Scenarios` (5 functions)
 📄 `src.pages.Status` (5 functions)
 📄 `src.pages.account.DangerZoneSection`
 📄 `src.pages.account.PaymentHistorySection`

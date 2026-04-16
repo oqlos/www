@@ -15,7 +15,7 @@ export default function Status() {
   const getStatusBorder = (enabled) => enabled ? "#fecaca" : "#bbf7d0";
 
   const copyAsYaml = () => {
-    const yaml = `# OqlOS Status
+    let yaml = `# OqlOS Status
 # Generated at: ${new Date().toISOString()}
 
 global:

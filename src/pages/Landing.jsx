@@ -75,9 +75,12 @@ export default function Landing() {
         <p className="hero-sub">
           {heroSubtitle}
         </p>
-        <div className="hero-actions">
+        <div className="hero-actions" style={{ display: "flex", gap: 12, flexWrap: "wrap", justifyContent: "center" }}>
           <button className="btn btn-primary" onClick={() => document.getElementById('use-cases')?.scrollIntoView({behavior:'smooth'})}>
             {t("landing.get_started")}
+          </button>
+          <button className="btn btn-outline" onClick={() => window.location.href = '/demo'}>
+            {t("landing.cta_manager_demo")}
           </button>
           <button className="btn btn-outline" onClick={() => window.location.href = '/roi'}>
             {t("landing.cta_manager_roi")}
@@ -104,7 +107,12 @@ export default function Landing() {
             <div style={{fontSize: 14, color: 'var(--text-muted)'}}>Response time</div>
           </div>
         </div>
-        <p style={{fontSize: 14, color: 'var(--text-muted)'}}>Trusted by industrial QA teams in Poland and Germany</p>
+        <p style={{fontSize: 14, color: 'var(--text-muted)'}}>
+          Trusted by industrial QA teams in Poland and Germany • 
+          <a href="/case-studies" style={{color: 'var(--accent-blue)', textDecoration: 'underline'}}>
+            {lang === 'pl' ? 'Zobacz case studies →' : lang === 'de' ? 'Fallstudien ansehen →' : 'See case studies →'}
+          </a>
+        </p>
       </section>
 
       {/* ═══ USE CASE CAROUSEL ═══ */}

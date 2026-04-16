@@ -82,7 +82,7 @@
     "rest_api_feature_title": "REST API — Full Control",
     "rest_api_feature_desc": "Stream results live to your applications. Control everything via HTTP: scenarios, execution, hardware identification. Server-Sent Events included.",
     "reports_feature_title": "Reports — Audit-Ready Exports",
-    "rports_feature_desc": "Generate certification protocols (EN 137, GxP), PDF reports, CSV exports. Full audit trail stored. Integrates with ERP/LIMS systems.",
+    "reports_feature_desc": "Generate certification protocols (EN 137, GxP), PDF reports, CSV exports. Full audit trail stored. Integrates with ERP/LIMS systems.",
     "footer_text": "OqlOS © {year} · GitHub · Apache 2.0 · Python 3.10+ · FastAPI · React · Docker",
     "footer_stats": "{tests} tests passing · {scenarios} scenarios ({goals}/{total} goals) · CC̄≤{cc} · {violations} violations",
     "nav_editor": "Editor",
@@ -194,6 +194,22 @@
   "academy": {
     "title": "OqlOS Academy",
     "subtitle": "Learn OqlOS step by step with interactive tutorials and documentation."
+  },
+  "demo": {
+    "label": "Demo",
+    "title": "Book an OqlOS Demo",
+    "subtitle": "15-minute live demo. We'll show you how OqlOS automates hardware and API testing.",
+    "loading": "Loading calendar...",
+    "iframe_title": "Cal.com scheduling",
+    "what_to_expect": "What to expect?",
+    "expect_1": "Live demo for your use case",
+    "expect_2": "ROI calculation for your organization",
+    "expect_3": "Q&A with product engineer",
+    "contact_alt": "Need a different time?",
+    "contact_text": "Email us - we'll find a time that works.",
+    "self_serve": "Self-serve exploration",
+    "self_serve_text": "Prefer to test yourself? Check our self-hosted documentation.",
+    "docs_btn": "Documentation"
   },
   "roi": {
     "title": "ROI Calculator",

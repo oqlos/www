@@ -6,6 +6,26 @@ import { mockFetch } from "../mocks/api";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || import.meta.env.VITE_API_URL;
 
+const ENDPOINTS = {
+  oql: "/nlp/to-oql",
+  iql: "/nlp/to-iql",
+  devops: "/nlp/devops",
+};
+
+const PLACEHOLDERS = {
+  oql: "e.g. Test pump at 2 l/min for 2 seconds then reverse",
+  iql: "e.g. Test that GET /api/v1/hardware/health returns 200",
+  devops: "e.g. Restart the staging docker container",
+};
+
+function getEndpoint(targetLang) {
+  return ENDPOINTS[targetLang] || ENDPOINTS.oql;
+}
+
+function getPlaceholder(targetLang) {
+  return PLACEHOLDERS[targetLang] || PLACEHOLDERS.oql;
+}
+
 export default function NlpConsole() {
   const { user, jwt, logout } = useAuth();
   const { t } = useI18n();
@@ -21,7 +41,7 @@ export default function NlpConsole() {
     setOutput("");
 
     try {
-      const endpoint = targetLang === "oql" ? "/nlp/to-oql" : targetLang === "iql" ? "/nlp/to-iql" : "/nlp/devops";
+      const endpoint = getEndpoint(targetLang);
       const url = BACKEND_URL ? `${BACKEND_URL}${endpoint}` : endpoint;
       const res = await mockFetch(url, {
         method: "POST",
@@ -75,13 +95,7 @@ export default function NlpConsole() {
           <form onSubmit={handleSubmit} className="nlp-input-row">
             <input
               type="text"
-              placeholder={
-                targetLang === "oql"
-                  ? "e.g. Test pump at 2 l/min for 2 seconds then reverse"
-                  : targetLang === "iql"
-                  ? "e.g. Test that GET /api/v1/hardware/health returns 200"
-                  : "e.g. Restart the staging docker container"
-              }
+              placeholder={getPlaceholder(targetLang)}
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
             />

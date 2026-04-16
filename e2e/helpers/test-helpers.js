@@ -115,7 +115,7 @@ async function setupAuth(page, user = TEST_USER) {
   }, user);
 }
 
-module.exports = {
+export {
   TEST_EMAIL,
   TEST_USER,
   mockBackendRoutes,

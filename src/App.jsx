@@ -9,6 +9,8 @@ import Account from "./pages/Account";
 import Status from "./pages/Status";
 import Academy from "./pages/Academy";
 import RoiCalculator from "./pages/RoiCalculator";
+import Demo from "./pages/Demo";
+import CaseStudies from "./pages/CaseStudies";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
@@ -26,6 +28,8 @@ export default function App() {
       <Route path="/status" element={<ProtectedRoute><Status /></ProtectedRoute>} />
       <Route path="/academy" element={<ProtectedRoute><Academy /></ProtectedRoute>} />
       <Route path="/roi" element={<RoiCalculator />} />
+      <Route path="/demo" element={<Demo />} />
+      <Route path="/case-studies" element={<CaseStudies />} />
     </Routes>
   );
 }

@@ -1,6 +1,6 @@
 import { useI18n } from "../i18n/I18nProvider";
 
-const FLAGS = { en: "🇬🇧", pl: "🇵🇱" };
+const FLAGS = { en: "🇬🇧", pl: "🇵🇱", de: "🇩🇪" };
 
 export default function LangSwitch() {
   const { lang, setLang, SUPPORTED_LANGS } = useI18n();

@@ -64,6 +64,9 @@ export default function CodeEditor({ example, value, onChange }) {
   const textareaRef = useRef(null);
   const preRef = useRef(null);
 
+  // Derive current code from props or state
+  const code = value !== undefined ? value : localCode;
+
   // Sync with external value when example changes and no external value provided
   useEffect(() => {
     if (value === undefined) {
@@ -71,6 +74,7 @@ export default function CodeEditor({ example, value, onChange }) {
     }
   }, [example, value]);
 
+  // Update highlighting when code or language changes
   useEffect(() => {
     const fn = example.lang === "oql" ? highlightOQL : highlightIQL;
     setHighlighted(fn(code));
@@ -88,9 +92,6 @@ export default function CodeEditor({ example, value, onChange }) {
     setLocalCode(newCode);
     onChange?.(newCode);
   };
-
-  // Use external value if provided, otherwise local state
-  const code = value !== undefined ? value : localCode;
 
   return (
     <div className="editor-wrapper">

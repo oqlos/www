@@ -195,6 +195,22 @@
     "title": "Akademia OqlOS",
     "subtitle": "Naucz się OqlOS krok po kroku z interaktywnymi samouczkami i dokumentacją."
   },
+  "demo": {
+    "label": "Demo",
+    "title": "Umów prezentację OqlOS",
+    "subtitle": "15-minutowe demo na żywo. Pokażemy jak OqlOS automatyzuje testy sprzętu i API.",
+    "loading": "Ładowanie kalendarza...",
+    "iframe_title": "Kalendarz spotkań Cal.com",
+    "what_to_expect": "Co na spotkaniu?",
+    "expect_1": "Live demo na Twoim przypadku użycia",
+    "expect_2": "Wycena ROI dla Twojej organizacji",
+    "expect_3": "Q&A z inżynierem produktu",
+    "contact_alt": "Inny termin?",
+    "contact_text": "Napisz do nas - znajdziemy dogodny czas.",
+    "self_serve": "Samodzielna eksploracja",
+    "self_serve_text": "Wolisz przetestować sam? Sprawdź naszą dokumentację self-hosted.",
+    "docs_btn": "Dokumentacja"
+  },
   "roi": {
     "title": "Kalkulator ROI",
     "subtitle": "Oblicz swoje potencjalne oszczędności z OqlOS",

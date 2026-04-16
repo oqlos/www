@@ -322,9 +322,10 @@ test.describe('Scenarios — OQL', () => {
     await runBtn.click();
 
     // Wait for the simulation to complete (lines appear one by one)
-    await expect(page.locator('.terminal-body div', { hasText: 'PASS' })).toBeVisible({ timeout: 10000 });
-    await expect(page.locator('.terminal-body div', { hasText: 'Steps: 5/5' })).toBeVisible({ timeout: 10000 });
-    await expect(page.locator('.terminal-body div', { hasText: '0 errors' })).toBeVisible({ timeout: 10000 });
+    const summary = page.locator('.terminal-body div').filter({ hasText: /Result:\s*PASS/ });
+    await expect(summary).toBeVisible({ timeout: 10000 });
+    await expect(summary).toContainText(/Steps:\s*5(?:\/5)?/);
+    await expect(summary).toContainText('0 errors');
   });
 });
 

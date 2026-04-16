@@ -15,6 +15,7 @@ export default function SharedNav({ user, onLogout }) {
         <Link to="/billing">{t("nav.billing")}</Link>
         <Link to="/account">{t("nav.account")}</Link>
         <Link to="/status">{t("nav.status")}</Link>
+        <Link to="/academy">{t("nav.academy")}</Link>
         <span style={{ color: "var(--text-muted)", fontSize: 13 }}>{user?.email}</span>
         <LangSwitch />
         <ThemeToggle />

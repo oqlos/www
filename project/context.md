@@ -4,18 +4,26 @@
 
 - **Project**: /home/tom/github/oqlos/www
 - **Primary Language**: javascript
-- **Languages**: javascript: 50, shell: 3
+- **Languages**: javascript: 55, shell: 3
 - **Analysis Mode**: static
-- **Total Functions**: 152
+- **Total Functions**: 199
 - **Total Classes**: 1
-- **Modules**: 53
-- **Entry Points**: 145
+- **Modules**: 58
+- **Entry Points**: 190
 
 ## Architecture by Module
+
+### src.components.TerminalSim
+- **Functions**: 22
+- **File**: `TerminalSim.jsx`
 
 ### src.i18n.I18nProvider
 - **Functions**: 13
 - **File**: `I18nProvider.jsx`
+
+### src.components.CodeEditor
+- **Functions**: 11
+- **File**: `CodeEditor.jsx`
 
 ### src.pages.Login
 - **Functions**: 11
@@ -29,17 +37,25 @@
 - **Functions**: 10
 - **File**: `api.js`
 
+### e2e.scenarios-editor.spec
+- **Functions**: 10
+- **File**: `scenarios-editor.spec.js`
+
 ### e2e.buttons.nlp-buttons.spec
 - **Functions**: 10
 - **File**: `nlp-buttons.spec.js`
 
-### e2e.buttons.landing-buttons.spec
-- **Functions**: 9
-- **File**: `landing-buttons.spec.js`
-
-### src.components.CodeEditor
+### src.pages.NlpConsole
 - **Functions**: 8
-- **File**: `CodeEditor.jsx`
+- **File**: `NlpConsole.jsx`
+
+### src.pages.Landing
+- **Functions**: 8
+- **File**: `Landing.jsx`
+
+### e2e.buttons.landing-buttons.spec
+- **Functions**: 8
+- **File**: `landing-buttons.spec.js`
 
 ### src.pages.RoiCalculator
 - **Functions**: 7
@@ -49,21 +65,21 @@
 - **Functions**: 6
 - **File**: `useAuth.js`
 
-### src.pages.NlpConsole
+### e2e.demo-user.spec
 - **Functions**: 6
-- **File**: `NlpConsole.jsx`
+- **File**: `demo-user.spec.js`
 
 ### e2e.billing-payment.spec
 - **Functions**: 6
 - **File**: `billing-payment.spec.js`
 
-### e2e.demo-user.spec
-- **Functions**: 6
-- **File**: `demo-user.spec.js`
-
 ### e2e.buttons.scenarios-buttons.spec
 - **Functions**: 6
 - **File**: `scenarios-buttons.spec.js`
+
+### src.pages.Scenarios
+- **Functions**: 5
+- **File**: `Scenarios.jsx`
 
 ### src.pages.Status
 - **Functions**: 5
@@ -77,29 +93,9 @@
 - **Functions**: 5
 - **File**: `billing-buttons.spec.js`
 
-### src.components.TerminalSim
-- **Functions**: 4
-- **File**: `TerminalSim.jsx`
-
-### src.components.ErrorBoundary
-- **Functions**: 4
-- **Classes**: 1
-- **File**: `ErrorBoundary.jsx`
-
-### src.pages.Landing
-- **Functions**: 4
-- **File**: `Landing.jsx`
-
-### src.utils.logger
-- **Functions**: 4
-- **File**: `logger.js`
-
 ## Key Entry Points
 
 Main execution flows into the system:
-
-### src.pages.NlpConsole.BACKEND_URL
-- **Calls**: src.pages.NlpConsole.useAuth, src.pages.NlpConsole.useI18n, src.pages.NlpConsole.useState, src.pages.NlpConsole.preventDefault, src.pages.NlpConsole.trim, src.pages.NlpConsole.setLoading, src.pages.NlpConsole.setOutput, src.pages.NlpConsole.mockFetch
 
 ### src.pages.Account.handleExportData
 - **Calls**: src.pages.Account.Date, src.pages.Account.toISOString, src.pages.Account.Blob, src.pages.Account.stringify, src.pages.Account.createObjectURL, src.pages.Account.createElement, src.pages.Account.split, src.pages.Account.appendChild
@@ -120,7 +116,13 @@ Main execution flows into the system:
 - **Calls**: src.pages.Login.useEffect, src.pages.Login.setLoading, src.pages.Login.mockFetch, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t
 
 ### src.pages.NlpConsole.handleSubmit
-- **Calls**: src.pages.NlpConsole.preventDefault, src.pages.NlpConsole.trim, src.pages.NlpConsole.setLoading, src.pages.NlpConsole.setOutput, src.pages.NlpConsole.mockFetch, src.pages.NlpConsole.stringify, src.pages.NlpConsole.json, src.pages.NlpConsole.join
+- **Calls**: src.pages.NlpConsole.preventDefault, src.pages.NlpConsole.trim, src.pages.NlpConsole.setLoading, src.pages.NlpConsole.setOutput, src.pages.NlpConsole.getEndpoint, src.pages.NlpConsole.mockFetch, src.pages.NlpConsole.stringify, src.pages.NlpConsole.json
+
+### src.pages.Demo.IS_MOCK
+- **Calls**: src.pages.Demo.useState, src.pages.Demo.setBooked, src.pages.Demo.setTimeout, src.pages.Demo.setSelectedDate, src.pages.Demo.setSelectedTime, src.pages.Demo.rgba, src.pages.Demo.var, src.pages.Demo.repeat
+
+### src.pages.Demo.MockCalendar
+- **Calls**: src.pages.Demo.useState, src.pages.Demo.setBooked, src.pages.Demo.setTimeout, src.pages.Demo.setSelectedDate, src.pages.Demo.setSelectedTime, src.pages.Demo.rgba, src.pages.Demo.var, src.pages.Demo.repeat
 
 ### e2e.demo-user.spec.mockBackendRoutes
 - **Calls**: e2e.demo-user.spec.route, e2e.demo-user.spec.request, e2e.demo-user.spec.parse, e2e.demo-user.spec.postData, e2e.demo-user.spec.fulfill, e2e.demo-user.spec.stringify, e2e.demo-user.spec.Date, e2e.demo-user.spec.toISOString
@@ -155,6 +157,12 @@ Main execution flows into the system:
 ### src.components.CodeEditor.highlightIQL
 - **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.b, src.components.CodeEditor.String, src.components.CodeEditor.padStart
 
+### src.components.TerminalSim.lines
+- **Calls**: src.components.TerminalSim.forEach, src.components.TerminalSim.trim, src.components.TerminalSim.startsWith, src.components.TerminalSim.match, src.components.TerminalSim.test, src.components.TerminalSim.push
+
+### src.components.TerminalSim.scenarioName
+- **Calls**: src.components.TerminalSim.forEach, src.components.TerminalSim.trim, src.components.TerminalSim.startsWith, src.components.TerminalSim.match, src.components.TerminalSim.test, src.components.TerminalSim.push
+
 ### src.pages.Account.handleCancelSubscription
 - **Calls**: src.pages.Account.confirm, src.pages.Account.t, src.pages.Account.setLoading, src.pages.Account.mockFetch, src.pages.Account.setSubscription, src.pages.Account.setMessage
 
@@ -164,83 +172,74 @@ Main execution flows into the system:
 ### e2e.buttons.navigation-buttons.spec.scenariosLink
 - **Calls**: e2e.buttons.navigation-buttons.spec.count, e2e.buttons.navigation-buttons.spec.click, e2e.buttons.navigation-buttons.spec.waitForURL, e2e.buttons.navigation-buttons.spec.expect, e2e.buttons.navigation-buttons.spec.locator, e2e.buttons.navigation-buttons.spec.toBeVisible
 
+### src.components.TerminalSim.termRef
+- **Calls**: src.components.TerminalSim.generateTermLines, src.components.TerminalSim.setRunning, src.components.TerminalSim.setLines, src.components.TerminalSim.setInterval, src.components.TerminalSim.clearInterval
+
+### src.components.TerminalSim.runSim
+- **Calls**: src.components.TerminalSim.generateTermLines, src.components.TerminalSim.setRunning, src.components.TerminalSim.setLines, src.components.TerminalSim.setInterval, src.components.TerminalSim.clearInterval
+
 ### src.pages.Account.handleProfileUpdate
 - **Calls**: src.pages.Account.setLoading, src.pages.Account.setMessage, src.pages.Account.mockFetch, src.pages.Account.stringify, src.pages.Account.t
 
 ### src.pages.Account.handleReactivateSubscription
 - **Calls**: src.pages.Account.setLoading, src.pages.Account.mockFetch, src.pages.Account.setSubscription, src.pages.Account.setMessage, src.pages.Account.t
 
-### e2e.buttons.landing-buttons.spec.count
-- **Calls**: e2e.buttons.landing-buttons.spec.nth, e2e.buttons.landing-buttons.spec.click, e2e.buttons.landing-buttons.spec.waitForTimeout, e2e.buttons.landing-buttons.spec.expect, e2e.buttons.landing-buttons.spec.toHaveClass
-
-### e2e.buttons.landing-buttons.spec.copyBtns
-- **Calls**: e2e.buttons.landing-buttons.spec.nth, e2e.buttons.landing-buttons.spec.click, e2e.buttons.landing-buttons.spec.waitForTimeout, e2e.buttons.landing-buttons.spec.expect, e2e.buttons.landing-buttons.spec.toBeVisible
-
-### e2e.buttons.landing-buttons.spec.useCasesTabs
-- **Calls**: e2e.buttons.landing-buttons.spec.nth, e2e.buttons.landing-buttons.spec.click, e2e.buttons.landing-buttons.spec.waitForTimeout, e2e.buttons.landing-buttons.spec.expect, e2e.buttons.landing-buttons.spec.toHaveClass
-
-### e2e.buttons.scenarios-buttons.spec.tabs
-- **Calls**: e2e.buttons.scenarios-buttons.spec.nth, e2e.buttons.scenarios-buttons.spec.click, e2e.buttons.scenarios-buttons.spec.expect, e2e.buttons.scenarios-buttons.spec.toHaveClass, e2e.buttons.scenarios-buttons.spec.waitForTimeout
-
-### src.components.TerminalSim.runSim
-- **Calls**: src.components.TerminalSim.setRunning, src.components.TerminalSim.setLines, src.components.TerminalSim.setInterval, src.components.TerminalSim.clearInterval
-
-### src.components.TerminalSim.idx
-- **Calls**: src.components.TerminalSim.setInterval, src.components.TerminalSim.setLines, src.components.TerminalSim.clearInterval, src.components.TerminalSim.setRunning
+### src.pages.Landing.exampleKeys
+- **Calls**: src.pages.Landing.URLSearchParams, src.pages.Landing.get, src.pages.Landing.includes, src.pages.Landing.floor, src.pages.Landing.random
 
 ## Process Flows
 
 Key execution flows identified:
 
-### Flow 1: BACKEND_URL
-```
-BACKEND_URL [src.pages.NlpConsole]
-```
-
-### Flow 2: handleExportData
+### Flow 1: handleExportData
 ```
 handleExportData [src.pages.Account]
 ```
 
-### Flow 3: handleSubmit
+### Flow 2: handleSubmit
 ```
 handleSubmit [src.pages.Login]
 ```
 
-### Flow 4: token
+### Flow 3: token
 ```
 token [src.pages.Login]
 ```
 
-### Flow 5: plan
+### Flow 4: plan
 ```
 plan [src.pages.Login]
 ```
 
-### Flow 6: verifyTokenRef
+### Flow 5: verifyTokenRef
 ```
 verifyTokenRef [src.pages.Login]
 ```
 
-### Flow 7: autoSubmitRef
+### Flow 6: autoSubmitRef
 ```
 autoSubmitRef [src.pages.Login]
 ```
 
-### Flow 8: mockBackendRoutes
+### Flow 7: IS_MOCK
+```
+IS_MOCK [src.pages.Demo]
+```
+
+### Flow 8: MockCalendar
+```
+MockCalendar [src.pages.Demo]
+```
+
+### Flow 9: mockBackendRoutes
 ```
 mockBackendRoutes [e2e.demo-user.spec]
   └─> request
 ```
 
-### Flow 9: data
+### Flow 10: data
 ```
 data [src.pages.Login]
-```
-
-### Flow 10: status
-```
-status [src.pages.Status]
 ```
 
 ## Key Classes
@@ -253,6 +252,9 @@ status [src.pages.Status]
 
 Key functions that process and transform data:
 
+### src.components.TerminalSim.parseScenarioCode
+- **Output to**: src.components.TerminalSim.split, src.components.TerminalSim.forEach, src.components.TerminalSim.trim, src.components.TerminalSim.startsWith, src.components.TerminalSim.match
+
 ### src.mocks.api.parseMockRequestBody
 - **Output to**: src.mocks.api.parse
 
@@ -260,16 +262,19 @@ Key functions that process and transform data:
 
 Functions exposed as public API (no underscore prefix):
 
-- `src.pages.NlpConsole.BACKEND_URL` - 15 calls
 - `src.pages.Account.handleExportData` - 14 calls
+- `src.components.TerminalSim.generateTermLines` - 11 calls
 - `src.pages.Login.handleSubmit` - 11 calls
 - `src.pages.Login.token` - 10 calls
 - `src.pages.Login.plan` - 10 calls
 - `src.pages.Login.verifyTokenRef` - 10 calls
 - `src.pages.Login.autoSubmitRef` - 10 calls
+- `src.pages.NlpConsole.handleSubmit` - 9 calls
 - `src.pages.Login.navigate` - 9 calls
-- `src.pages.NlpConsole.handleSubmit` - 8 calls
+- `src.pages.Demo.IS_MOCK` - 9 calls
+- `src.pages.Demo.MockCalendar` - 9 calls
 - `e2e.demo-user.spec.mockBackendRoutes` - 8 calls
+- `src.components.TerminalSim.parseScenarioCode` - 7 calls
 - `src.pages.Login.data` - 7 calls
 - `src.pages.Status.status` - 7 calls
 - `src.pages.Status.getStatusColor` - 7 calls
@@ -280,26 +285,23 @@ Functions exposed as public API (no underscore prefix):
 - `src.hooks.useAuth.useAuth` - 6 calls
 - `src.components.CodeEditor.highlightOQL` - 6 calls
 - `src.components.CodeEditor.highlightIQL` - 6 calls
+- `src.components.TerminalSim.lines` - 6 calls
+- `src.components.TerminalSim.scenarioName` - 6 calls
 - `src.pages.Account.handleCancelSubscription` - 6 calls
 - `src.i18n.I18nProvider.I18nProvider` - 6 calls
 - `e2e.buttons.navigation-buttons.spec.scenariosLink` - 6 calls
+- `src.components.TerminalSim.termRef` - 5 calls
+- `src.components.TerminalSim.runSim` - 5 calls
 - `src.pages.Account.handleProfileUpdate` - 5 calls
 - `src.pages.Account.handleReactivateSubscription` - 5 calls
+- `src.pages.Landing.exampleKeys` - 5 calls
+- `src.pages.Landing.getVariant` - 5 calls
 - `e2e.buttons.landing-buttons.spec.count` - 5 calls
 - `e2e.buttons.landing-buttons.spec.copyBtns` - 5 calls
 - `e2e.buttons.landing-buttons.spec.useCasesTabs` - 5 calls
 - `e2e.buttons.scenarios-buttons.spec.tabs` - 5 calls
 - `e2e.buttons.scenarios-buttons.spec.count` - 5 calls
-- `src.components.TerminalSim.runSim` - 4 calls
-- `src.components.TerminalSim.idx` - 4 calls
-- `src.components.TerminalSim.iv` - 4 calls
-- `src.pages.Landing.handleCopy` - 4 calls
-- `src.pages.Billing.handleSubscribe` - 4 calls
-- `src.utils.logger.LOG_LEVEL` - 4 calls
-- `src.utils.logger.MAX_BUFFER` - 4 calls
-- `src.pages.NlpConsole.data` - 3 calls
-- `src.pages.Account.url` - 3 calls
-- `src.pages.Account.link` - 3 calls
+- `src.components.TerminalSim.previewLines` - 4 calls
 
 ## System Interactions
 
@@ -307,11 +309,6 @@ How components interact:
 
 ```mermaid
 graph TD
-    BACKEND_URL --> useAuth
-    BACKEND_URL --> useI18n
-    BACKEND_URL --> useState
-    BACKEND_URL --> preventDefault
-    BACKEND_URL --> trim
     handleExportData --> Date
     handleExportData --> toISOString
     handleExportData --> Blob
@@ -337,6 +334,11 @@ graph TD
     verifyTokenRef --> mockFetch
     verifyTokenRef --> json
     verifyTokenRef --> setItem
+    autoSubmitRef --> useEffect
+    autoSubmitRef --> setLoading
+    autoSubmitRef --> mockFetch
+    autoSubmitRef --> json
+    autoSubmitRef --> setItem
 ```
 
 ## Reverse Engineering Guidelines

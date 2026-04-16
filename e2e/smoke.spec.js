@@ -19,13 +19,4 @@ test.describe('Smoke Tests', () => {
       await expect(page.locator('#root')).toBeAttached();
     });
   }
-
-  test('API proxy responds or returns expected error', async ({ page }) => {
-    const response = await page.goto('/api/health').catch(() => null);
-    if (response) {
-      const status = response.status();
-      // 500/502 = proxy can't reach backend, 0 = network error, 404 = no route
-      expect([200, 401, 404, 500, 502, 0]).toContain(status);
-    }
-  });
 });

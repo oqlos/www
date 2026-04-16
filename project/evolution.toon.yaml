@@ -1,16 +1,16 @@
-# code2llm/evolution | 152 func | 34f | 2026-04-16
+# code2llm/evolution | 199 func | 39f | 2026-04-16
 
 NEXT[1] (ranked by impact):
-  [1] !  SPLIT-FUNC      BACKEND_URL  CC=18  fan=15
-      WHY: CC=18 exceeds 15
-      EFFORT: ~1h  IMPACT: 270
+  [1] !  SPLIT-FUNC      generateTermLines  CC=15  fan=11
+      WHY: CC=15 exceeds 15
+      EFFORT: ~1h  IMPACT: 165
 
 
 RISKS[0]: none
 
 METRICS-TARGET:
-  CC̄:          2.8 → ≤2.0
-  max-CC:      18 → ≤9
+  CC̄:          2.7 → ≤1.9
+  max-CC:      15 → ≤7
   god-modules: 0 → 0
   high-CC(≥15): 1 → ≤0
   hub-types:   0 → ≤0
@@ -40,4 +40,4 @@ PATTERNS (language parser shared logic):
     - Standardized FunctionInfo/ClassInfo models
 
 HISTORY:
-  prev CC̄=2.9 → now CC̄=2.8
+  prev CC̄=2.7 → now CC̄=2.7

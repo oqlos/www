@@ -5,40 +5,48 @@ flowchart LR
         e2e__buttons__scenarios_buttons__spec__runBtn["runBtn"]
     end
     subgraph e2e__demo_user
-        e2e__demo_user__spec__mockBackendRoutes["mockBackendRoutes"]
         e2e__demo_user__spec__request["request"]
+        e2e__demo_user__spec__mockBackendRoutes["mockBackendRoutes"]
     end
-    subgraph e2e__smoke
-        e2e__smoke__spec__status["status"]
-        e2e__smoke__spec__response["response"]
+    subgraph src__components
+        src__components__TerminalSim__generateTermLines["generateTermLines"]
+        src__components__TerminalSim__runSim["runSim"]
+        src__components__TerminalSim__parseScenarioCode["parseScenarioCode"]
+        src__components__TerminalSim__termRef["termRef"]
     end
     subgraph src__hooks
-        src__hooks__useAuth__useAuth["useAuth"]
-        src__hooks__useAuth__navigate["navigate"]
         src__hooks__useAuth__isAuthenticated["isAuthenticated"]
-        src__hooks__useAuth__logout["logout"]
+        src__hooks__useAuth__navigate["navigate"]
         src__hooks__useAuth__requireAuth["requireAuth"]
+        src__hooks__useAuth__useAuth["useAuth"]
+        src__hooks__useAuth__logout["logout"]
     end
     subgraph src__mocks
-        src__mocks__api__createMockLoginData["createMockLoginData"]
         src__mocks__api__match["match"]
         src__mocks__api__mockFetch["mockFetch"]
-        src__mocks__api__fakeResponse["fakeResponse"]
         src__mocks__api__parseMockRequestBody["parseMockRequestBody"]
+        src__mocks__api__createMockLoginData["createMockLoginData"]
+        src__mocks__api__fakeResponse["fakeResponse"]
     end
     subgraph src__pages
         src__pages__Login__autoSubmitRef["autoSubmitRef"]
+        src__pages__Login__data["data"]
+        src__pages__Login__navigate["navigate"]
+        src__pages__NlpConsole__handleSubmit["handleSubmit"]
+        src__pages__NlpConsole__getEndpoint["getEndpoint"]
         src__pages__Login__token["token"]
         src__pages__Login__verifyTokenRef["verifyTokenRef"]
-        src__pages__Login__navigate["navigate"]
-        src__pages__Login__plan["plan"]
         src__pages__Login__handleSubmit["handleSubmit"]
-        src__pages__Login__data["data"]
+        src__pages__Login__plan["plan"]
     end
     src__hooks__useAuth__useAuth --> src__hooks__useAuth__navigate
     src__hooks__useAuth__isAuthenticated --> src__hooks__useAuth__navigate
     src__hooks__useAuth__logout --> src__hooks__useAuth__navigate
     src__hooks__useAuth__requireAuth --> src__hooks__useAuth__navigate
+    src__pages__NlpConsole__handleSubmit --> src__pages__NlpConsole__getEndpoint
+    src__components__TerminalSim__generateTermLines --> src__components__TerminalSim__parseScenarioCode
+    src__components__TerminalSim__termRef --> src__components__TerminalSim__generateTermLines
+    src__components__TerminalSim__runSim --> src__components__TerminalSim__generateTermLines
     src__pages__Login__token --> src__pages__Login__navigate
     src__pages__Login__plan --> src__pages__Login__navigate
     src__pages__Login__verifyTokenRef --> src__pages__Login__navigate
@@ -48,7 +56,6 @@ flowchart LR
     src__mocks__api__createMockLoginData --> src__mocks__api__parseMockRequestBody
     src__mocks__api__mockFetch --> src__mocks__api__fakeResponse
     src__mocks__api__match --> src__mocks__api__fakeResponse
-    e2e__smoke__spec__response --> e2e__smoke__spec__status
     e2e__demo_user__spec__mockBackendRoutes --> e2e__demo_user__spec__request
     e2e__buttons__scenarios_buttons__spec__runBtn --> e2e__buttons__scenarios_buttons__spec__count
     e2e__buttons__scenarios_buttons__spec__stepBtn --> e2e__buttons__scenarios_buttons__spec__count
