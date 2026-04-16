@@ -41,14 +41,14 @@ const TEST_USERS = {
     id: 1,
     email: 'test@test.com',
     role: 'admin',
-    plan: 'pro',
+    plan: 'business',
     created_at: new Date().toISOString()
   },
   'demo@oqlos.io': {
     id: 2,
     email: 'demo@oqlos.io',
     role: 'admin',
-    plan: 'pro',
+    plan: 'business',
     created_at: new Date().toISOString()
   },
   [DEMO_USER.email]: {
@@ -125,11 +125,11 @@ const MOCK_HANDLERS = {
       data: { scenarios: TEST_SCENARIOS[1] || [] },
     }),
   }),
-  // Billing endpoints - 5-tier pricing support
+  // Billing endpoints - 3-tier pricing support
   ...(MOCK_CONFIG.billing && {
     // Legacy endpoint (backward compat)
     '/billing/subscribe': (url, options) => {
-      const plan = url.match(/\/subscribe\/(\w+)/)?.[1] || 'pro';
+      const plan = url.match(/\/subscribe\/(\w+)/)?.[1] || 'business';
       return {
         data: {
           checkout_url: `${window.location.origin}/billing?session=mock_${plan}_session_${Date.now()}`,
@@ -137,7 +137,7 @@ const MOCK_HANDLERS = {
         },
       };
     },
-    // New 5-tier pricing endpoints
+    // New 3-tier pricing endpoints
     '/billing/create-checkout-session': (_url, options) => {
       const body = parseMockRequestBody(options);
       const { plan, amount, currency } = body;
@@ -163,10 +163,7 @@ const MOCK_HANDLERS = {
     },
     '/billing/verify-session': (url) => {
       const sessionId = url.match(/session_id=([^&]+)/)?.[1] || 'unknown';
-      const plan = sessionId.includes('starter') ? 'starter' 
-        : sessionId.includes('business') ? 'business'
-        : sessionId.includes('pro') ? 'pro'
-        : 'free';
+      const plan = sessionId.includes('business') ? 'business' : 'free';
       
       // Update test user's plan
       const testUser = TEST_USERS['test@test.com'];
@@ -232,9 +229,7 @@ const MOCK_HANDLERS = {
       data: {
         plans: [
           { id: 'free', name: 'Free', price: 0, currency: 'eur', features: ['Open source', '1 device'] },
-          { id: 'starter', name: 'Starter', price: 1900, currency: 'eur', features: ['5 devices', 'Web IDE'] },
-          { id: 'pro', name: 'Pro', price: 4900, currency: 'eur', features: ['Unlimited devices', 'Fleet mgmt'] },
-          { id: 'business', name: 'Business', price: 14900, currency: 'eur', features: ['20 users', 'SSO', 'SLA'] },
+          { id: 'business', name: 'Business', price: 4900, currency: 'eur', features: ['Unlimited devices', 'Fleet mgmt', 'SSO', 'SLA'] },
           { id: 'enterprise', name: 'Enterprise', price: null, currency: 'eur', features: ['Custom', 'On-premise'] }
         ]
       }
