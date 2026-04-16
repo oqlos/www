@@ -8,6 +8,7 @@ const MOCK_CONFIG = {
   scenarios: import.meta.env.VITE_MOCK_SCENARIOS === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_SCENARIOS !== 'false'),
   billing: import.meta.env.VITE_MOCK_BILLING === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_BILLING !== 'false'),
   nlp: import.meta.env.VITE_MOCK_NLP === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_NLP !== 'false'),
+  integrations: import.meta.env.VITE_MOCK_INTEGRATIONS === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_INTEGRATIONS !== 'false'),
 };
 
 // Any mocking enabled?
@@ -24,6 +25,7 @@ export const MOCK_STATUS = {
     scenarios: { mocked: MOCK_CONFIG.scenarios, path: '/api/scenarios', description: 'Scenarios API' },
     billing: { mocked: MOCK_CONFIG.billing, path: '/billing/*', description: 'Billing & Subscription' },
     nlp: { mocked: MOCK_CONFIG.nlp, path: '/nlp/*', description: 'NLP/LLM API' },
+    integrations: { mocked: MOCK_CONFIG.integrations, path: '/integrations/*', description: 'Slack & Integrations' },
   }
 };
 
@@ -254,6 +256,78 @@ const MOCK_HANDLERS = {
       },
       delay: 600,
     }),
+  }),
+  // Integrations - Slack webhooks
+  ...(MOCK_CONFIG.integrations && {
+    '/integrations/slack': (_url, options) => {
+      const body = parseMockRequestBody(options);
+      const testUser = TEST_USERS['test@test.com'];
+      if (testUser) {
+        testUser.slack_webhook = {
+          url: body.url,
+          channel: body.channel,
+          enabled: body.enabled,
+          events: body.events,
+          updated_at: new Date().toISOString()
+        };
+      }
+      console.log(`[MOCK] Slack webhook saved for ${testUser?.email}`);
+      return {
+        data: {
+          success: true,
+          message: "Slack webhook settings saved",
+          webhook: { url: body.url, channel: body.channel, enabled: body.enabled }
+        },
+        delay: 400
+      };
+    },
+    '/integrations/slack/test': (_url, options) => {
+      const body = parseMockRequestBody(options);
+      console.log(`[MOCK] Testing Slack webhook: ${body.url?.substring(0, 30)}...`);
+      
+      // Simulate webhook test
+      const testMessage = {
+        text: "🔔 Test notification from OqlOS",
+        blocks: [
+          {
+            type: "header",
+            text: {
+              type: "plain_text",
+              text: "OqlOS Test Notification",
+              emoji: true
+            }
+          },
+          {
+            type: "section",
+            text: {
+              type: "mrkdwn",
+              text: `*Time:* ${new Date().toLocaleString()}\n*User:* test@test.com\n*Status:* ✅ Webhook configured successfully`
+            }
+          },
+          {
+            type: "context",
+            elements: [
+              {
+                type: "mrkdwn",
+                text: "This is a test message. You'll receive real notifications when tests run."
+              }
+            ]
+          }
+        ]
+      };
+      
+      console.log(`[MOCK] Would send to Slack:`, JSON.stringify(testMessage, null, 2));
+      
+      return {
+        data: {
+          success: true,
+          message: "Test notification sent (mock)",
+          channel: body.channel,
+          sent_at: new Date().toISOString()
+        },
+        delay: 800
+      };
+    },
   }),
 };
 

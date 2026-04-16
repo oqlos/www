@@ -6,6 +6,7 @@ import { mockFetch } from "../mocks/api";
 import ProfileSection from "./account/ProfileSection";
 import SubscriptionSection from "./account/SubscriptionSection";
 import PaymentHistorySection from "./account/PaymentHistorySection";
+import SlackWebhookSettings from "../components/SlackWebhookSettings";
 import DangerZoneSection from "./account/DangerZoneSection";
 
 export default function Account() {
@@ -182,6 +183,8 @@ export default function Account() {
         />
 
         <PaymentHistorySection payments={payments} />
+
+        <SlackWebhookSettings />
 
         <DangerZoneSection onLogout={logout} />
       </div>

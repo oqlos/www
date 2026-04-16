@@ -8,9 +8,7 @@ import { mockFetch } from "../mocks/api";
 
 const PLAN_PRICES = {
   free: { amount: 0, currency: "eur" },
-  starter: { amount: 1900, currency: "eur" }, // €19.00
-  pro: { amount: 4900, currency: "eur" },     // €49.00
-  business: { amount: 14900, currency: "eur" }, // €149.00
+  business: { amount: 4900, currency: "eur" }, // €49.00
   enterprise: { amount: null, currency: "eur" } // Custom pricing
 };
 

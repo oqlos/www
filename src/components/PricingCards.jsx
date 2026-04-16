@@ -18,33 +18,19 @@ const PLANS = [
     featured: false
   },
   {
-    id: "starter",
-    label: "For individuals",
-    name: "Starter",
-    price: "€19",
+    id: "business",
+    label: "Recommended",
+    name: "Business",
+    price: "€49",
     pricePeriod: "/month",
-    period: "per user · cancel anytime",
+    period: "per org · cancel anytime",
     features: [
       "Everything from Free +",
       "Up to 5 devices",
       "Web IDE (OqlIDE)",
       "Scenario library",
       "Basic PDF reports",
-      "Email support (48h)"
-    ],
-    cta: "Start trial",
-    ctaAction: "subscribe",
-    featured: false
-  },
-  {
-    id: "pro",
-    label: "Recommended",
-    name: "OqlOS Pro",
-    price: "€49",
-    pricePeriod: "/month",
-    period: "per org · cancel anytime",
-    features: [
-      "Everything from Starter +",
+      "Email support (48h)",
       "Unlimited devices",
       "Fleet management",
       "Advanced compliance reports",
@@ -55,26 +41,6 @@ const PLANS = [
     cta: "Start trial",
     ctaAction: "subscribe",
     featured: true
-  },
-  {
-    id: "business",
-    label: "For teams",
-    name: "Business",
-    price: "€149",
-    pricePeriod: "/month",
-    period: "per org · cancel anytime",
-    features: [
-      "Everything from Pro +",
-      "Up to 20 team members",
-      "SSO / SAML authentication",
-      "Audit log API",
-      "Custom integrations",
-      "SLA: 99.9% uptime",
-      "Chat support"
-    ],
-    cta: "Start trial",
-    ctaAction: "subscribe",
-    featured: false
   },
   {
     id: "enterprise",

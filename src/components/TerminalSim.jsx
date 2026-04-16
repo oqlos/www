@@ -28,13 +28,9 @@ function parseScenarioCode(code, scenarioData) {
   return { scenarioName, device, steps };
 }
 
-function generateTermLines(scenarioData, code) {
-  const { scenarioName, device, steps } = parseScenarioCode(code, scenarioData);
-  const fileName = scenarioData?.lang === 'iql' ? 'test.iql' : 'test.oql';
-  const lang = scenarioData?.lang === 'iql' ? 'TestQL' : 'OQL';
-  
-  const lines = [
-    { text: `$ oqlctl run ${fileName} --mode dry-run`, type: "cmd" },
+function _buildHeaderLines(scenarioName, device, lang) {
+  return [
+    { text: `$ oqlctl run ${lang === 'TestQL' ? 'test.iql' : 'test.oql'} --mode dry-run`, type: "cmd" },
     { text: "", type: "blank" },
     { text: `╭─ ${lang} Scenario: ${scenarioName} ─╮`, type: "header" },
     { text: `│  Device: ${device.padEnd(28)} │`, type: "header" },
@@ -42,37 +38,61 @@ function generateTermLines(scenarioData, code) {
     { text: "╰──────────────────────────────────╯", type: "header" },
     { text: "", type: "blank" },
   ];
-  
-  // Add parsed steps or default steps
-  if (steps.length > 0) {
-    lines.push({ text: `▶ Executing ${steps.length} step${steps.length > 1 ? 's' : ''}`, type: "goal" });
-    steps.slice(0, 8).forEach((step, idx) => {
-      const isLast = idx === steps.length - 1 || idx === 7;
-      const prefix = isLast ? "  └─" : "  ├─";
-      const shortStep = step.length > 35 ? step.substring(0, 32) + '...' : step;
-      lines.push({ text: `${prefix} ${shortStep.padEnd(35)} ✓`, type: "pass" });
-    });
-    if (steps.length > 8) {
-      lines.push({ text: `  ... and ${steps.length - 8} more steps`, type: "info" });
-    }
-  } else {
-    // Fallback: show code preview
-    lines.push({ text: "▶ Code preview:", type: "goal" });
-    const previewLines = code.split('\n').slice(0, 5);
-    previewLines.forEach((line, idx) => {
-      const isLast = idx === previewLines.length - 1;
-      const prefix = isLast ? "  └─" : "  ├─";
-      const cleanLine = line.trim() || "(empty line)";
-      lines.push({ text: `${prefix} ${cleanLine.substring(0, 35)}`, type: idx % 2 === 0 ? "pass" : "info" });
-    });
+}
+
+function _buildStepLines(steps) {
+  const lines = [];
+  lines.push({ text: `▶ Executing ${steps.length} step${steps.length > 1 ? 's' : ''}`, type: "goal" });
+
+  steps.slice(0, 8).forEach((step, idx) => {
+    const isLast = idx === steps.length - 1 || idx === 7;
+    const prefix = isLast ? "  └─" : "  ├─";
+    const shortStep = step.length > 35 ? step.substring(0, 32) + '...' : step;
+    lines.push({ text: `${prefix} ${shortStep.padEnd(35)} ✓`, type: "pass" });
+  });
+
+  if (steps.length > 8) {
+    lines.push({ text: `  ... and ${steps.length - 8} more steps`, type: "info" });
   }
-  
-  lines.push({ text: "", type: "blank" });
-  lines.push({ text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" });
-  lines.push({ text: `  Result: PASS  │  Steps: ${steps.length || 'ok'}  │  0 errors`, type: "result" });
-  lines.push({ text: "  Duration: " + (2 + steps.length * 0.3).toFixed(2) + "s (simulated)", type: "info" });
-  lines.push({ text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" });
-  
+
+  return lines;
+}
+
+function _buildPreviewLines(code) {
+  const lines = [{ text: "▶ Code preview:", type: "goal" }];
+  const previewLines = code.split('\n').slice(0, 5);
+
+  previewLines.forEach((line, idx) => {
+    const isLast = idx === previewLines.length - 1;
+    const prefix = isLast ? "  └─" : "  ├─";
+    const cleanLine = line.trim() || "(empty line)";
+    lines.push({ text: `${prefix} ${cleanLine.substring(0, 35)}`, type: idx % 2 === 0 ? "pass" : "info" });
+  });
+
+  return lines;
+}
+
+function _buildFooterLines(stepCount) {
+  const duration = (2 + stepCount * 0.3).toFixed(2);
+  return [
+    { text: "", type: "blank" },
+    { text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" },
+    { text: `  Result: PASS  │  Steps: ${stepCount || 'ok'}  │  0 errors`, type: "result" },
+    { text: `  Duration: ${duration}s (simulated)`, type: "info" },
+    { text: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━", type: "divider" },
+  ];
+}
+
+function generateTermLines(scenarioData, code) {
+  const { scenarioName, device, steps } = parseScenarioCode(code, scenarioData);
+  const lang = scenarioData?.lang === 'iql' ? 'TestQL' : 'OQL';
+
+  const lines = [
+    ..._buildHeaderLines(scenarioName, device, lang),
+    ...(steps.length > 0 ? _buildStepLines(steps) : _buildPreviewLines(code)),
+    ..._buildFooterLines(steps.length),
+  ];
+
   return lines;
 }
 
