@@ -13,7 +13,7 @@
 | Warstwa | Język | Typ | Pliki | Runtime | Cel |
 |---------|-------|-----|-------|---------|-----|
 | **L1** | **OQL** | Imperatywny | `.oql` | OqlOS | Sterowanie hardware: SET, WAIT, PUMP, IF/ELSE, SAVE. Kontrola zaworów, pomp, sensorów. |
-| **L2** | **IQL/TestQL** | Deklaratywny | `.iql`, `.tql` | TestQL runner | Testowanie API (GET/POST/ASSERT) i GUI (NAVIGATE/CLICK/ASSERT_VISIBLE). Zero kodu. |
+| **L2** | **TestQL** | Deklaratywny | `.testql.toon.yaml` | TestQL runner | Testowanie API (GET/POST/ASSERT) i GUI (NAVIGATE/CLICK/ASSERT_VISIBLE). Zero kodu. |
 | **L3** | **NLP→DSL** | Natural Language | tekst/voice | [nlp2dsl](https://github.com/wronai/nlp2dsl) | Konwersja języka naturalnego na OQL/IQL ze schematem walidacji. |
 | **L4** | **NLP→CMD** | Natural Language | tekst/voice | [nlp2cmd](https://github.com/wronai/nlp2cmd) | Konwersja NLP na komendy DevOps: docker, git, kubectl, systemctl. |
 
@@ -23,7 +23,7 @@
 Użytkownik (tekst/głos)
     │
     ├─► NLP2DSL (L3) ──► schema validation ──► OQL (L1) ──► OqlOS ──► Hardware
-    │                                    └──► IQL (L2) ──► TestQL ──► API/GUI
+    │                                    └──► TestQL (L2) ──► TestQL ──► API/GUI
     │
     └─► NLP2CMD (L4) ──► DevOps commands ──► docker/kubectl/git
 ```
@@ -72,7 +72,7 @@ oqlos/
 │   ├── oql-cli/            # CLI (oqlctl) ← ISTNIEJE
 │   ├── oql-sdk/            # Python SDK ← ISTNIEJE
 │   ├── oql-ide/            # Web IDE (React) ← ISTNIEJE (weboql)
-│   └── testql/             # IQL/TQL runner ← ISTNIEJE
+    └── testql/             # TestQL runner (.testql.toon.yaml) ← ISTNIEJE
 │
 ├── platform/               # ← NOWE: SaaS platform layer
 │   ├── auth/               # Email auth + magic link
@@ -96,7 +96,7 @@ oqlos/
 │   │   └── saas/           # docker-compose.saas.yml ← NOWE
 │   └── podman/
 │
-└── scenarios/              # Public .oql/.iql library ← ISTNIEJE
+└── scenarios/              # Public .oql/.testql.toon.yaml library ← ISTNIEJE
 ```
 
 ### docker-compose.saas.yml

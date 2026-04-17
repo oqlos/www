@@ -30,7 +30,7 @@ function parseScenarioCode(code, scenarioData) {
 
 function _buildHeaderLines(scenarioName, device, lang) {
   return [
-    { text: `$ oqlctl run ${lang === 'TestQL' ? 'test.iql' : 'test.oql'} --mode dry-run`, type: "cmd" },
+    { text: `$ oqlctl run ${lang === 'TestQL' ? 'test.testql.toon.yaml' : 'test.oql'} --mode dry-run`, type: "cmd" },
     { text: "", type: "blank" },
     { text: `╭─ ${lang} Scenario: ${scenarioName} ─╮`, type: "header" },
     { text: `│  Device: ${device.padEnd(28)} │`, type: "header" },

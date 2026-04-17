@@ -53,7 +53,7 @@ export default function NlpConsole() {
       });
       const data = await res.json();
       if (res.ok) {
-        setOutput(data.oql || data.iql || data.commands?.join("\n") || JSON.stringify(data, null, 2));
+        setOutput(data.oql || data.testql || data.iql || data.commands?.join("\n") || JSON.stringify(data, null, 2));
       } else {
         setOutput(`Error: ${data.detail || "NLP service unavailable"}`);
       }

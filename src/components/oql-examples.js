@@ -7,7 +7,8 @@ DEVICE_TYPE: "BA"
 DEVICE_MODEL: "PSS 7000"
 MANUFACTURER: "Dräger"
 
-GOAL: Test przepływu
+GOAL:
+  SET NAME 'Test przepływu'
   # 1. Start pump at 2 l/min
     SET 'pompa 1' '2 l/min'
     WAIT 2000ms
@@ -25,24 +26,38 @@ DEVICE_TYPE: "BA"
 DEVICE_MODEL: "FPS 7000"
 MANUFACTURER: "Dräger"
 
-GOAL: Pressure Seal Verification
+GOAL:
+  SET NAME 'Pressure Seal Verification'
+  SET VAL 'AI01'
+  SET MIN '-11.0 mbar'
+
   SET 'PUMP' 'off'
   SET 'zawór 2' '1'
   SET 'PUMP' '5 l'
   WAIT 7000ms
-  MIN 'AI01' '-11.0 mbar'
-  VAL 'AI01' 'mbar'
-  IF 'AI01' < '-11.0 mbar' ELSE ERROR 'Vacuum too low'
+
+  IF AI01 -11.0 .. 0.0 mbar
+  CORRECT 'Podciśnienie w normie'
+  ERROR 'Vacuum too low'
   SAVE 'AI01'
 
-GOAL: Overpressure Check
-  MAX 'AI01' '-9.0 mbar'
-  IF 'AI01' > '-9.0 mbar' ELSE ERROR 'Seal failure'
-  SAVE 'AI01'
+GOAL:
+  SET NAME 'Overpressure Check'
+  SET VAL 'AI01'
+  SET MIN '4.2 mbar'
+  SET MAX '6.0 mbar'
+
   SET 'PUMP' '10 l'
   WAIT 5000ms
-  MIN 'AI01' '4.2 mbar'
-  MAX 'AI01' '6.0 mbar'
+
+  IF AI01 -9.0 .. 0.0 mbar
+  CORRECT 'Ciśnienie nadmiarowe OK'
+  ERROR 'Seal failure'
+  SAVE 'AI01'
+
+  IF AI01 4.2 .. 6.0 mbar
+  CORRECT 'Ciśnienie SC w normie (4.2-6.0 bar)'
+  ERROR 'Błąd: ciśnienie SC poza zakresem 4.2-6.0 bar'
   SAVE 'AI01'`,
   },
   "hw-diagnostics": {
@@ -51,7 +66,8 @@ GOAL: Overpressure Check
     code: `SCENARIO: "Hardware Diagnostics"
 DEVICE_TYPE: "TEST_EQUIPMENT"
 
-GOAL: Detect and validate hardware
+GOAL:
+  SET NAME 'Detect and validate hardware'
   LOG "Detecting USB/serial peripherals..."
   EXPECT_DEVICE "/dev/ttyACM0" "CH340" "Modbus RTU"
   EXPECT_I2C_BUS "/dev/i2c-1"

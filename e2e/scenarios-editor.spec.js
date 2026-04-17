@@ -21,7 +21,7 @@ test.describe("Scenarios Editor - Advanced Tests", () => {
     const badgeBeforeRun = await page.locator(".file-badge").textContent();
 
     // Verify we're on IQL scenario
-    expect(badgeBeforeRun).toContain(".iql");
+    expect(badgeBeforeRun).toContain(".testql");
     expect(titleBeforeRun).toMatch(/Test API/);
 
     // Click Run

@@ -60,7 +60,7 @@
     "arch_desc": "Deklaratywny DSL → Parser → Interpreter → Hardware Abstraction → Modbus/GPIO/I²C. Uruchom lokalnie, na Raspberry Pi lub jako serwis Docker.",
     "editor_label": "Edytor live",
     "editor_title": "Pisz i edytuj scenariusze OQL / TestQL",
-    "editor_desc": "Interaktywny edytor z kolorowaniem składni. Wybierz przykład lub pisz własny scenariusz. Obsługuje zarówno pliki .oql (hardware) jak i .iql/.tql (API/GUI).",
+    "editor_desc": "Interaktywny edytor z kolorowaniem składni. Wybierz przykład lub pisz własny scenariusz. Obsługuje zarówno pliki .oql (hardware) jak i .testql.toon.yaml (API/GUI).",
     "install_desc": "Wybierz platformę docelową. Docker dla szybkiego startu, pip dla integracji, RPi dla produkcyjnych węzłów testowych.",
     "docker_tab": "🐳 Docker",
     "pip_tab": "🐍 pip install",

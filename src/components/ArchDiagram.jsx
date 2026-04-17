@@ -28,7 +28,7 @@ export default function ArchDiagram() {
 
       {/* DSL Layer */}
       <rect x="20" y="20" width="180" height="120" rx="12" fill="url(#gBlue)" filter="url(#shadow)" />
-      <text x="110" y="55" textAnchor="middle" fill="white" fontWeight="700" fontSize="15">.oql / .iql</text>
+      <text x="110" y="55" textAnchor="middle" fill="white" fontWeight="700" fontSize="15">.oql / .testql</text>
       <text x="110" y="78" textAnchor="middle" fill="rgba(255,255,255,0.8)" fontSize="11">Declarative DSL</text>
       <text x="110" y="96" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="10">SCENARIO → GOAL</text>
       <text x="110" y="112" textAnchor="middle" fill="rgba(255,255,255,0.6)" fontSize="10">→ SET / WAIT / IF</text>

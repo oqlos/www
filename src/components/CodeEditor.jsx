@@ -96,7 +96,7 @@ export default function CodeEditor({ example, value, onChange }) {
   return (
     <div className="editor-wrapper">
       <div className="editor-header">
-        <span className="file-badge">{example.lang === "oql" ? "⚙ .oql" : "🧪 .iql / .tql"}</span>
+        <span className="file-badge">{example.lang === "oql" ? "⚙ .oql" : "🧪 .testql.toon.yaml"}</span>
         <span className="file-title">{example.title}</span>
       </div>
       <div className="editor-body">
