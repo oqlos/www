@@ -205,6 +205,14 @@ export default function OqlStepRenderer({ scenarioData, code }) {
                   {step.type === 'LOG' && (
                     <span className="step-msg">"{step.message}"</span>
                   )}
+                  {step.type === 'FUNC_CALL' && (
+                    <>
+                      <span className="step-param">"{step.funcName}"</span>
+                      {step.args?.map((a, ai) => (
+                        <span key={ai} className="step-val">"{a}"</span>
+                      ))}
+                    </>
+                  )}
                   {step.type === 'COMMENT' && (
                     <span className="step-comment">{step.text}</span>
                   )}
@@ -283,6 +291,18 @@ function StepDetail({ step }) {
             <span className="oql-detail-value">{step.url}</span>
           </div>
         )}
+        {step.funcName && (
+          <div className="oql-detail-row">
+            <span className="oql-detail-label">Function</span>
+            <span className="oql-detail-value">{step.funcName}</span>
+          </div>
+        )}
+        {step.args?.length > 0 && (
+          <div className="oql-detail-row">
+            <span className="oql-detail-label">Arguments</span>
+            <span className="oql-detail-value">{step.args.join(', ')}</span>
+          </div>
+        )}
         <div className="oql-detail-row">
           <span className="oql-detail-label">Raw</span>
           <code className="oql-detail-raw">{step.raw}</code>
@@ -297,13 +317,14 @@ function stepTypeClass(type) {
     SET: 'set', WAIT: 'wait', CHECK: 'if-check',
     SAVE: 'save', LOG: 'log', ASSERT: 'assert',
     API: 'api', EXPECT: 'expect', NAVIGATE: 'navigate', COMMENT: 'comment',
-    CORRECT: 'correct', ERROR: 'error',
+    CORRECT: 'correct', ERROR: 'error', FUNC_CALL: 'func-call',
   };
   return map[type] || 'other';
 }
 
 function stepDisplayType(type) {
   if (type === 'CHECK') return 'IF';
+  if (type === 'FUNC_CALL') return 'FUNC';
   return type;
 }
 
@@ -315,6 +336,10 @@ function stepValueDisplay(step) {
     if (step.max) parts.push(step.max);
     if (step.unit) parts.push(step.unit);
     return parts.join(' ');
+  }
+  if (step.type === 'FUNC_CALL') {
+    const argStr = step.args?.length ? ` (${step.args.join(', ')})` : '';
+    return `${step.funcName}${argStr}`;
   }
   if (step.type === 'WAIT') return `${step.value}${step.unit}`;
   if (step.value && step.unit) return `${step.value} ${step.unit}`;

@@ -14,7 +14,14 @@
  *     CORRECT 'Pass message'
  *     ERROR 'Fail message'
  *     SAVE 'param'
+ *     FUNC "func-name" "arg1" "arg2"
  *
+ *   FUNC:
+ *     SET NAME 'Reusable Function'
+ *     SET $1 $2
+ *     WAIT $3
+ *
+ * FUNC: defines a reusable block callable from GOAL: via FUNC "name" [args].
  * MIN, MAX, VAL are now SET sub-properties (not standalone commands).
  * CHECK/CORRECT/ERROR triplet replaces IF...ELSE ERROR.
  */
@@ -38,18 +45,22 @@ export function parseOqlToSteps(code) {
     deviceModel: '',
     manufacturer: '',
     goals: [],
+    funcs: [],
   };
 
   let currentGoal = null;
+  let currentFunc = null;
 
   for (const rawLine of lines) {
     const line = rawLine.trim();
     if (!line) continue;
 
-    // Comments become comment steps inside a goal
+    // Comments become comment steps inside a goal/func
     if (line.startsWith('#')) {
       if (currentGoal) {
         currentGoal.steps.push({ type: 'COMMENT', raw: line, text: line.replace(/^#\s*/, '') });
+      } else if (currentFunc) {
+        currentFunc.steps.push({ type: 'COMMENT', raw: line, text: line.replace(/^#\s*/, '') });
       }
       continue;
     }
@@ -67,11 +78,34 @@ export function parseOqlToSteps(code) {
     const mfMatch = line.match(/^MANUFACTURER:\s*"([^"]+)"/);
     if (mfMatch) { result.manufacturer = mfMatch[1]; continue; }
 
+    // FUNC: (function definition block)
+    const funcDefMatch = line.match(/^FUNC:\s*(.*)/);
+    if (funcDefMatch) {
+      currentGoal = null;
+      currentFunc = { name: (funcDefMatch[1] || '').trim(), steps: [] };
+      result.funcs.push(currentFunc);
+      continue;
+    }
+
     // GOAL: (with optional inline name for backward compat)
     const goalMatch = line.match(/^GOAL:\s*(.*)/);
     if (goalMatch) {
+      currentFunc = null;
       currentGoal = { name: (goalMatch[1] || '').trim(), steps: [] };
       result.goals.push(currentGoal);
+      continue;
+    }
+
+    // Inside a FUNC definition — parse step commands (same as goal, plus SET NAME)
+    if (currentFunc) {
+      const step = parseStep(line);
+      if (step) {
+        if (step.type === 'SET' && step._goalMeta === 'NAME') {
+          currentFunc.name = step.value;
+          continue;
+        }
+        currentFunc.steps.push(step);
+      }
       continue;
     }
 
@@ -159,6 +193,20 @@ function parseStep(line) {
   const waitMatch = line.match(/^WAIT\s+(\d+)\s*(ms|s)?/);
   if (waitMatch) {
     return { type: 'WAIT', raw: line, value: waitMatch[1], unit: waitMatch[2] || 'ms' };
+  }
+
+  // FUNC "name" ["arg1"] ["arg2"] — function call
+  const funcCallMatch = line.match(/^FUNC\s+"([^"]+)"(.*)/) || line.match(/^FUNC\s+'([^']+)'(.*)/);
+  if (funcCallMatch) {
+    const funcName = funcCallMatch[1];
+    const argsRaw = funcCallMatch[2] || '';
+    const args = [];
+    const argRe = /["']([^"']+)["']/g;
+    let m;
+    while ((m = argRe.exec(argsRaw)) !== null) {
+      args.push(m[1]);
+    }
+    return { type: 'FUNC_CALL', raw: line, funcName, args };
   }
 
   // IF param min .. max [unit]  (canonical range check)

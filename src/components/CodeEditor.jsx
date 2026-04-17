@@ -7,24 +7,37 @@ function highlightOQL(code) {
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
 
-    html = html.replace(/(#.*)$/, '<span class="syn-comment">$1</span>');
+    // Comment lines — wrap and skip further highlighting
+    if (html.trimStart().startsWith('#')) {
+      html = html.replace(/(#.*)$/, '<span class="syn-comment">$1</span>');
+      return `<span class="line-num">${String(i + 1).padStart(3)}</span>${html}`;
+    }
+
+    // Extract quoted strings into placeholders (prevents keyword/number matching inside)
+    const strings = [];
+    html = html.replace(/("[^"]*"|'[^']*')/g, (m) => {
+      strings.push(m);
+      return `\x00S${strings.length - 1}\x00`;
+    });
+
     html = html.replace(
-      /("[^"]*"|'[^']*')/g,
-      '<span class="syn-string">$1</span>'
-    );
-    html = html.replace(
-      /\b(SCENARIO|DEVICE_TYPE|DEVICE_MODEL|MANUFACTURER|GOAL|SET|WAIT|SAVE|MIN|MAX|VAL|IF|ELSE|ERROR|PUMP|LOG|ASSERT_STATUS|ASSERT_JSON|ASSERT_SENSOR|ASSERT_VALVE|API_GET|EXPECT_DEVICE|EXPECT_I2C_BUS|EXPECT_I2C_CHIP|SHELL_EXPORT)\b/g,
+      /\b(SCENARIO|DEVICE_TYPE|DEVICE_MODEL|MANUFACTURER|GOAL|FUNC|CONFIG|MACRO|INCLUDE|CALL|SET|GET|WAIT|SAVE|SAMPLE|CHECK|IF|CORRECT|ERROR|MIN|MAX|VAL|NAME|LOG|ASSERT_STATUS|ASSERT_JSON|ASSERT_SENSOR|ASSERT_VALVE|API_GET|EXPECT_DEVICE|EXPECT_I2C_BUS|EXPECT_I2C_CHIP|SHELL_EXPORT)\b/g,
       '<span class="syn-keyword">$1</span>'
     );
     html = html.replace(/→/g, '<span class="syn-arrow">→</span>');
     html = html.replace(
-      /\b(\d+\.?\d*)\s*(ms|mbar|bar|l\/min|l|s)\b/g,
-      '<span class="syn-number">$1</span><span class="syn-unit">$2</span>'
+      /\b(\d+\.?\d*)(\s*)(ms|mbar|bar|l\/min|l|s|%RH|°C|N|V|szt)\b/g,
+      '<span class="syn-number">$1</span>$2<span class="syn-unit">$3</span>'
     );
     html = html.replace(
-      /(?<!class=")\b(\d+\.?\d*)\b(?!["<])/g,
+      /(?<!class=")\b(\d+\.?\d*)\b(?!["<\x00])/g,
       '<span class="syn-number">$1</span>'
     );
+
+    // Re-insert strings with highlighting
+    html = html.replace(/\x00S(\d+)\x00/g, (_, idx) => {
+      return `<span class="syn-string">${strings[Number(idx)]}</span>`;
+    });
 
     return `<span class="line-num">${String(i + 1).padStart(3)}</span>${html}`;
   });
@@ -37,11 +50,19 @@ function highlightIQL(code) {
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;");
 
-    html = html.replace(/(#.*)$/, '<span class="syn-comment">$1</span>');
-    html = html.replace(
-      /("[^"]*")/g,
-      '<span class="syn-string">$1</span>'
-    );
+    // Comment lines — wrap and skip further highlighting
+    if (html.trimStart().startsWith('#')) {
+      html = html.replace(/(#.*)$/, '<span class="syn-comment">$1</span>');
+      return `<span class="line-num">${String(i + 1).padStart(3)}</span>${html}`;
+    }
+
+    // Extract quoted strings into placeholders
+    const strings = [];
+    html = html.replace(/("[^"]*"|'[^']*')/g, (m) => {
+      strings.push(m);
+      return `\x00S${strings.length - 1}\x00`;
+    });
+
     html = html.replace(
       /\b(SET|LOG|API|GET|POST|PUT|DELETE|ASSERT_STATUS|ASSERT_OK|ASSERT_CONTAINS|ASSERT_JSON|ASSERT_VISIBLE|ASSERT_TEXT|NAVIGATE|WAIT|CLICK|INPUT|SELECT_DEVICE|SELECT_INTERVAL|START_TEST|STEP_COMPLETE|RECORD_START|RECORD_STOP|REPLAY|INCLUDE|ENCODER_ON|ENCODER_OFF|ENCODER_CLICK|ENCODER_SCROLL|ENCODER_FOCUS)\b/g,
       '<span class="syn-keyword">$1</span>'
@@ -51,9 +72,15 @@ function highlightIQL(code) {
       '<span class="syn-interp">$&</span>'
     );
     html = html.replace(
-      /(?<!class=")\b(\d+\.?\d*)\b(?!["<])/g,
+      /(?<!class=")\b(\d+\.?\d*)\b(?!["<\x00])/g,
       '<span class="syn-number">$1</span>'
     );
+
+    // Re-insert strings with highlighting
+    html = html.replace(/\x00S(\d+)\x00/g, (_, idx) => {
+      return `<span class="syn-string">${strings[Number(idx)]}</span>`;
+    });
+
     return `<span class="line-num">${String(i + 1).padStart(3)}</span>${html}`;
   });
 }
