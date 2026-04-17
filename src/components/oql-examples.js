@@ -7,14 +7,18 @@ DEVICE_TYPE: "BA"
 DEVICE_MODEL: "PSS 7000"
 MANUFACTURER: "Dräger"
 
+FUNC:
+  SET NAME 'Sterowanie pompą'
+  # Ustaw pompę i czekaj
+  SET 'pompa 1' '$1'
+  WAIT $2
+
 GOAL:
   SET NAME 'Test przepływu'
   # 1. Start pump at 2 l/min
-    SET 'pompa 1' '2 l/min'
-    WAIT 2000ms
+    FUNC 'Sterowanie pompą' '2 l/min' '2000ms'
   # 2. Reverse flow direction
-    SET 'pompa 1' '-2 l/min'
-    WAIT 2000ms
+    FUNC 'Sterowanie pompą' '-2 l/min' '2000ms'
   # 3. Stop pump
     SET 'pompa 1' '0'`,
   },
