@@ -69,21 +69,17 @@ interface[type="web"] page[name="status"] {
 
 integration[name="email"] {
   type: smtp;
-  type: smtp;
 }
 
 integration[name="modbus"] {
-  type: hardware;
   type: hardware;
 }
 
 integration[name="nlp"] {
   type: api;
-  type: api;
 }
 
 integration[name="github"] {
-  type: scm;
   type: scm;
 }
 
@@ -269,8 +265,8 @@ workflow[name="tag"] {
 workflow[name="quality"] {
   trigger: manual;
   step-1: run cmd=if ! command -v pyqual >/dev/null 2>&1; then
-echo "⚠️  pyqual not installed. Install: pip install pyqual"
-exit 1
+  echo "⚠️  pyqual not installed. Install: pip install pyqual"
+  exit 1
 fi;
   step-2: run cmd=pyqual run;
 }
@@ -328,8 +324,8 @@ workflow[name="docker:prod:down"] {
 workflow[name="doql:adopt"] {
   trigger: manual;
   step-1: run cmd=if ! command -v {{.DOQL_CMD}} >/dev/null 2>&1; then
-echo "⚠️  doql not installed. Install: pip install doql"
-exit 1
+  echo "⚠️  doql not installed. Install: pip install doql"
+  exit 1
 fi;
   step-2: run cmd={{.DOQL_CMD}} adopt {{.PWD}} --output app.doql.css --force;
   step-3: run cmd={{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}};
@@ -339,8 +335,8 @@ fi;
 workflow[name="doql:validate"] {
   trigger: manual;
   step-1: run cmd=if [ ! -f "{{.DOQL_OUTPUT}}" ]; then
-echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
-exit 1
+  echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
+  exit 1
 fi;
   step-2: run cmd={{.DOQL_CMD}} validate;
 }
@@ -353,12 +349,12 @@ workflow[name="doql:doctor"] {
 workflow[name="doql:build"] {
   trigger: manual;
   step-1: run cmd=if [ ! -f "{{.DOQL_OUTPUT}}" ]; then
-echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
-exit 1
+  echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
+  exit 1
 fi;
   step-2: run cmd=# Regenerate LESS from CSS if CSS exists
 if [ -f "app.doql.css" ]; then
-{{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}}
+  {{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}}
 fi;
   step-3: run cmd={{.DOQL_CMD}} build app.doql.css --out build/;
 }
@@ -379,7 +375,7 @@ workflow[name="help"] {
 }
 
 role[name="admin"] {
-
+  permit: *;
 }
 
 role[name="user"] {

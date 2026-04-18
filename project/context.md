@@ -4,18 +4,34 @@
 
 - **Project**: /home/tom/github/oqlos/www
 - **Primary Language**: javascript
-- **Languages**: javascript: 55, shell: 3
+- **Languages**: javascript: 59, shell: 5
 - **Analysis Mode**: static
-- **Total Functions**: 199
+- **Total Functions**: 302
 - **Total Classes**: 1
-- **Modules**: 58
-- **Entry Points**: 190
+- **Modules**: 64
+- **Entry Points**: 284
 
 ## Architecture by Module
 
+### src.components.parseOqlToSteps
+- **Functions**: 50
+- **File**: `parseOqlToSteps.js`
+
 ### src.components.TerminalSim
-- **Functions**: 22
+- **Functions**: 26
 - **File**: `TerminalSim.jsx`
+
+### src.mocks.api
+- **Functions**: 22
+- **File**: `api.js`
+
+### src.components.OqlReportRenderer
+- **Functions**: 16
+- **File**: `OqlReportRenderer.jsx`
+
+### src.components.OqlStepRenderer
+- **Functions**: 16
+- **File**: `OqlStepRenderer.jsx`
 
 ### src.i18n.I18nProvider
 - **Functions**: 13
@@ -29,13 +45,13 @@
 - **Functions**: 11
 - **File**: `Login.jsx`
 
+### src.pages.Billing
+- **Functions**: 11
+- **File**: `Billing.jsx`
+
 ### src.pages.Account
 - **Functions**: 10
 - **File**: `Account.jsx`
-
-### src.mocks.api
-- **Functions**: 10
-- **File**: `api.js`
 
 ### e2e.scenarios-editor.spec
 - **Functions**: 10
@@ -52,6 +68,10 @@
 ### src.pages.Landing
 - **Functions**: 8
 - **File**: `Landing.jsx`
+
+### src.pages.Scenarios
+- **Functions**: 8
+- **File**: `Scenarios.jsx`
 
 ### e2e.buttons.landing-buttons.spec
 - **Functions**: 8
@@ -73,32 +93,18 @@
 - **Functions**: 6
 - **File**: `billing-payment.spec.js`
 
-### e2e.buttons.scenarios-buttons.spec
-- **Functions**: 6
-- **File**: `scenarios-buttons.spec.js`
-
-### src.pages.Scenarios
-- **Functions**: 5
-- **File**: `Scenarios.jsx`
-
-### src.pages.Status
-- **Functions**: 5
-- **File**: `Status.jsx`
-
-### e2e.landing.spec
-- **Functions**: 5
-- **File**: `landing.spec.js`
-
-### e2e.buttons.billing-buttons.spec
-- **Functions**: 5
-- **File**: `billing-buttons.spec.js`
-
 ## Key Entry Points
 
 Main execution flows into the system:
 
 ### src.pages.Account.handleExportData
 - **Calls**: src.pages.Account.Date, src.pages.Account.toISOString, src.pages.Account.Blob, src.pages.Account.stringify, src.pages.Account.createObjectURL, src.pages.Account.createElement, src.pages.Account.split, src.pages.Account.appendChild
+
+### src.components.CodeEditor.highlightOQL
+- **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.trimStart, src.components.CodeEditor.startsWith, src.components.CodeEditor.String, src.components.CodeEditor.padStart, src.components.CodeEditor.placeholders
+
+### src.components.CodeEditor.highlightIQL
+- **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.trimStart, src.components.CodeEditor.startsWith, src.components.CodeEditor.String, src.components.CodeEditor.padStart, src.components.CodeEditor.push
 
 ### src.pages.Login.handleSubmit
 - **Calls**: src.pages.Login.preventDefault, src.pages.Login.setLoading, src.pages.Login.setMsg, src.pages.Login.mockFetch, src.pages.Login.stringify, src.pages.Login.json, src.pages.Login.setItem, src.pages.Login.t
@@ -124,8 +130,23 @@ Main execution flows into the system:
 ### src.pages.Demo.MockCalendar
 - **Calls**: src.pages.Demo.useState, src.pages.Demo.setBooked, src.pages.Demo.setTimeout, src.pages.Demo.setSelectedDate, src.pages.Demo.setSelectedTime, src.pages.Demo.rgba, src.pages.Demo.var, src.pages.Demo.repeat
 
+### src.components.parseOqlToSteps.parseOqlToSteps
+- **Calls**: src.components.parseOqlToSteps.split, src.components.parseOqlToSteps.trim, src.components.parseOqlToSteps.startsWith, src.components.parseOqlToSteps.push, src.components.parseOqlToSteps.replace, src.components.parseOqlToSteps.match, src.components.parseOqlToSteps.commands, src.components.parseOqlToSteps.parseStep
+
+### src.pages.Billing.handleSubscribe
+- **Calls**: src.pages.Billing.navigate, src.pages.Billing.mockFetch, src.pages.Billing.setCurrentPlan, src.pages.Billing.alert, src.pages.Billing.setIsLoading, src.pages.Billing.stringify, src.pages.Billing.json, src.pages.Billing.error
+
 ### e2e.demo-user.spec.mockBackendRoutes
 - **Calls**: e2e.demo-user.spec.route, e2e.demo-user.spec.request, e2e.demo-user.spec.parse, e2e.demo-user.spec.postData, e2e.demo-user.spec.fulfill, e2e.demo-user.spec.stringify, e2e.demo-user.spec.Date, e2e.demo-user.spec.toISOString
+
+### src.components.OqlReportRenderer._downloadJson
+- **Calls**: src.components.OqlReportRenderer.Blob, src.components.OqlReportRenderer.stringify, src.components.OqlReportRenderer.createObjectURL, src.components.OqlReportRenderer.createElement, src.components.OqlReportRenderer.replace, src.components.OqlReportRenderer.click, src.components.OqlReportRenderer.revokeObjectURL
+
+### src.components.parseOqlToSteps.currentGoal
+- **Calls**: src.components.parseOqlToSteps.trim, src.components.parseOqlToSteps.startsWith, src.components.parseOqlToSteps.push, src.components.parseOqlToSteps.replace, src.components.parseOqlToSteps.match, src.components.parseOqlToSteps.commands, src.components.parseOqlToSteps.parseStep
+
+### src.components.parseOqlToSteps.currentFunc
+- **Calls**: src.components.parseOqlToSteps.trim, src.components.parseOqlToSteps.startsWith, src.components.parseOqlToSteps.push, src.components.parseOqlToSteps.replace, src.components.parseOqlToSteps.match, src.components.parseOqlToSteps.commands, src.components.parseOqlToSteps.parseStep
 
 ### src.pages.Login.data
 - **Calls**: src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t, src.pages.Login.setTimeout, src.pages.Login.navigate, src.pages.Login.setEmail
@@ -151,41 +172,20 @@ Main execution flows into the system:
 ### src.hooks.useAuth.useAuth
 - **Calls**: src.hooks.useAuth.useNavigate, src.hooks.useAuth.getItem, src.hooks.useAuth.parse, src.hooks.useAuth.Boolean, src.hooks.useAuth.removeItem, src.hooks.useAuth.navigate
 
-### src.components.CodeEditor.highlightOQL
-- **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.b, src.components.CodeEditor.String, src.components.CodeEditor.padStart
-
-### src.components.CodeEditor.highlightIQL
-- **Calls**: src.components.CodeEditor.split, src.components.CodeEditor.map, src.components.CodeEditor.replace, src.components.CodeEditor.b, src.components.CodeEditor.String, src.components.CodeEditor.padStart
-
 ### src.components.TerminalSim.lines
 - **Calls**: src.components.TerminalSim.forEach, src.components.TerminalSim.trim, src.components.TerminalSim.startsWith, src.components.TerminalSim.match, src.components.TerminalSim.test, src.components.TerminalSim.push
 
 ### src.components.TerminalSim.scenarioName
 - **Calls**: src.components.TerminalSim.forEach, src.components.TerminalSim.trim, src.components.TerminalSim.startsWith, src.components.TerminalSim.match, src.components.TerminalSim.test, src.components.TerminalSim.push
 
+### src.components.parseOqlToSteps.toReportJson
+- **Calls**: src.components.parseOqlToSteps.map, src.components.parseOqlToSteps.collectThresholds, src.components.parseOqlToSteps.filter, src.components.parseOqlToSteps.Date, src.components.parseOqlToSteps.toISOString, src.components.parseOqlToSteps.reduce
+
 ### src.pages.Account.handleCancelSubscription
 - **Calls**: src.pages.Account.confirm, src.pages.Account.t, src.pages.Account.setLoading, src.pages.Account.mockFetch, src.pages.Account.setSubscription, src.pages.Account.setMessage
 
 ### src.i18n.I18nProvider.I18nProvider
 - **Calls**: src.i18n.I18nProvider.useState, src.i18n.I18nProvider.useCallback, src.i18n.I18nProvider.setLangState, src.i18n.I18nProvider.setItem, src.i18n.I18nProvider.split, src.i18n.I18nProvider.replace
-
-### e2e.buttons.navigation-buttons.spec.scenariosLink
-- **Calls**: e2e.buttons.navigation-buttons.spec.count, e2e.buttons.navigation-buttons.spec.click, e2e.buttons.navigation-buttons.spec.waitForURL, e2e.buttons.navigation-buttons.spec.expect, e2e.buttons.navigation-buttons.spec.locator, e2e.buttons.navigation-buttons.spec.toBeVisible
-
-### src.components.TerminalSim.termRef
-- **Calls**: src.components.TerminalSim.generateTermLines, src.components.TerminalSim.setRunning, src.components.TerminalSim.setLines, src.components.TerminalSim.setInterval, src.components.TerminalSim.clearInterval
-
-### src.components.TerminalSim.runSim
-- **Calls**: src.components.TerminalSim.generateTermLines, src.components.TerminalSim.setRunning, src.components.TerminalSim.setLines, src.components.TerminalSim.setInterval, src.components.TerminalSim.clearInterval
-
-### src.pages.Account.handleProfileUpdate
-- **Calls**: src.pages.Account.setLoading, src.pages.Account.setMessage, src.pages.Account.mockFetch, src.pages.Account.stringify, src.pages.Account.t
-
-### src.pages.Account.handleReactivateSubscription
-- **Calls**: src.pages.Account.setLoading, src.pages.Account.mockFetch, src.pages.Account.setSubscription, src.pages.Account.setMessage, src.pages.Account.t
-
-### src.pages.Landing.exampleKeys
-- **Calls**: src.pages.Landing.URLSearchParams, src.pages.Landing.get, src.pages.Landing.includes, src.pages.Landing.floor, src.pages.Landing.random
 
 ## Process Flows
 
@@ -196,50 +196,49 @@ Key execution flows identified:
 handleExportData [src.pages.Account]
 ```
 
-### Flow 2: handleSubmit
+### Flow 2: highlightOQL
+```
+highlightOQL [src.components.CodeEditor]
+```
+
+### Flow 3: highlightIQL
+```
+highlightIQL [src.components.CodeEditor]
+```
+
+### Flow 4: handleSubmit
 ```
 handleSubmit [src.pages.Login]
 ```
 
-### Flow 3: token
+### Flow 5: token
 ```
 token [src.pages.Login]
 ```
 
-### Flow 4: plan
+### Flow 6: plan
 ```
 plan [src.pages.Login]
 ```
 
-### Flow 5: verifyTokenRef
+### Flow 7: verifyTokenRef
 ```
 verifyTokenRef [src.pages.Login]
 ```
 
-### Flow 6: autoSubmitRef
+### Flow 8: autoSubmitRef
 ```
 autoSubmitRef [src.pages.Login]
 ```
 
-### Flow 7: IS_MOCK
+### Flow 9: IS_MOCK
 ```
 IS_MOCK [src.pages.Demo]
 ```
 
-### Flow 8: MockCalendar
+### Flow 10: MockCalendar
 ```
 MockCalendar [src.pages.Demo]
-```
-
-### Flow 9: mockBackendRoutes
-```
-mockBackendRoutes [e2e.demo-user.spec]
-  └─> request
-```
-
-### Flow 10: data
-```
-data [src.pages.Login]
 ```
 
 ## Key Classes
@@ -255,6 +254,15 @@ Key functions that process and transform data:
 ### src.components.TerminalSim.parseScenarioCode
 - **Output to**: src.components.TerminalSim.split, src.components.TerminalSim.forEach, src.components.TerminalSim.trim, src.components.TerminalSim.startsWith, src.components.TerminalSim.match
 
+### src.components.OqlStepRenderer.parsed
+- **Output to**: src.components.OqlStepRenderer.setActiveGoalIdx, src.components.OqlStepRenderer.setActiveStepIdx
+
+### src.components.parseOqlToSteps.parseOqlToSteps
+- **Output to**: src.components.parseOqlToSteps.split, src.components.parseOqlToSteps.trim, src.components.parseOqlToSteps.startsWith, src.components.parseOqlToSteps.push, src.components.parseOqlToSteps.replace
+
+### src.components.parseOqlToSteps.parseStep
+- **Output to**: src.components.parseOqlToSteps.match, src.components.parseOqlToSteps.splitValueUnit, src.components.parseOqlToSteps.trim, src.components.parseOqlToSteps.form, src.components.parseOqlToSteps.exec
+
 ### src.mocks.api.parseMockRequestBody
 - **Output to**: src.mocks.api.parse
 
@@ -263,7 +271,8 @@ Key functions that process and transform data:
 Functions exposed as public API (no underscore prefix):
 
 - `src.pages.Account.handleExportData` - 14 calls
-- `src.components.TerminalSim.generateTermLines` - 11 calls
+- `src.components.CodeEditor.highlightOQL` - 12 calls
+- `src.components.CodeEditor.highlightIQL` - 11 calls
 - `src.pages.Login.handleSubmit` - 11 calls
 - `src.pages.Login.token` - 10 calls
 - `src.pages.Login.plan` - 10 calls
@@ -273,8 +282,13 @@ Functions exposed as public API (no underscore prefix):
 - `src.pages.Login.navigate` - 9 calls
 - `src.pages.Demo.IS_MOCK` - 9 calls
 - `src.pages.Demo.MockCalendar` - 9 calls
+- `src.components.parseOqlToSteps.parseOqlToSteps` - 8 calls
+- `src.components.parseOqlToSteps.parseStep` - 8 calls
+- `src.pages.Billing.handleSubscribe` - 8 calls
 - `e2e.demo-user.spec.mockBackendRoutes` - 8 calls
 - `src.components.TerminalSim.parseScenarioCode` - 7 calls
+- `src.components.parseOqlToSteps.currentGoal` - 7 calls
+- `src.components.parseOqlToSteps.currentFunc` - 7 calls
 - `src.pages.Login.data` - 7 calls
 - `src.pages.Status.status` - 7 calls
 - `src.pages.Status.getStatusColor` - 7 calls
@@ -283,25 +297,19 @@ Functions exposed as public API (no underscore prefix):
 - `src.pages.Status.copyAsYaml` - 7 calls
 - `src.mocks.api.mockFetch` - 7 calls
 - `src.hooks.useAuth.useAuth` - 6 calls
-- `src.components.CodeEditor.highlightOQL` - 6 calls
-- `src.components.CodeEditor.highlightIQL` - 6 calls
 - `src.components.TerminalSim.lines` - 6 calls
 - `src.components.TerminalSim.scenarioName` - 6 calls
+- `src.components.parseOqlToSteps.toReportJson` - 6 calls
 - `src.pages.Account.handleCancelSubscription` - 6 calls
 - `src.i18n.I18nProvider.I18nProvider` - 6 calls
 - `e2e.buttons.navigation-buttons.spec.scenariosLink` - 6 calls
+- `src.components.CodeEditor.html` - 5 calls
+- `src.components.TerminalSim.generateTermLines` - 5 calls
 - `src.components.TerminalSim.termRef` - 5 calls
 - `src.components.TerminalSim.runSim` - 5 calls
+- `src.components.SlackWebhookSettings.handleSave` - 5 calls
+- `src.components.SlackWebhookSettings.handleTest` - 5 calls
 - `src.pages.Account.handleProfileUpdate` - 5 calls
-- `src.pages.Account.handleReactivateSubscription` - 5 calls
-- `src.pages.Landing.exampleKeys` - 5 calls
-- `src.pages.Landing.getVariant` - 5 calls
-- `e2e.buttons.landing-buttons.spec.count` - 5 calls
-- `e2e.buttons.landing-buttons.spec.copyBtns` - 5 calls
-- `e2e.buttons.landing-buttons.spec.useCasesTabs` - 5 calls
-- `e2e.buttons.scenarios-buttons.spec.tabs` - 5 calls
-- `e2e.buttons.scenarios-buttons.spec.count` - 5 calls
-- `src.components.TerminalSim.previewLines` - 4 calls
 
 ## System Interactions
 
@@ -314,6 +322,16 @@ graph TD
     handleExportData --> Blob
     handleExportData --> stringify
     handleExportData --> createObjectURL
+    highlightOQL --> split
+    highlightOQL --> map
+    highlightOQL --> replace
+    highlightOQL --> trimStart
+    highlightOQL --> startsWith
+    highlightIQL --> split
+    highlightIQL --> map
+    highlightIQL --> replace
+    highlightIQL --> trimStart
+    highlightIQL --> startsWith
     handleSubmit --> preventDefault
     handleSubmit --> setLoading
     handleSubmit --> setMsg
@@ -329,16 +347,6 @@ graph TD
     plan --> mockFetch
     plan --> json
     plan --> setItem
-    verifyTokenRef --> useEffect
-    verifyTokenRef --> setLoading
-    verifyTokenRef --> mockFetch
-    verifyTokenRef --> json
-    verifyTokenRef --> setItem
-    autoSubmitRef --> useEffect
-    autoSubmitRef --> setLoading
-    autoSubmitRef --> mockFetch
-    autoSubmitRef --> json
-    autoSubmitRef --> setItem
 ```
 
 ## Reverse Engineering Guidelines

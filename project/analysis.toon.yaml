@@ -1,13 +1,21 @@
-# code2llm | 58f 4684L | javascript:55,shell:3 | 2026-04-16
-# CC̄=2.7 | critical:1/199 | dups:0 | cycles:0
+# code2llm | 64f 6815L | javascript:59,shell:5 | 2026-04-18
+# CC̄=3.4 | critical:9/302 | dups:0 | cycles:0
 
-HEALTH[1]:
-  🟡 CC    generateTermLines CC=15 (limit:15)
+HEALTH[9]:
+  🟡 CC    StepDetail CC=16 (limit:15)
+  🟡 CC    parseOqlToSteps CC=37 (limit:15)
+  🟡 CC    currentGoal CC=36 (limit:15)
+  🟡 CC    currentFunc CC=36 (limit:15)
+  🟡 CC    step CC=17 (limit:15)
+  🟡 CC    parseStep CC=47 (limit:15)
+  🟡 CC    collectThresholds CC=18 (limit:15)
+  🟡 CC    toReportJson CC=19 (limit:15)
+  🟡 CC    goals CC=15 (limit:15)
 
 REFACTOR[1]:
-  1. split 1 high-CC methods  (CC>15)
+  1. split 9 high-CC methods  (CC>15)
 
-PIPELINES[138]:
+PIPELINES[199]:
   [1] Src [useAuth]: useAuth → navigate
       PURITY: 100% pure
   [2] Src [jwt]: jwt
@@ -20,27 +28,31 @@ PIPELINES[138]:
       PURITY: 100% pure
 
 LAYERS:
-  src/                            CC̄=3.3    ←in:0  →out:0
-  │ Demo.jsx                   261L  0C    3m  CC=11     ←0
+  src/                            CC̄=3.9    ←in:0  →out:0
+  │ !! parseOqlToSteps.js         442L  0C   48m  CC=47     ←0
+  │ api.js                     353L  0C   15m  CC=13     ←0
+  │ !! OqlStepRenderer.jsx        349L  0C   16m  CC=16     ←0
+  │ Demo.jsx                   287L  0C    5m  CC=11     ←0
+  │ SlackWebhookSettings.jsx   270L  0C    4m  CC=5      ←0
   │ CaseStudies.jsx            257L  0C    4m  CC=2      ←0
+  │ Billing.jsx                252L  0C    7m  CC=12     ←0
   │ Landing.jsx                251L  0C    8m  CC=4      ←0
-  │ Account.jsx                190L  0C    8m  CC=12     ←0
-  │ api.js                     190L  0C   10m  CC=11     ←0
+  │ OqlReportRenderer.jsx      203L  0C   16m  CC=14     ←0
+  │ Account.jsx                193L  0C    8m  CC=12     ←0
   │ RoiCalculator.jsx          188L  0C    7m  CC=2      ←0
   │ Status.jsx                 188L  0C    5m  CC=8      ←0
+  │ PricingCards.jsx           186L  0C    1m  CC=4      ←0
+  │ TerminalSim.jsx            166L  0C   24m  CC=8      ←0
+  │ oql-examples.js            164L  0C    0m  CC=0.0    ←0
   │ Academy.jsx                152L  0C    1m  CC=1      ←0
-  │ !! TerminalSim.jsx            146L  0C   20m  CC=15     ←0
-  │ oql-examples.js            144L  0C    0m  CC=0.0    ←0
+  │ CodeEditor.jsx             146L  0C   10m  CC=3      ←0
+  │ Scenarios.jsx              140L  0C    8m  CC=2      ←0
   │ Login.jsx                  133L  0C    9m  CC=8      ←0
-  │ CodeEditor.jsx             119L  0C   10m  CC=3      ←0
-  │ NlpConsole.jsx             114L  0C    8m  CC=11     ←0
+  │ NlpConsole.jsx             114L  0C    8m  CC=12     ←0
   │ Dashboard.jsx              109L  0C    3m  CC=3      ←0
   │ ArchDiagram.jsx             84L  0C    0m  CC=0.0    ←0
   │ SubscriptionSection.jsx     77L  0C    0m  CC=0.0    ←0
-  │ Scenarios.jsx               75L  0C    5m  CC=1      ←0
   │ ProfileSection.jsx          75L  0C    1m  CC=1      ←0
-  │ PricingCards.jsx            71L  0C    0m  CC=0.0    ←0
-  │ Billing.jsx                 64L  0C    3m  CC=5      ←0
   │ logger.spec.js              62L  0C    4m  CC=1      ←0
   │ I18nProvider.jsx            54L  0C   13m  CC=9      ←0
   │ install-commands.js         53L  0C    2m  CC=1      ←0
@@ -49,8 +61,8 @@ LAYERS:
   │ App.jsx                     35L  0C    0m  CC=0.0    ←0
   │ logger.js                   33L  0C    4m  CC=2      ←0
   │ useAuth.js                  32L  0C    6m  CC=4      ←0
+  │ SharedNav.jsx               31L  0C    0m  CC=0.0    ←0
   │ ThemeToggle.jsx             29L  0C    0m  CC=0.0    ←0
-  │ SharedNav.jsx               28L  0C    0m  CC=0.0    ←0
   │ LangSwitch.jsx              24L  0C    0m  CC=0.0    ←0
   │ main.jsx                    19L  0C    0m  CC=0.0    ←0
   │ DangerZoneSection.jsx       18L  0C    0m  CC=0.0    ←0
@@ -85,6 +97,10 @@ LAYERS:
   │
   public/                         CC̄=0.0    ←in:0  →out:0
   │ sw.js                       26L  0C    0m  CC=0.0    ←0
+  │
+  scripts/                        CC̄=0.0    ←in:0  →out:0
+  │ check-tls.sh               176L  0C    0m  CC=0.0    ←0
+  │ deploy.sh                   61L  0C    0m  CC=0.0    ←0
   │
 
 COUPLING: no cross-package imports detected

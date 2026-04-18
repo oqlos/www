@@ -1,431 +1,50 @@
-# www | 58f 4684L | shell:3,javascript:55 | 2026-04-16
-# stats: 199 func | 0 cls | 58 mod | CC̄=2.7 | critical:1 | cycles:0
-# alerts[5]: CC generateTermLines=15; fan-out handleExportData=14; fan-out generateTermLines=11; fan-out handleSubmit=11; fan-out autoSubmitRef=10
-# hotspots[5]: handleExportData fan=14; generateTermLines fan=11; handleSubmit fan=11; token fan=10; plan fan=10
-# evolution: CC̄ 2.7→2.7 (flat 0.0)
+# www | 42f 5924L | javascript:31,shell:6,css:4,less:1 | 2026-04-18
+# stats: 0 func | 0 cls | 42 mod | CC̄=1.0 | critical:0 | cycles:0
+# alerts[5]: none
+# hotspots[5]: none
+# evolution: baseline
 # Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[58]:
-  docker-entrypoint.sh,8
-  e2e/account-export.spec.js,66
-  e2e/account.spec.js,77
-  e2e/billing-payment.spec.js,66
-  e2e/buttons/billing-buttons.spec.js,62
-  e2e/buttons/dashboard-buttons.spec.js,56
-  e2e/buttons/landing-buttons.spec.js,70
-  e2e/buttons/login-buttons.spec.js,39
-  e2e/buttons/navigation-buttons.spec.js,50
-  e2e/buttons/nlp-buttons.spec.js,90
-  e2e/buttons/scenarios-buttons.spec.js,68
-  e2e/case-studies.spec.js,38
-  e2e/demo-page.spec.js,40
-  e2e/demo-user.spec.js,200
-  e2e/landing.spec.js,44
-  e2e/scenarios-editor.spec.js,135
-  e2e/smoke.spec.js,22
-  playwright.config.js,49
+M[42]:
+  app.doql.css,402
+  app.doql.less,404
+  docker-entrypoint.sh,9
+  e2e/account-export.spec.js,67
+  e2e/account.spec.js,78
+  e2e/billing-payment.spec.js,67
+  e2e/buttons/billing-buttons.spec.js,63
+  e2e/buttons/dashboard-buttons.spec.js,57
+  e2e/buttons/landing-buttons.spec.js,71
+  e2e/buttons/login-buttons.spec.js,40
+  e2e/buttons/navigation-buttons.spec.js,51
+  e2e/buttons/nlp-buttons.spec.js,91
+  e2e/buttons/scenarios-buttons.spec.js,69
+  e2e/case-studies.spec.js,39
+  e2e/demo-page.spec.js,41
+  e2e/demo-user.spec.js,201
+  e2e/helpers/test-helpers.js,125
+  e2e/landing.spec.js,45
+  e2e/scenarios-editor.spec.js,136
+  e2e/smoke.spec.js,23
+  e2e/test-user.spec.js,612
+  playwright.config.js,50
   project.sh,35
-  public/sw.js,26
-  src/App.jsx,35
-  src/components/ArchDiagram.jsx,84
-  src/components/CodeEditor.jsx,119
-  src/components/ErrorBoundary.jsx,47
-  src/components/LangSwitch.jsx,24
-  src/components/LoadingSpinner.jsx,17
-  src/components/PricingCards.jsx,71
-  src/components/ProtectedRoute.jsx,7
-  src/components/SharedNav.jsx,28
-  src/components/TerminalSim.jsx,146
-  src/components/ThemeToggle.jsx,29
-  src/components/oql-examples.js,144
-  src/config.js,16
-  src/data/install-commands.js,53
-  src/hooks/useAuth.js,32
-  src/i18n/I18nProvider.jsx,54
-  src/main.jsx,19
-  src/mocks/api.js,190
-  src/pages/Academy.jsx,152
-  src/pages/Account.jsx,190
-  src/pages/Billing.jsx,64
-  src/pages/CaseStudies.jsx,257
-  src/pages/Dashboard.jsx,109
-  src/pages/Demo.jsx,261
-  src/pages/Landing.jsx,251
-  src/pages/Login.jsx,133
-  src/pages/NlpConsole.jsx,114
-  src/pages/RoiCalculator.jsx,188
-  src/pages/Scenarios.jsx,75
-  src/pages/Status.jsx,188
-  src/pages/account/DangerZoneSection.jsx,18
-  src/pages/account/PaymentHistorySection.jsx,41
-  src/pages/account/ProfileSection.jsx,75
-  src/pages/account/SubscriptionSection.jsx,77
-  src/utils/logger.js,33
-  src/utils/logger.spec.js,62
-  tree.sh,1
-  vite.config.js,39
+  public/sw.js,27
+  scripts/check-tls.sh,177
+  scripts/deploy.sh,62
+  src/components/OqlReportRenderer.css,249
+  src/components/OqlStepRenderer.css,442
+  src/components/oql-examples.js,165
+  src/components/parseOqlToSteps.js,443
+  src/config.js,17
+  src/data/install-commands.js,54
+  src/hooks/useAuth.js,33
+  src/mocks/api.js,354
+  src/styles/global.css,879
+  src/utils/logger.js,34
+  src/utils/logger.spec.js,63
+  test/oqlos-portal.test.js,8
+  test.sh,84
+  tree.sh,2
+  vite.config.js,40
+  vitest.config.js,15
 D:
-  src/components/TerminalSim.jsx:
-    i: react
-    e: parseScenarioCode,lines,scenarioName,trimmed,scenarioMatch,deviceMatch,generateTermLines,fileName,lang,isLast,prefix,shortStep,previewLines,isLast,prefix,cleanLine,termRef,runSim,effectiveCode,termLines,idx,iv
-    parseScenarioCode()
-    lines()
-    scenarioName()
-    trimmed()
-    scenarioMatch()
-    deviceMatch()
-    generateTermLines()
-    fileName()
-    lang()
-    isLast()
-    prefix()
-    shortStep()
-    previewLines()
-    isLast()
-    prefix()
-    cleanLine()
-    termRef()
-    runSim()
-    effectiveCode()
-    termLines()
-    idx()
-    iv()
-  src/config.js:
-    e: env
-    env()
-  src/pages/Account.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,./account/DangerZoneSection,./account/PaymentHistorySection,./account/ProfileSection,./account/SubscriptionSection,react
-    e: handleProfileUpdate,res,handleCancelSubscription,res,handleReactivateSubscription,res,handleExportData,blob,url,link
-    handleProfileUpdate()
-    res()
-    handleCancelSubscription()
-    res()
-    handleReactivateSubscription()
-    res()
-    handleExportData()
-    blob()
-    url()
-    link()
-  src/pages/NlpConsole.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,react
-    e: BACKEND_URL,getEndpoint,getPlaceholder,handleSubmit,endpoint,url,res,data
-    BACKEND_URL()
-    getEndpoint()
-    getPlaceholder()
-    handleSubmit()
-    endpoint()
-    url()
-    res()
-    data()
-  src/pages/Demo.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,react
-    e: IS_MOCK,MockCalendar,handleBook
-    IS_MOCK()
-    MockCalendar()
-    handleBook()
-  src/mocks/api.js:
-    e: FORCE_MOCK_ALL,MOCK_ENABLED,parseMockRequestBody,createMockLoginData,email,user,plan,mockFetch,match,fakeResponse
-    FORCE_MOCK_ALL()
-    MOCK_ENABLED()
-    parseMockRequestBody()
-    createMockLoginData()
-    email()
-    user()
-    plan()
-    mockFetch()
-    match()
-    fakeResponse()
-  src/i18n/I18nProvider.jsx:
-    i: ./de.json,./en.json,./pl.json,react
-    e: SUPPORTED_LANGS,I18nContext,getInitialLang,saved,browser,I18nProvider,setLang,dict,t,keys,val,useI18n,ctx
-    SUPPORTED_LANGS()
-    I18nContext()
-    getInitialLang()
-    saved()
-    browser()
-    I18nProvider()
-    setLang()
-    dict()
-    t()
-    keys()
-    val()
-    useI18n()
-    ctx()
-  src/pages/Login.jsx:
-    i: ../i18n/I18nProvider,../mocks/api,react,react-router-dom
-    e: navigate,token,plan,verifyTokenRef,autoSubmitRef,res,data,form,handleSubmit,res,data
-    navigate()
-    token()
-    plan()
-    verifyTokenRef()
-    autoSubmitRef()
-    res()
-    data()
-    form()
-    handleSubmit()
-    res()
-    data()
-  src/pages/Status.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,react
-    e: status,getStatusColor,getStatusBg,getStatusBorder,copyAsYaml
-    status()
-    getStatusColor()
-    getStatusBg()
-    getStatusBorder()
-    copyAsYaml()
-  e2e/demo-user.spec.js:
-    i: @playwright/test
-    e: mockBackendRoutes,request,emailInput,jwt,user,user
-    mockBackendRoutes()
-    request()
-    emailInput()
-    jwt()
-    user()
-    user()
-  src/pages/Billing.jsx:
-    i: ../components/PricingCards,../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,../mocks/api,react,react-router-dom
-    e: handleSubscribe,res,data
-    handleSubscribe()
-    res()
-    data()
-  src/hooks/useAuth.js:
-    i: react-router-dom
-    e: useAuth,navigate,jwt,isAuthenticated,logout,requireAuth
-    useAuth()
-    navigate()
-    jwt()
-    isAuthenticated()
-    logout()
-    requireAuth()
-  src/components/ErrorBoundary.jsx:
-    i: react
-    e: ErrorBoundary
-    ErrorBoundary: super(-1),getDerivedStateFromError(-1),componentDidCatch(-1),render(-1)
-  src/pages/Landing.jsx:
-    i: ../components/CodeEditor,../components/LangSwitch,../components/PricingCards,../components/TerminalSim,../components/oql-examples,../config,../data/install-commands,../i18n/I18nProvider,../utils/logger,react,react-router-dom
-    e: exampleKeys,getVariant,params,paramVariant,heroSubtitle,handleExampleChange,handleTabChange,handleCopy
-    exampleKeys()
-    getVariant()
-    params()
-    paramVariant()
-    heroSubtitle()
-    handleExampleChange()
-    handleTabChange()
-    handleCopy()
-  src/components/CodeEditor.jsx:
-    i: react
-    e: highlightOQL,html,highlightIQL,html,textareaRef,preRef,code,fn,handleScroll,handleChange,newCode
-    highlightOQL()
-    html()
-    highlightIQL()
-    html()
-    textareaRef()
-    preRef()
-    code()
-    fn()
-    handleScroll()
-    handleChange()
-    newCode()
-  src/pages/Dashboard.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider
-    e: MOCK_ENABLED,BACKEND_URL,MockStatus
-    MOCK_ENABLED()
-    BACKEND_URL()
-    MockStatus()
-  e2e/buttons/landing-buttons.spec.js:
-    i: ../helpers/test-helpers,@playwright/test
-    e: getStartedBtn,useCasesSection,outlineBtns,count,copyBtns,count,useCasesTabs,count
-    getStartedBtn()
-    useCasesSection()
-    outlineBtns()
-    count()
-    copyBtns()
-    count()
-    useCasesTabs()
-    count()
-  src/pages/CaseStudies.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider
-    e: IndustryBadge,style,title,subtitle
-    IndustryBadge()
-    style()
-    title()
-    subtitle()
-  src/pages/RoiCalculator.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,react
-    e: calculateROI,currentMonthlyCost,oqlMonthlyCost,monthlySavings,annualSavings,roiPercentage,roi
-    calculateROI()
-    currentMonthlyCost()
-    oqlMonthlyCost()
-    monthlySavings()
-    annualSavings()
-    roiPercentage()
-    roi()
-  src/utils/logger.js:
-    i: loglevel
-    e: LOG_LEVEL,MAX_BUFFER,_push,filtered
-    LOG_LEVEL()
-    MAX_BUFFER()
-    _push()
-    filtered()
-  e2e/account-export.spec.js:
-    i: @playwright/test
-    e: downloadPromise,download,fileContent,data
-    downloadPromise()
-    download()
-    fileContent()
-    data()
-  e2e/buttons/billing-buttons.spec.js:
-    i: ../helpers/test-helpers,@playwright/test
-    e: buttons,freeCardBtn,proCardBtn,proCardBtn,enterpriseCardBtn
-    buttons()
-    freeCardBtn()
-    proCardBtn()
-    proCardBtn()
-    enterpriseCardBtn()
-  e2e/buttons/navigation-buttons.spec.js:
-    i: ../helpers/test-helpers,@playwright/test
-    e: logoutBtn,jwt,scenariosLink,logo
-    logoutBtn()
-    jwt()
-    scenariosLink()
-    logo()
-  e2e/buttons/scenarios-buttons.spec.js:
-    i: ../helpers/test-helpers,@playwright/test
-    e: tabs,count,runBtn,runBtn,runBtn,stepBtn
-    tabs()
-    count()
-    runBtn()
-    runBtn()
-    runBtn()
-    stepBtn()
-  src/components/ProtectedRoute.jsx:
-    i: react-router-dom
-    e: jwt
-    jwt()
-  src/pages/Scenarios.jsx:
-    i: ../components/CodeEditor,../components/SharedNav,../components/TerminalSim,../components/oql-examples,../hooks/useAuth,../i18n/I18nProvider,react
-    e: exampleKeys,currentScenario,currentCode,handleCodeChange,handleTabChange
-    exampleKeys()
-    currentScenario()
-    currentCode()
-    handleCodeChange()
-    handleTabChange()
-  src/pages/Academy.jsx:
-    i: ../components/SharedNav,../hooks/useAuth,../i18n/I18nProvider,react
-    e: activeModuleData
-    activeModuleData()
-  src/pages/account/ProfileSection.jsx:
-    i: ../../i18n/I18nProvider,react
-    e: handleSubmit
-    handleSubmit()
-  src/data/install-commands.js:
-    e: INSTALL_DOCKER,INSTALL_RPI
-    INSTALL_DOCKER()
-    INSTALL_RPI()
-  src/utils/logger.spec.js:
-    i: ./logger.js,vitest
-    e: exported,logs,last,warns
-    exported()
-    logs()
-    last()
-    warns()
-  e2e/landing.spec.js:
-    i: @playwright/test
-    e: heading,nav,errorMessages,response,response
-    heading()
-    nav()
-    errorMessages()
-    response()
-    response()
-  e2e/smoke.spec.js:
-    i: @playwright/test
-    e: response
-    response()
-  e2e/billing-payment.spec.js:
-    i: @playwright/test
-    e: subscribeButton,url,contactButton,url,downloadButton,url
-    subscribeButton()
-    url()
-    contactButton()
-    url()
-    downloadButton()
-    url()
-  e2e/demo-page.spec.js:
-    i: ./helpers/test-helpers,@playwright/test
-    e: hasMockCalendar,hasIframe,emailLink,href
-    hasMockCalendar()
-    hasIframe()
-    emailLink()
-    href()
-  e2e/case-studies.spec.js:
-    i: ./helpers/test-helpers,@playwright/test
-    e: demoLink,roiLink
-    demoLink()
-    roiLink()
-  e2e/scenarios-editor.spec.js:
-    i: @playwright/test
-    e: titleBeforeRun,badgeBeforeRun,terminalText,textarea,editedValue,afterSwitchBack,textarea,terminalText,textarea,content
-    titleBeforeRun()
-    badgeBeforeRun()
-    terminalText()
-    textarea()
-    editedValue()
-    afterSwitchBack()
-    textarea()
-    terminalText()
-    textarea()
-    content()
-  e2e/buttons/login-buttons.spec.js:
-    i: ../helpers/test-helpers,@playwright/test
-    e: submitBtn,emailInput,backBtn
-    submitBtn()
-    emailInput()
-    backBtn()
-  e2e/buttons/dashboard-buttons.spec.js:
-    i: ../helpers/test-helpers,@playwright/test
-    e: featureCards,runBtn,nlpBtn
-    featureCards()
-    runBtn()
-    nlpBtn()
-  e2e/buttons/nlp-buttons.spec.js:
-    i: ../helpers/test-helpers,@playwright/test
-    e: tabs,input,submitBtn,output,input,submitBtn,submitBtn,output,input,submitBtn
-    tabs()
-    input()
-    submitBtn()
-    output()
-    input()
-    submitBtn()
-    submitBtn()
-    output()
-    input()
-    submitBtn()
-  docker-entrypoint.sh:
-  tree.sh:
-  project.sh:
-  playwright.config.js:
-    i: @playwright/test
-  vite.config.js:
-    i: @vitejs/plugin-react,vite
-  src/App.jsx:
-    i: ./components/ProtectedRoute,./pages/Academy,./pages/Account,./pages/Billing,./pages/CaseStudies,./pages/Dashboard,./pages/Demo,./pages/Landing,./pages/Login,./pages/NlpConsole,./pages/RoiCalculator,./pages/Scenarios,./pages/Status,react-router-dom
-  public/sw.js:
-  src/main.jsx:
-    i: ./App,./components/ErrorBoundary,./i18n/I18nProvider,react,react-dom/client,react-router-dom
-  src/components/LangSwitch.jsx:
-    i: ../i18n/I18nProvider
-  src/components/LoadingSpinner.jsx:
-  src/components/ArchDiagram.jsx:
-  src/components/oql-examples.js:
-  src/components/SharedNav.jsx:
-    i: ../i18n/I18nProvider,./LangSwitch,./ThemeToggle,react-router-dom
-  src/components/ThemeToggle.jsx:
-    i: react
-  src/components/PricingCards.jsx:
-  src/pages/account/DangerZoneSection.jsx:
-    i: ../../i18n/I18nProvider
-  src/pages/account/SubscriptionSection.jsx:
-    i: ../../i18n/I18nProvider
-  src/pages/account/PaymentHistorySection.jsx:
-    i: ../../i18n/I18nProvider
-  e2e/account.spec.js:
-    i: @playwright/test

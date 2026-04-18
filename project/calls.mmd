@@ -9,53 +9,92 @@ flowchart LR
         e2e__demo_user__spec__mockBackendRoutes["mockBackendRoutes"]
     end
     subgraph src__components
+        src__components__parseOqlToSteps__collectThresholds["collectThresholds"]
+        src__components__parseOqlToSteps__goals["goals"]
+        src__components__TerminalSim___buildPreviewLines["_buildPreviewLines"]
+        src__components__parseOqlToSteps__setQuotedMatch["setQuotedMatch"]
+        src__components__TerminalSim___buildHeaderLines["_buildHeaderLines"]
+        src__components__parseOqlToSteps__parseOqlToSteps["parseOqlToSteps"]
+        src__components__parseOqlToSteps__currentFunc["currentFunc"]
+        src__components__OqlStepRenderer__stepTypeClass["stepTypeClass"]
+        src__components__parseOqlToSteps__minMatch["minMatch"]
         src__components__TerminalSim__generateTermLines["generateTermLines"]
-        src__components__TerminalSim__runSim["runSim"]
-        src__components__TerminalSim__parseScenarioCode["parseScenarioCode"]
         src__components__TerminalSim__termRef["termRef"]
+        src__components__parseOqlToSteps__parseStep["parseStep"]
+        src__components__parseOqlToSteps__setMaxMatch["setMaxMatch"]
+        src__components__OqlStepRenderer__stepDisplayType["stepDisplayType"]
+        src__components__TerminalSim__parseScenarioCode["parseScenarioCode"]
+        src__components__parseOqlToSteps__setMinMatch["setMinMatch"]
+        src__components__parseOqlToSteps__currentGoal["currentGoal"]
+        src__components__parseOqlToSteps__toReportJson["toReportJson"]
+        src__components__OqlStepRenderer__StepDetail["StepDetail"]
+        src__components__parseOqlToSteps__setDblMatch["setDblMatch"]
+        src__components__TerminalSim___buildStepLines["_buildStepLines"]
+        src__components__parseOqlToSteps__splitValueUnit["splitValueUnit"]
+        src__components__TerminalSim___buildFooterLines["_buildFooterLines"]
+        src__components__parseOqlToSteps__maxMatch["maxMatch"]
+        src__components__TerminalSim__runSim["runSim"]
     end
     subgraph src__hooks
-        src__hooks__useAuth__isAuthenticated["isAuthenticated"]
+        src__hooks__useAuth__logout["logout"]
         src__hooks__useAuth__navigate["navigate"]
         src__hooks__useAuth__requireAuth["requireAuth"]
+        src__hooks__useAuth__isAuthenticated["isAuthenticated"]
         src__hooks__useAuth__useAuth["useAuth"]
-        src__hooks__useAuth__logout["logout"]
     end
     subgraph src__mocks
-        src__mocks__api__match["match"]
+        src__mocks__api__fakeResponse["fakeResponse"]
         src__mocks__api__mockFetch["mockFetch"]
         src__mocks__api__parseMockRequestBody["parseMockRequestBody"]
         src__mocks__api__createMockLoginData["createMockLoginData"]
-        src__mocks__api__fakeResponse["fakeResponse"]
+        src__mocks__api__match["match"]
     end
     subgraph src__pages
         src__pages__Login__autoSubmitRef["autoSubmitRef"]
-        src__pages__Login__data["data"]
         src__pages__Login__navigate["navigate"]
-        src__pages__NlpConsole__handleSubmit["handleSubmit"]
+        src__pages__Login__plan["plan"]
         src__pages__NlpConsole__getEndpoint["getEndpoint"]
         src__pages__Login__token["token"]
         src__pages__Login__verifyTokenRef["verifyTokenRef"]
+        src__pages__Login__data["data"]
+        src__pages__NlpConsole__handleSubmit["handleSubmit"]
         src__pages__Login__handleSubmit["handleSubmit"]
-        src__pages__Login__plan["plan"]
     end
     src__hooks__useAuth__useAuth --> src__hooks__useAuth__navigate
     src__hooks__useAuth__isAuthenticated --> src__hooks__useAuth__navigate
     src__hooks__useAuth__logout --> src__hooks__useAuth__navigate
     src__hooks__useAuth__requireAuth --> src__hooks__useAuth__navigate
-    src__pages__NlpConsole__handleSubmit --> src__pages__NlpConsole__getEndpoint
     src__components__TerminalSim__generateTermLines --> src__components__TerminalSim__parseScenarioCode
+    src__components__TerminalSim__generateTermLines --> src__components__TerminalSim___buildHeaderLines
+    src__components__TerminalSim__generateTermLines --> src__components__TerminalSim___buildStepLines
+    src__components__TerminalSim__generateTermLines --> src__components__TerminalSim___buildPreviewLines
+    src__components__TerminalSim__generateTermLines --> src__components__TerminalSim___buildFooterLines
     src__components__TerminalSim__termRef --> src__components__TerminalSim__generateTermLines
     src__components__TerminalSim__runSim --> src__components__TerminalSim__generateTermLines
+    src__pages__NlpConsole__handleSubmit --> src__pages__NlpConsole__getEndpoint
+    src__components__OqlStepRenderer__StepDetail --> src__components__OqlStepRenderer__stepTypeClass
+    src__components__OqlStepRenderer__StepDetail --> src__components__OqlStepRenderer__stepDisplayType
+    src__components__parseOqlToSteps__parseOqlToSteps --> src__components__parseOqlToSteps__parseStep
+    src__components__parseOqlToSteps__currentGoal --> src__components__parseOqlToSteps__parseStep
+    src__components__parseOqlToSteps__currentFunc --> src__components__parseOqlToSteps__parseStep
+    src__components__parseOqlToSteps__parseStep --> src__components__parseOqlToSteps__splitValueUnit
+    src__components__parseOqlToSteps__setMinMatch --> src__components__parseOqlToSteps__splitValueUnit
+    src__components__parseOqlToSteps__setMaxMatch --> src__components__parseOqlToSteps__splitValueUnit
+    src__components__parseOqlToSteps__setQuotedMatch --> src__components__parseOqlToSteps__splitValueUnit
+    src__components__parseOqlToSteps__setDblMatch --> src__components__parseOqlToSteps__splitValueUnit
+    src__components__parseOqlToSteps__minMatch --> src__components__parseOqlToSteps__splitValueUnit
+    src__components__parseOqlToSteps__maxMatch --> src__components__parseOqlToSteps__splitValueUnit
+    src__components__parseOqlToSteps__toReportJson --> src__components__parseOqlToSteps__collectThresholds
+    src__components__parseOqlToSteps__goals --> src__components__parseOqlToSteps__collectThresholds
     src__pages__Login__token --> src__pages__Login__navigate
     src__pages__Login__plan --> src__pages__Login__navigate
     src__pages__Login__verifyTokenRef --> src__pages__Login__navigate
     src__pages__Login__autoSubmitRef --> src__pages__Login__navigate
     src__pages__Login__data --> src__pages__Login__navigate
     src__pages__Login__handleSubmit --> src__pages__Login__navigate
+    e2e__demo_user__spec__mockBackendRoutes --> e2e__demo_user__spec__request
     src__mocks__api__createMockLoginData --> src__mocks__api__parseMockRequestBody
     src__mocks__api__mockFetch --> src__mocks__api__fakeResponse
     src__mocks__api__match --> src__mocks__api__fakeResponse
-    e2e__demo_user__spec__mockBackendRoutes --> e2e__demo_user__spec__request
     e2e__buttons__scenarios_buttons__spec__runBtn --> e2e__buttons__scenarios_buttons__spec__count
     e2e__buttons__scenarios_buttons__spec__stepBtn --> e2e__buttons__scenarios_buttons__spec__count
