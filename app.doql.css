@@ -23,11 +23,6 @@ database[name="redis"] {
   url: env.REDIS_URL;
 }
 
-database[name="main"] {
-  type: "sqlite";
-  url: env.VITE_SQLITE_DB_PATH;
-}
-
 interface[type="web"] {
   type: spa;
   framework: react;
@@ -68,22 +63,6 @@ interface[type="web"] page[name="scenarios"] {
 }
 interface[type="web"] page[name="status"] {
 
-}
-
-integration[name="email"] {
-  type: "smtp";
-}
-
-integration[name="modbus"] {
-  type: "hardware";
-}
-
-integration[name="nlp"] {
-  type: "api";
-}
-
-integration[name="github"] {
-  type: "scm";
 }
 
 workflow[name="dev"] {
@@ -265,36 +244,125 @@ workflow[name="tag"] {
   step-2: run cmd=git push origin v$(v);
 }
 
-role[name="admin"] {
-  permit: *;
+workflow[name="test:unit"] {
+  trigger: "manual";
+  step-1: run cmd=npm run test:unit;
+}
+
+workflow[name="test:e2e"] {
+  trigger: "manual";
+  step-1: run cmd=npx playwright test;
+}
+
+workflow[name="test:e2e:ui"] {
+  trigger: "manual";
+  step-1: run cmd=npx playwright test --ui;
+}
+
+workflow[name="test:e2e:ci"] {
+  trigger: "manual";
+  step-1: run cmd=npx playwright test --project=chromium --reporter=line;
+}
+
+workflow[name="playwright:install"] {
+  trigger: "manual";
+  step-1: run cmd=npx playwright install chromium firefox webkit;
+}
+
+workflow[name="playwright:deps"] {
+  trigger: "manual";
+  step-1: run cmd=sudo npx playwright install-deps;
+}
+
+workflow[name="docker:build"] {
+  trigger: "manual";
+  step-1: run cmd=docker build -t oqlos-portal:latest .;
+}
+
+workflow[name="docker:run"] {
+  trigger: "manual";
+  step-1: run cmd=docker run -p 80:80 -e NGINX_PORT=80 -e BACKEND_URL=http://host.docker.internal:8101 oqlos-portal:latest;
+}
+
+workflow[name="docker:dev:up"] {
+  trigger: "manual";
+  step-1: run cmd=docker compose -f infra/docker/dev/docker-compose.dev.yml up -d --build;
+}
+
+workflow[name="docker:dev:down"] {
+  trigger: "manual";
+  step-1: run cmd=docker compose -f infra/docker/dev/docker-compose.dev.yml down;
+}
+
+workflow[name="docker:prod:up"] {
+  trigger: "manual";
+  step-1: run cmd=docker compose -f infra/docker/prod/docker-compose.prod.yml up -d;
+}
+
+workflow[name="docker:prod:down"] {
+  trigger: "manual";
+  step-1: run cmd=docker compose -f infra/docker/prod/docker-compose.prod.yml down;
+}
+
+workflow[name="doql:adopt"] {
+  trigger: "manual";
+  step-1: run cmd=if ! command -v {{.DOQL_CMD}} >/dev/null 2>&1; then
+  echo "⚠️  doql not installed. Install: pip install doql"
+  exit 1
+fi;
+  step-2: run cmd={{.DOQL_CMD}} adopt {{.PWD}} --output app.doql.css --force;
+  step-3: run cmd={{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}};
+  step-4: run cmd=echo "✅ Project structure captured in {{.DOQL_OUTPUT}}";
+}
+
+workflow[name="doql:validate"] {
+  trigger: "manual";
+  step-1: run cmd=if [ ! -f "{{.DOQL_OUTPUT}}" ]; then
+  echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
+  exit 1
+fi;
+  step-2: run cmd={{.DOQL_CMD}} validate;
+}
+
+workflow[name="doql:doctor"] {
+  trigger: "manual";
+  step-1: run cmd={{.DOQL_CMD}} doctor {{.PWD}};
+}
+
+workflow[name="doql:build"] {
+  trigger: "manual";
+  step-1: run cmd=if [ ! -f "{{.DOQL_OUTPUT}}" ]; then
+  echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
+  exit 1
+fi;
+  step-2: run cmd=# Regenerate LESS from CSS if CSS exists
+if [ -f "app.doql.css" ]; then
+  {{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}}
+fi;
+  step-3: run cmd={{.DOQL_CMD}} build app.doql.css --out build/;
+}
+
+workflow[name="security:audit"] {
+  trigger: "manual";
+  step-1: run cmd=npm audit --audit-level moderate;
+}
+
+workflow[name="clean:all"] {
+  trigger: "manual";
+  step-1: run cmd=rm -rf node_modules/ venv/;
+}
+
+workflow[name="help"] {
+  trigger: "manual";
+  step-1: run cmd=task --list;
 }
 
 role[name="user"] {
 
 }
 
-workflow[name="help"] {
-  trigger: "manual";
-  step-1: run cmd=echo "OqlOS Portal - Available commands:";
-  step-2: run cmd=echo "  make dev          - Start development server (npm)";
-  step-3: run cmd=echo "  make dev-docker   - Start development server (Docker)";
-  step-4: run cmd=echo "  make dev-open     - Start dev containers and open browser";
-  step-5: run cmd=echo "  make build        - Build for production (npm)";
-  step-6: run cmd=echo "  make preview      - Preview production build";
-  step-7: run cmd=echo "  make install      - Install dependencies";
-  step-8: run cmd=echo "  make test         - Run full test suite (shell)";
-  step-9: run cmd=echo "  make test-e2e     - Run Playwright E2E tests";
-  step-10: run cmd=echo "  make test-unit    - Run unit tests (placeholder)";
-  step-11: run cmd=echo "  make test-ui      - Run E2E tests with UI";
-  step-12: run cmd=echo "  make lint         - Run linter";
-  step-13: run cmd=echo "  make ansible-test - Run Ansible E2E tests";
-  step-14: run cmd=echo "  make ansible-deploy - Deploy with Ansible";
-  step-15: run cmd=echo "  make analyze      - Run code analysis (project.sh)";
-  step-16: run cmd=echo "  make clean        - Clean build artifacts";
-  step-17: run cmd=echo "  make clean-all    - Clean everything including node_modules";
-  step-18: run cmd=echo "  make docker-build - Build Docker image";
-  step-19: run cmd=echo "  make dev-docker   - Start dev stack (Traefik + API + Portal)";
-  step-20: run cmd=echo "  make prod  - Start prod stack (HTTPS + Let's Encrypt)";
+role[name="admin"] {
+
 }
 
 deploy {
@@ -315,16 +383,4 @@ environment[name="dev"] {
 
 environment[name="prod"] {
   runtime: docker-compose;
-}
-
-workflow[name="all"] {
-  trigger: "manual";
-  step-1: run cmd=taskfile run install;
-  step-2: run cmd=taskfile run lint;
-  step-3: run cmd=taskfile run test;
-}
-
-workflow[name="fmt"] {
-  trigger: "manual";
-  step-1: run cmd=ruff format .;
 }
