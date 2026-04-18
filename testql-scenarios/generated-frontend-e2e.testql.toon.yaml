@@ -1,0 +1,15 @@
+# SCENARIO: Frontend E2E Tests
+# TYPE: gui
+# GENERATED: true
+
+CONFIG[2]{key, value}:
+  base_url, http://localhost:5173
+  browser, chromium
+
+NAVIGATE[1]{url}:
+  /
+
+GUI[3]{action, selector}:
+  click, [data-testid=main-button]
+  input, [data-testid=search] test
+  click, [data-testid=submit]

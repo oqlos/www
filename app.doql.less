@@ -1,6 +1,8 @@
+// LESS format — define @variables here as needed
+
 app {
-  name: "oqlos-portal";
-  version: "0.1.1";
+  name: oqlos-portal;
+  version: 0.1.1;
 }
 
 entity[name="Users"] {
@@ -14,12 +16,12 @@ entity[name="Scenarios"] {
 }
 
 database[name="postgres"] {
-  type: "postgresql";
+  type: postgresql;
   url: env.DATABASE_URL;
 }
 
 database[name="redis"] {
-  type: "redis";
+  type: redis;
   url: env.REDIS_URL;
 }
 
@@ -66,98 +68,102 @@ interface[type="web"] page[name="status"] {
 }
 
 integration[name="email"] {
-  type: "smtp";
+  type: smtp;
+  type: smtp;
 }
 
 integration[name="modbus"] {
-  type: "hardware";
+  type: hardware;
+  type: hardware;
 }
 
 integration[name="nlp"] {
-  type: "api";
+  type: api;
+  type: api;
 }
 
 integration[name="github"] {
-  type: "scm";
+  type: scm;
+  type: scm;
 }
 
 workflow[name="dev"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm run dev;
 }
 
 workflow[name="build"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm run build;
 }
 
 workflow[name="preview"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm run preview;
 }
 
 workflow[name="install"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm install;
 }
 
 workflow[name="test"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=bash test.sh;
 }
 
 workflow[name="test-e2e"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npx playwright test;
 }
 
 workflow[name="test-e2e-ci"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npx playwright test --project=chromium --reporter=line;
 }
 
 workflow[name="test-unit"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm run test:unit;
 }
 
 workflow[name="test-ui"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm run test:e2e:ui;
 }
 
 workflow[name="lint"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm run lint;
 }
 
 workflow[name="security-audit"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm audit --audit-level moderate;
 }
 
 workflow[name="deploy"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=ansible-playbook -i ansible/inventory.ini ansible/playbook-deploy.yml;
 }
 
 workflow[name="ansible-test"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=ansible-playbook -i ansible/inventory.ini ansible/playbook-test.yml;
 }
 
 workflow[name="ansible-deploy"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=ansible-playbook -i ansible/inventory.ini ansible/playbook-deploy.yml;
 }
 
 workflow[name="analyze"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=bash project.sh;
 }
 
 workflow[name="clean"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=rm -rf dist/;
   step-2: run cmd=rm -rf test-results/;
   step-3: run cmd=rm -rf playwright-report/;
@@ -165,13 +171,13 @@ workflow[name="clean"] {
 }
 
 workflow[name="clean-all"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=rm -rf node_modules/;
   step-2: run cmd=rm -rf venv/;
 }
 
 workflow[name="ci"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: depend target=install;
   step-2: depend target=lint;
   step-3: depend target=build;
@@ -180,17 +186,17 @@ workflow[name="ci"] {
 }
 
 workflow[name="docker-build"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker build -t oqlos-portal:latest .;
 }
 
 workflow[name="docker-run"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker run -p 80:80 -e NGINX_PORT=80 -e BACKEND_URL=http://host.docker.internal:8101 oqlos-portal:latest;
 }
 
 workflow[name="dev-docker"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=echo "Restarting dev Docker stack...";
   step-2: run cmd=docker compose -f infra/docker/dev/docker-compose.dev.yml down;
   step-3: run cmd=docker compose -f infra/docker/dev/docker-compose.dev.yml up -d --build;
@@ -198,12 +204,12 @@ workflow[name="dev-docker"] {
 }
 
 workflow[name="dev-docker-down"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker compose -f infra/docker/dev/docker-compose.dev.yml down;
 }
 
 workflow[name="dev-open"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=echo "══════════════════════════════════════════════════════════════";
   step-2: run cmd=echo "  OqlOS Portal - Development Environment";
   step-3: run cmd=echo "══════════════════════════════════════════════════════════════";
@@ -229,101 +235,101 @@ workflow[name="dev-open"] {
 }
 
 workflow[name="prod"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker compose -f infra/docker/prod/docker-compose.prod.yml up -d;
 }
 
 workflow[name="prod-down"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker compose -f infra/docker/prod/docker-compose.prod.yml down;
 }
 
 workflow[name="playwright-install"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npx playwright install chromium firefox webkit;
 }
 
 workflow[name="playwright-deps"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=sudo npx playwright install-deps;
 }
 
 workflow[name="commit"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=git add .;
   step-2: run cmd=git commit -m "$(m)";
 }
 
 workflow[name="tag"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=git tag v$(v);
   step-2: run cmd=git push origin v$(v);
 }
 
 workflow[name="quality"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=if ! command -v pyqual >/dev/null 2>&1; then
-  echo "⚠️  pyqual not installed. Install: pip install pyqual"
-  exit 1
+echo "⚠️  pyqual not installed. Install: pip install pyqual"
+exit 1
 fi;
   step-2: run cmd=pyqual run;
 }
 
 workflow[name="test:e2e"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npx playwright test;
 }
 
 workflow[name="test:e2e:ui"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npx playwright test --ui;
 }
 
 workflow[name="playwright:install"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npx playwright install chromium firefox webkit;
 }
 
 workflow[name="playwright:deps"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=sudo npx playwright install-deps;
 }
 
 workflow[name="docker:build"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker build -t oqlos-portal:latest .;
 }
 
 workflow[name="docker:run"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker run -p 80:80 -e NGINX_PORT=80 -e BACKEND_URL=http://host.docker.internal:8101 oqlos-portal:latest;
 }
 
 workflow[name="docker:dev:up"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker compose -f infra/docker/dev/docker-compose.dev.yml up -d --build;
 }
 
 workflow[name="docker:dev:down"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker compose -f infra/docker/dev/docker-compose.dev.yml down;
 }
 
 workflow[name="docker:prod:up"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker compose -f infra/docker/prod/docker-compose.prod.yml up -d;
 }
 
 workflow[name="docker:prod:down"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=docker compose -f infra/docker/prod/docker-compose.prod.yml down;
 }
 
 workflow[name="doql:adopt"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=if ! command -v {{.DOQL_CMD}} >/dev/null 2>&1; then
-  echo "⚠️  doql not installed. Install: pip install doql"
-  exit 1
+echo "⚠️  doql not installed. Install: pip install doql"
+exit 1
 fi;
   step-2: run cmd={{.DOQL_CMD}} adopt {{.PWD}} --output app.doql.css --force;
   step-3: run cmd={{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}};
@@ -331,49 +337,49 @@ fi;
 }
 
 workflow[name="doql:validate"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=if [ ! -f "{{.DOQL_OUTPUT}}" ]; then
-  echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
-  exit 1
+echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
+exit 1
 fi;
   step-2: run cmd={{.DOQL_CMD}} validate;
 }
 
 workflow[name="doql:doctor"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd={{.DOQL_CMD}} doctor;
 }
 
 workflow[name="doql:build"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=if [ ! -f "{{.DOQL_OUTPUT}}" ]; then
-  echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
-  exit 1
+echo "❌ {{.DOQL_OUTPUT}} not found. Run: task doql:adopt"
+exit 1
 fi;
   step-2: run cmd=# Regenerate LESS from CSS if CSS exists
 if [ -f "app.doql.css" ]; then
-  {{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}}
+{{.DOQL_CMD}} export --format less -o {{.DOQL_OUTPUT}}
 fi;
   step-3: run cmd={{.DOQL_CMD}} build app.doql.css --out build/;
 }
 
 workflow[name="security:audit"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=npm audit --audit-level moderate;
 }
 
 workflow[name="clean:all"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=rm -rf node_modules/ venv/;
 }
 
 workflow[name="help"] {
-  trigger: "manual";
+  trigger: manual;
   step-1: run cmd=task --list;
 }
 
 role[name="admin"] {
-  permit: *;
+
 }
 
 role[name="user"] {
@@ -389,7 +395,7 @@ deploy {
 
 environment[name="local"] {
   runtime: docker-compose;
-  env_file: ".env";
+  env_file: .env;
 }
 
 environment[name="dev"] {

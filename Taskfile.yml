@@ -4,6 +4,11 @@
 
 version: "3"
 
+includes:
+  testql:
+    taskfile: ./Taskfile.testql.yml
+    optional: true
+
 vars:
   APP_NAME: oqlos-portal
   DOQL_OUTPUT: app.doql.less
@@ -34,24 +39,24 @@ tasks:
     cmds:
       - npm run preview
 
-  test:
-    desc: Run npm tests
-    cmds:
-      - npm run test
-
-  test:unit:
-    desc: Run unit tests
-    cmds:
-      - npm run test:unit
-
   lint:
     desc: Run linter
     cmds:
       - npm run lint
 
   # ─────────────────────────────────────────────────────────────────────────────
-  # E2E Testing (Playwright)
+  # Quality Pipeline (via pyqual.yaml - single source of truth)
   # ─────────────────────────────────────────────────────────────────────────────
+
+  quality:
+    desc: Run full quality pipeline from pyqual.yaml
+    cmds:
+      - |
+        if ! command -v pyqual >/dev/null 2>&1; then
+          echo "⚠️  pyqual not installed. Install: pip install pyqual"
+          exit 1
+        fi
+      - pyqual run
 
   test:e2e:
     desc: Run Playwright E2E tests
@@ -62,11 +67,6 @@ tasks:
     desc: Run E2E tests with UI
     cmds:
       - npx playwright test --ui
-
-  test:e2e:ci:
-    desc: Run E2E tests (CI mode)
-    cmds:
-      - npx playwright test --project=chromium --reporter=line
 
   playwright:install:
     desc: Install Playwright browsers
@@ -170,12 +170,9 @@ tasks:
   # ─────────────────────────────────────────────────────────────────────────────
 
   ci:
-    desc: Full CI pipeline
+    desc: Full CI pipeline (delegates to pyqual.yaml)
     cmds:
-      - task: install
-      - task: lint
-      - task: build
-      - task: test:e2e:ci
+      - task: quality
 
   security:audit:
     desc: Run npm security audit
