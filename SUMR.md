@@ -1,24 +1,17 @@
 # OqlOS Portal
 
-OqlOS Portal - React/Vite frontend
+SUMD - Structured Unified Markdown Descriptor for AI-aware project refactorization
 
 ## Contents
 
 - [Metadata](#metadata)
 - [Architecture](#architecture)
-- [Interfaces](#interfaces)
 - [Workflows](#workflows)
 - [Quality Pipeline (`pyqual.yaml`)](#quality-pipeline-pyqualyaml)
-- [Configuration](#configuration)
 - [Dependencies](#dependencies)
-- [Deployment](#deployment)
-- [Environment Variables (`.env.example`)](#environment-variables-envexample)
-- [Release Management (`goal.yaml`)](#release-management-goalyaml)
-- [Makefile Targets](#makefile-targets)
-- [Node.js Scripts (`package.json`)](#nodejs-scripts-packagejson)
-- [Code Analysis](#code-analysis)
 - [Call Graph](#call-graph)
 - [Test Contracts](#test-contracts)
+- [Refactoring Analysis](#refactoring-analysis)
 - [Intent](#intent)
 
 ## Metadata
@@ -27,7 +20,7 @@ OqlOS Portal - React/Vite frontend
 - **version**: `0.1.1`
 - **python_requires**: `>=3.10`
 - **ecosystem**: SUMD + DOQL + testql + taskfile
-- **generated_from**: pyproject.toml, Taskfile.yml, Makefile, testql(2), app.doql.less, pyqual.yaml, goal.yaml, .env.example, Dockerfile, package.json, project/(2 analysis files)
+- **generated_from**: pyproject.toml, Taskfile.yml, Makefile, testql(2), app.doql.less, pyqual.yaml, goal.yaml, .env.example, Dockerfile, package.json, project/(6 analysis files)
 
 ## Architecture
 
@@ -443,52 +436,6 @@ environment[name="prod"] {
 }
 ```
 
-## Interfaces
-
-### testql Scenarios
-
-#### `testql-scenarios/generated-api-smoke.testql.toon.yaml`
-
-```toon markpact:testql path=testql-scenarios/generated-api-smoke.testql.toon.yaml
-# SCENARIO: Auto-generated API Smoke Tests
-# TYPE: api
-# GENERATED: true
-# DETECTORS: ConfigEndpointDetector
-
-CONFIG[4]{key, value}:
-  base_url, http://localhost:8101
-  timeout_ms, 10000
-  retry_count, 3
-  detected_frameworks, ConfigEndpointDetector
-
-ASSERT[2]{field, operator, expected}:
-  status, <, 500
-  response_time, <, 2000
-
-# Summary by Framework:
-#   docker: 1 endpoints
-```
-
-#### `testql-scenarios/generated-frontend-e2e.testql.toon.yaml`
-
-```toon markpact:testql path=testql-scenarios/generated-frontend-e2e.testql.toon.yaml
-# SCENARIO: Frontend E2E Tests
-# TYPE: gui
-# GENERATED: true
-
-CONFIG[2]{key, value}:
-  base_url, http://localhost:5173
-  browser, chromium
-
-NAVIGATE[1]{url}:
-  /
-
-GUI[3]{action, selector}:
-  click, [data-testid=main-button]
-  input, [data-testid=search] test
-  click, [data-testid=submit]
-```
-
 ## Workflows
 
 ### Taskfile Tasks (`Taskfile.yml`)
@@ -761,15 +708,6 @@ pipeline:
     on_fail: report
 ```
 
-## Configuration
-
-```yaml
-project:
-  name: oqlos-portal
-  version: 0.1.1
-  env: local
-```
-
 ## Dependencies
 
 ### Runtime (Node.js)
@@ -779,221 +717,6 @@ loglevel
 react
 react-dom
 react-router-dom
-```
-
-## Deployment
-
-```bash markpact:run
-npm install oqlos-portal
-```
-
-### Docker
-
-- **base image**: `node:20-alpine AS build`
-- **expose**: `80`
-- **entrypoint**: `["/usr/local/bin/docker-entrypoint.sh"]`
-
-## Environment Variables (`.env.example`)
-
-| Variable | Default | Description |
-|----------|---------|-------------|
-| `VITE_DEV_PORT` | `3000` | Dev server port (default: 3000) |
-| `VITE_TEST_URL` | `http://localhost:3000` | Base URL for E2E tests |
-| `TEST_URL` | `http://localhost:3000` | Alternative test URL |
-| `VITE_BACKEND_URL` | `http://localhost:8101` | Backend API URL (direct) |
-| `VITE_API_URL` | `http://localhost:8101` | Alternative API URL |
-| `VITE_API_DEV_URL` | `http://api.oqlos.localhost` | Backend API via Traefik (dev) |
-| `VITE_API_WS_URL` | `wss://api.oqlos.io/ws/agent` | WebSocket URL for agent communication |
-| `VITE_IDE_DEV_URL` | `http://ide.oqlos.localhost` | IDE service URL (dev) |
-| `VITE_TRAEFIK_DEV_URL` | `http://localhost:8080` | Traefik dashboard URL |
-| `VITE_GITHUB_REPO` | `https://github.com/softreck/oqlos` | GitHub repository URL |
-| `VITE_DOCKER_IMAGE` | `ghcr.io/softreck/oqlagent:latest` | Agent Docker image |
-| `VITE_DOCKER_BACKEND_SERVICE` | `oqlapi` | Backend service name |
-| `VITE_OQLAGENT_PORT` | `8200` | Agent service port |
-| `VITE_GITHUB_REPO` | `https://github.com/softreck/oqlos` | GitHub repository URL |
-| `VITE_GITHUB_ORG` | `softreck` | GitHub organization |
-| `VITE_GITHUB_REPO_NAME` | `oqlos` | GitHub repository name |
-| `VITE_HARDWARE_MODE` | `real` | Hardware mode: real\|simulated |
-| `VITE_MODBUS_SERIAL_PORT` | `/dev/ttyACM1` | Modbus serial port |
-| `VITE_I2C_BUS` | `/dev/i2c-1` | I2C bus path |
-| `VITE_USB_DEVICE` | `/dev/ttyACM0` | USB device path |
-| `VITE_APP_NAME` | `OqlOS` | Application name |
-| `VITE_APP_VERSION` | `0.1.1` | Application version |
-| `VITE_APP_COPYRIGHT` | `2024-2026` | Copyright year range |
-| `VITE_NGINX_PORT` | `80` | Nginx port (production) |
-| `VITE_API_PORT` | `8101` | Backend API port |
-| `VITE_TRAEFIK_PORT` | `8080` | Traefik dashboard port |
-| `VITE_LOG_LEVEL` | `info` | Log level: trace\|debug\|info\|warn\|error |
-| `VITE_LOG_TO_FILE` | `false` | Log to file (frontend only) |
-| `VITE_LOG_TO_DB` | `false` | Log to database (frontend only) |
-| `VITE_LOG_FILE_PATH` | `./logs/oqlos-portal.log` | Log file path |
-| `VITE_SQLITE_DB_PATH` | `./logs/oqlos-portal.db` | SQLite DB path for logs |
-| `VITE_LOG_MAX_SIZE` | `10485760` | Max log file size (10MB) |
-| `VITE_LOG_MAX_FILES` | `5` | Max log files to keep |
-| `VITE_TEST_URL` | `http://localhost:3000` | Base URL for E2E tests |
-| `VITE_TEST_TIMEOUT` | `60` | Test timeout in seconds |
-| `VITE_DEMO_USER_EMAIL` | `demo@oqlos.com` | Demo user email |
-| `VITE_DEMO_USER_PASSWORD` | `demo123` | Demo user password |
-| `VITE_DEMO_USER_NAME` | `"Demo User"` | Demo user display name |
-| `VITE_DEMO_USER_ROLE` | `user` | Demo user role |
-| `VITE_DEPLOY_DIR` | `/opt/oqlos/www` | Deployment directory |
-| `VITE_SERVICE_NAME` | `oqlos-portal` | Systemd service name |
-| `VITE_SERVICE_USER` | `www-data` | Service user |
-| `VITE_SERVICE_GROUP` | `www-data` | Service group |
-| `VITE_FORCE_MOCK_API` | `false` | Force mock API responses (dev only) |
-| `VITE_MOCK_AUTH` | `false` | Mock /auth/* endpoints |
-| `VITE_MOCK_USER_API` | `false` | Mock /api/user* endpoints |
-| `VITE_MOCK_SCENARIOS` | `false` | Mock /api/scenarios endpoints |
-| `VITE_MOCK_BILLING` | `false` | Mock /billing/* endpoints |
-| `VITE_MOCK_NLP` | `false` | Mock /nlp/* endpoints (LLM) |
-| `CI` | `*(not set)*` | Set to "true" for CI environment |
-| `VITE_FONTS_URL` | `https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Sora:wght@300;400;600;700;800&display=swap` | Fonts |
-| `OPENROUTER_API_KEY` | `sk-or-v1-...` | OpenRouter API key |
-| `LLM_MODEL` | `openrouter/x-ai/grok-code-fast-1` | LLM model |
-| `PFIX_AUTO_APPLY` | `true` | true = apply fixes without asking |
-| `PFIX_AUTO_INSTALL_DEPS` | `true` | true = auto pip/uv install |
-| `PFIX_AUTO_RESTART` | `false` | true = os.execv restart after fix |
-| `PFIX_MAX_RETRIES` | `3` | Max retry attempts |
-| `PFIX_DRY_RUN` | `false` | Dry run mode |
-| `PFIX_ENABLED` | `true` | Enable PFIX |
-| `PFIX_GIT_COMMIT` | `false` | true = auto-commit fixes |
-| `PFIX_GIT_PREFIX` | `pfix:` | Commit message prefix |
-| `PFIX_CREATE_BACKUPS` | `false` | false = disable .pfix_backups/ directory |
-| `DATABASE_URL` | `postgresql://oqlos:oqlos@localhost/oqlos` | PostgreSQL connection string |
-| `REDIS_URL` | `redis://:oqlos@localhost:6379` | Redis connection string |
-| `STRIPE_SECRET_KEY` | `sk_test_...` | Stripe |
-| `STRIPE_PUBLISHABLE_KEY` | `pk_test_...` |  |
-| `STRIPE_WEBHOOK_SECRET` | `whsec_...` |  |
-| `STRIPE_PRICE_PRO` | `price_...` |  |
-| `STRIPE_PRICE_ENTERPRISE` | `price_...` |  |
-| `PRZELEWY24_MERCHANT_ID` | `*(not set)*` | Merchant ID |
-| `PRZELEWY24_POS_ID` | `*(not set)*` | Point of Sale ID |
-| `PRZELEWY24_CRC` | `*(not set)*` | CRC key for verification |
-| `PRZELEWY24_API_KEY` | `*(not set)*` | API key |
-| `PRZELEWY24_API_URL` | `https://sandbox.przelewy24.pl` | API URL (sandbox/production) |
-| `SMTP_HOST` | `mailpit` | SMTP server host |
-| `SMTP_PORT` | `1025` | SMTP server port |
-| `SMTP_TLS` | `false` | Use TLS |
-| `SMTP_USER` | `*(not set)*` | SMTP username (optional) |
-| `SMTP_PASS` | `*(not set)*` | SMTP password (optional) |
-| `SMTP_FROM` | `noreply@oqlos.io` | From email address |
-| `SECRET_KEY` | `change-me-in-production` | JWT secret key (generate with: openssl rand -hex 32) |
-| `ACME_EMAIL` | `admin@oqlos.io` | Email for SSL certificate notifications |
-| `DEPLOY_DIR` | `/opt/oqlos/www` | Deployment directory |
-| `APP_PORT` | `3000` | Application port |
-| `SERVICE_NAME` | `oqlos-portal` | Systemd service name |
-
-## Release Management (`goal.yaml`)
-
-- **versioning**: `semver`
-- **commits**: `conventional` scope=`oqlos-portal`
-- **changelog**: `keep-a-changelog`
-- **build strategies**: `python`, `nodejs`, `rust`
-- **version files**: `VERSION`, `package.json:version`, `venv/lib/python3.13/site-packages/matplotlib/__init__.py:__version__`
-
-## Makefile Targets
-
-- `help` — Default target
-- `dev` — Development
-- `build`
-- `preview`
-- `install` — Dependencies
-- `test` — Testing
-- `test-e2e`
-- `test-e2e-ci`
-- `test-unit`
-- `test-ui`
-- `lint` — Code quality
-- `security-audit`
-- `deploy` — Ansible
-- `ansible-test`
-- `ansible-deploy`
-- `analyze` — Analysis tools
-- `clean` — Cleanup
-- `clean-all`
-- `ci` — CI/CD pipeline targets
-- `docker-build` — Docker support
-- `docker-run`
-- `dev-docker`
-- `dev-docker-down`
-- `dev-open`
-- `prod`
-- `prod-down`
-- `playwright-install` — Playwright setup
-- `playwright-deps`
-- `commit` — Git helpers
-- `tag`
-
-## Node.js Scripts (`package.json`)
-
-- `npm run dev` — `vite --port ${VITE_DEV_PORT:-3000}`
-- `npm run build` — `vite build`
-- `npm run preview` — `vite preview`
-- `npm run lint` — `eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0 || echo 'ESLint not configured'`
-- `npm run test:unit` — `vitest run --reporter=verbose`
-- `npm run test:e2e` — `playwright test`
-- `npm run test:e2e:ui` — `playwright test --ui`
-- `npm run test` — `bash test.sh`
-- `npm run ansible:test` — `ansible-playbook -i ansible/inventory.ini ansible/playbook-test.yml`
-- `npm run ansible:deploy` — `ansible-playbook -i ansible/inventory.ini ansible/playbook-deploy.yml`
-
-**Runtime deps**: `loglevel`, `react`, `react-dom`, `react-router-dom`
-
-## Code Analysis
-
-### `project/map.toon.yaml`
-
-```toon markpact:analysis path=project/map.toon.yaml
-# www | 42f 5924L | javascript:31,shell:6,css:4,less:1 | 2026-04-19
-# stats: 0 func | 0 cls | 42 mod | CC̄=1.0 | critical:0 | cycles:0
-# alerts[5]: none
-# hotspots[5]: none
-# evolution: baseline
-# Keys: M=modules, D=details, i=imports, e=exports, c=classes, f=functions, m=methods
-M[42]:
-  app.doql.css,402
-  app.doql.less,404
-  docker-entrypoint.sh,9
-  e2e/account-export.spec.js,67
-  e2e/account.spec.js,78
-  e2e/billing-payment.spec.js,67
-  e2e/buttons/billing-buttons.spec.js,63
-  e2e/buttons/dashboard-buttons.spec.js,57
-  e2e/buttons/landing-buttons.spec.js,71
-  e2e/buttons/login-buttons.spec.js,40
-  e2e/buttons/navigation-buttons.spec.js,51
-  e2e/buttons/nlp-buttons.spec.js,91
-  e2e/buttons/scenarios-buttons.spec.js,69
-  e2e/case-studies.spec.js,39
-  e2e/demo-page.spec.js,41
-  e2e/demo-user.spec.js,201
-  e2e/helpers/test-helpers.js,125
-  e2e/landing.spec.js,45
-  e2e/scenarios-editor.spec.js,136
-  e2e/smoke.spec.js,23
-  e2e/test-user.spec.js,612
-  playwright.config.js,50
-  project.sh,35
-  public/sw.js,27
-  scripts/check-tls.sh,177
-  scripts/deploy.sh,62
-  src/components/OqlReportRenderer.css,249
-  src/components/OqlStepRenderer.css,442
-  src/components/oql-examples.js,165
-  src/components/parseOqlToSteps.js,443
-  src/config.js,17
-  src/data/install-commands.js,54
-  src/hooks/useAuth.js,33
-  src/mocks/api.js,354
-  src/styles/global.css,879
-  src/utils/logger.js,34
-  src/utils/logger.spec.js,63
-  test/oqlos-portal.test.js,8
-  test.sh,84
-  tree.sh,2
-  vite.config.js,40
-  vitest.config.js,15
-D:
 ```
 
 ## Call Graph
@@ -1171,6 +894,475 @@ EDGES:
 ### Gui (1)
 
 **`Frontend E2E Tests`**
+
+## Refactoring Analysis
+
+*Pre-refactoring snapshot — use this section to identify targets. Generated from `project/` toon files.*
+
+### Call Graph & Complexity (`project/calls.toon.yaml`)
+
+```toon markpact:analysis path=project/calls.toon.yaml
+# code2llm call graph | /home/tom/github/oqlos/www
+# nodes: 49 | edges: 38 | modules: 9
+# CC̄=3.4
+
+HUBS[20]:
+  src.pages.Login.navigate
+    CC=6  in:6  out:9  total:15
+  src.components.parseOqlToSteps.parseStep
+    CC=47  in:3  out:8  total:11
+  src.pages.Login.handleSubmit
+    CC=8  in:0  out:11  total:11
+  src.pages.Login.autoSubmitRef
+    CC=6  in:0  out:10  total:10
+  src.pages.Login.plan
+    CC=6  in:0  out:10  total:10
+  src.pages.Login.token
+    CC=6  in:0  out:10  total:10
+  src.pages.Login.verifyTokenRef
+    CC=6  in:0  out:10  total:10
+  src.pages.NlpConsole.handleSubmit
+    CC=12  in:0  out:9  total:9
+  src.components.parseOqlToSteps.parseOqlToSteps
+    CC=37  in:0  out:8  total:8
+  src.components.TerminalSim.parseScenarioCode
+    CC=8  in:1  out:7  total:8
+  e2e.demo-user.spec.mockBackendRoutes
+    CC=8  in:0  out:8  total:8
+  src.components.parseOqlToSteps.splitValueUnit
+    CC=3  in:7  out:1  total:8
+  src.components.TerminalSim._buildPreviewLines
+    CC=4  in:1  out:6  total:7
+  e2e.buttons.scenarios-buttons.spec.count
+    CC=2  in:2  out:5  total:7
+  src.components.parseOqlToSteps.currentFunc
+    CC=36  in:0  out:7  total:7
+  src.components.TerminalSim.generateTermLines
+    CC=4  in:2  out:5  total:7
+  src.components.parseOqlToSteps.currentGoal
+    CC=36  in:0  out:7  total:7
+  src.mocks.api.mockFetch
+    CC=3  in:0  out:7  total:7
+  src.pages.Login.data
+    CC=6  in:0  out:7  total:7
+  src.components.parseOqlToSteps.toReportJson
+    CC=19  in:0  out:6  total:6
+
+MODULES:
+  e2e.buttons.scenarios-buttons.spec  [3 funcs]
+    count  CC=2  out:5
+    runBtn  CC=2  out:3
+    stepBtn  CC=2  out:3
+  e2e.demo-user.spec  [2 funcs]
+    mockBackendRoutes  CC=8  out:8
+    request  CC=1  out:0
+  src.components.OqlStepRenderer  [3 funcs]
+    StepDetail  CC=16  out:3
+    stepDisplayType  CC=3  out:0
+    stepTypeClass  CC=3  out:0
+  src.components.TerminalSim  [8 funcs]
+    _buildFooterLines  CC=2  out:2
+    _buildHeaderLines  CC=2  out:2
+    _buildPreviewLines  CC=4  out:6
+    _buildStepLines  CC=6  out:5
+    generateTermLines  CC=4  out:5
+    parseScenarioCode  CC=8  out:7
+    runSim  CC=7  out:5
+    termRef  CC=7  out:5
+  src.components.parseOqlToSteps  [14 funcs]
+    collectThresholds  CC=18  out:2
+    currentFunc  CC=36  out:7
+    currentGoal  CC=36  out:7
+    goals  CC=15  out:3
+    maxMatch  CC=2  out:1
+    minMatch  CC=2  out:1
+    parseOqlToSteps  CC=37  out:8
+    parseStep  CC=47  out:8
+    setDblMatch  CC=2  out:1
+    setMaxMatch  CC=2  out:2
+  src.hooks.useAuth  [5 funcs]
+    isAuthenticated  CC=1  out:2
+    logout  CC=1  out:2
+    navigate  CC=1  out:0
+    requireAuth  CC=2  out:1
+    useAuth  CC=4  out:6
+  src.mocks.api  [5 funcs]
+    createMockLoginData  CC=5  out:2
+    fakeResponse  CC=1  out:3
+    match  CC=2  out:3
+    mockFetch  CC=3  out:7
+    parseMockRequestBody  CC=4  out:1
+  src.pages.Login  [7 funcs]
+    autoSubmitRef  CC=6  out:10
+    data  CC=6  out:7
+    handleSubmit  CC=8  out:11
+    navigate  CC=6  out:9
+    plan  CC=6  out:10
+    token  CC=6  out:10
+    verifyTokenRef  CC=6  out:10
+  src.pages.NlpConsole  [2 funcs]
+    getEndpoint  CC=2  out:0
+    handleSubmit  CC=12  out:9
+
+EDGES:
+  src.hooks.useAuth.useAuth → src.hooks.useAuth.navigate
+  src.hooks.useAuth.isAuthenticated → src.hooks.useAuth.navigate
+  src.hooks.useAuth.logout → src.hooks.useAuth.navigate
+  src.hooks.useAuth.requireAuth → src.hooks.useAuth.navigate
+  src.components.TerminalSim.generateTermLines → src.components.TerminalSim.parseScenarioCode
+  src.components.TerminalSim.generateTermLines → src.components.TerminalSim._buildHeaderLines
+  src.components.TerminalSim.generateTermLines → src.components.TerminalSim._buildStepLines
+  src.components.TerminalSim.generateTermLines → src.components.TerminalSim._buildPreviewLines
+  src.components.TerminalSim.generateTermLines → src.components.TerminalSim._buildFooterLines
+  src.components.TerminalSim.termRef → src.components.TerminalSim.generateTermLines
+  src.components.TerminalSim.runSim → src.components.TerminalSim.generateTermLines
+  src.pages.NlpConsole.handleSubmit → src.pages.NlpConsole.getEndpoint
+  src.components.OqlStepRenderer.StepDetail → src.components.OqlStepRenderer.stepTypeClass
+  src.components.OqlStepRenderer.StepDetail → src.components.OqlStepRenderer.stepDisplayType
+  src.components.parseOqlToSteps.parseOqlToSteps → src.components.parseOqlToSteps.parseStep
+  src.components.parseOqlToSteps.currentGoal → src.components.parseOqlToSteps.parseStep
+  src.components.parseOqlToSteps.currentFunc → src.components.parseOqlToSteps.parseStep
+  src.components.parseOqlToSteps.parseStep → src.components.parseOqlToSteps.splitValueUnit
+  src.components.parseOqlToSteps.setMinMatch → src.components.parseOqlToSteps.splitValueUnit
+  src.components.parseOqlToSteps.setMaxMatch → src.components.parseOqlToSteps.splitValueUnit
+  src.components.parseOqlToSteps.setQuotedMatch → src.components.parseOqlToSteps.splitValueUnit
+  src.components.parseOqlToSteps.setDblMatch → src.components.parseOqlToSteps.splitValueUnit
+  src.components.parseOqlToSteps.minMatch → src.components.parseOqlToSteps.splitValueUnit
+  src.components.parseOqlToSteps.maxMatch → src.components.parseOqlToSteps.splitValueUnit
+  src.components.parseOqlToSteps.toReportJson → src.components.parseOqlToSteps.collectThresholds
+  src.components.parseOqlToSteps.goals → src.components.parseOqlToSteps.collectThresholds
+  src.pages.Login.token → src.pages.Login.navigate
+  src.pages.Login.plan → src.pages.Login.navigate
+  src.pages.Login.verifyTokenRef → src.pages.Login.navigate
+  src.pages.Login.autoSubmitRef → src.pages.Login.navigate
+  src.pages.Login.data → src.pages.Login.navigate
+  src.pages.Login.handleSubmit → src.pages.Login.navigate
+  e2e.demo-user.spec.mockBackendRoutes → e2e.demo-user.spec.request
+  src.mocks.api.createMockLoginData → src.mocks.api.parseMockRequestBody
+  src.mocks.api.mockFetch → src.mocks.api.fakeResponse
+  src.mocks.api.match → src.mocks.api.fakeResponse
+  e2e.buttons.scenarios-buttons.spec.runBtn → e2e.buttons.scenarios-buttons.spec.count
+  e2e.buttons.scenarios-buttons.spec.stepBtn → e2e.buttons.scenarios-buttons.spec.count
+```
+
+### Code Analysis (`project/analysis.toon.yaml`)
+
+```toon markpact:analysis path=project/analysis.toon.yaml
+# code2llm | 64f 6815L | javascript:59,shell:5 | 2026-04-19
+# CC̄=3.4 | critical:9/302 | dups:0 | cycles:0
+
+HEALTH[9]:
+  🟡 CC    StepDetail CC=16 (limit:15)
+  🟡 CC    parseOqlToSteps CC=37 (limit:15)
+  🟡 CC    currentGoal CC=36 (limit:15)
+  🟡 CC    currentFunc CC=36 (limit:15)
+  🟡 CC    step CC=17 (limit:15)
+  🟡 CC    parseStep CC=47 (limit:15)
+  🟡 CC    collectThresholds CC=18 (limit:15)
+  🟡 CC    toReportJson CC=19 (limit:15)
+  🟡 CC    goals CC=15 (limit:15)
+
+REFACTOR[1]:
+  1. split 9 high-CC methods  (CC>15)
+
+PIPELINES[199]:
+  [1] Src [useAuth]: useAuth → navigate
+      PURITY: 100% pure
+  [2] Src [jwt]: jwt
+      PURITY: 100% pure
+  [3] Src [isAuthenticated]: isAuthenticated → navigate
+      PURITY: 100% pure
+  [4] Src [logout]: logout → navigate
+      PURITY: 100% pure
+  [5] Src [requireAuth]: requireAuth → navigate
+      PURITY: 100% pure
+
+LAYERS:
+  src/                            CC̄=3.9    ←in:0  →out:0
+  │ !! parseOqlToSteps.js         442L  0C   48m  CC=47     ←0
+  │ api.js                     353L  0C   15m  CC=13     ←0
+  │ !! OqlStepRenderer.jsx        349L  0C   16m  CC=16     ←0
+  │ Demo.jsx                   287L  0C    5m  CC=11     ←0
+  │ SlackWebhookSettings.jsx   270L  0C    4m  CC=5      ←0
+  │ CaseStudies.jsx            257L  0C    4m  CC=2      ←0
+  │ Billing.jsx                252L  0C    7m  CC=12     ←0
+  │ Landing.jsx                251L  0C    8m  CC=4      ←0
+  │ OqlReportRenderer.jsx      203L  0C   16m  CC=14     ←0
+  │ Account.jsx                193L  0C    8m  CC=12     ←0
+  │ RoiCalculator.jsx          188L  0C    7m  CC=2      ←0
+  │ Status.jsx                 188L  0C    5m  CC=8      ←0
+  │ PricingCards.jsx           186L  0C    1m  CC=4      ←0
+  │ TerminalSim.jsx            166L  0C   24m  CC=8      ←0
+  │ oql-examples.js            164L  0C    0m  CC=0.0    ←0
+  │ Academy.jsx                152L  0C    1m  CC=1      ←0
+  │ CodeEditor.jsx             146L  0C   10m  CC=3      ←0
+  │ Scenarios.jsx              140L  0C    8m  CC=2      ←0
+  │ Login.jsx                  133L  0C    9m  CC=8      ←0
+  │ NlpConsole.jsx             114L  0C    8m  CC=12     ←0
+  │ Dashboard.jsx              109L  0C    3m  CC=3      ←0
+  │ ArchDiagram.jsx             84L  0C    0m  CC=0.0    ←0
+  │ SubscriptionSection.jsx     77L  0C    0m  CC=0.0    ←0
+  │ ProfileSection.jsx          75L  0C    1m  CC=1      ←0
+  │ logger.spec.js              62L  0C    4m  CC=1      ←0
+  │ I18nProvider.jsx            54L  0C   13m  CC=9      ←0
+  │ install-commands.js         53L  0C    2m  CC=1      ←0
+  │ ErrorBoundary.jsx           47L  1C    4m  CC=4      ←0
+  │ PaymentHistorySection.jsx    41L  0C    0m  CC=0.0    ←0
+  │ App.jsx                     35L  0C    0m  CC=0.0    ←0
+  │ logger.js                   33L  0C    4m  CC=2      ←0
+  │ useAuth.js                  32L  0C    6m  CC=4      ←0
+  │ SharedNav.jsx               31L  0C    0m  CC=0.0    ←0
+  │ ThemeToggle.jsx             29L  0C    0m  CC=0.0    ←0
+  │ LangSwitch.jsx              24L  0C    0m  CC=0.0    ←0
+  │ main.jsx                    19L  0C    0m  CC=0.0    ←0
+  │ DangerZoneSection.jsx       18L  0C    0m  CC=0.0    ←0
+  │ LoadingSpinner.jsx          17L  0C    0m  CC=0.0    ←0
+  │ config.js                   16L  0C    1m  CC=13     ←0
+  │ ProtectedRoute.jsx           7L  0C    1m  CC=1      ←0
+  │
+  e2e/                            CC̄=1.4    ←in:0  →out:0
+  │ demo-user.spec.js          200L  0C    5m  CC=8      ←0
+  │ scenarios-editor.spec.js   135L  0C    7m  CC=1      ←0
+  │ nlp-buttons.spec.js         90L  0C    4m  CC=1      ←0
+  │ account.spec.js             77L  0C    0m  CC=0.0    ←0
+  │ landing-buttons.spec.js     70L  0C    6m  CC=3      ←0
+  │ scenarios-buttons.spec.js    68L  0C    4m  CC=2      ←0
+  │ account-export.spec.js      66L  0C    4m  CC=2      ←0
+  │ billing-payment.spec.js     66L  0C    4m  CC=1      ←0
+  │ billing-buttons.spec.js     62L  0C    4m  CC=2      ←0
+  │ dashboard-buttons.spec.js    56L  0C    3m  CC=1      ←0
+  │ navigation-buttons.spec.js    50L  0C    4m  CC=2      ←0
+  │ landing.spec.js             44L  0C    4m  CC=1      ←0
+  │ demo-page.spec.js           40L  0C    4m  CC=1      ←0
+  │ login-buttons.spec.js       39L  0C    3m  CC=1      ←0
+  │ case-studies.spec.js        38L  0C    2m  CC=1      ←0
+  │ smoke.spec.js               22L  0C    1m  CC=1      ←0
+  │
+  ./                              CC̄=0.0    ←in:0  →out:0
+  │ playwright.config.js        49L  0C    0m  CC=0.0    ←0
+  │ vite.config.js              39L  0C    0m  CC=0.0    ←0
+  │ project.sh                  35L  0C    0m  CC=0.0    ←0
+  │ docker-entrypoint.sh         8L  0C    0m  CC=0.0    ←0
+  │ tree.sh                      1L  0C    0m  CC=0.0    ←0
+  │
+  public/                         CC̄=0.0    ←in:0  →out:0
+  │ sw.js                       26L  0C    0m  CC=0.0    ←0
+  │
+  scripts/                        CC̄=0.0    ←in:0  →out:0
+  │ check-tls.sh               176L  0C    0m  CC=0.0    ←0
+  │ deploy.sh                   61L  0C    0m  CC=0.0    ←0
+  │
+
+COUPLING: no cross-package imports detected
+
+EXTERNAL:
+  validation: run `vallm batch .` → validation.toon
+  duplication: run `redup scan .` → duplication.toon
+```
+
+### Duplication (`project/duplication.toon.yaml`)
+
+```toon markpact:analysis path=project/duplication.toon.yaml
+# redup/duplication | 0 groups | 0f 0L | 2026-04-16
+
+SUMMARY:
+  files_scanned: 0
+  total_lines:   0
+  dup_groups:    0
+  dup_fragments: 0
+  saved_lines:   0
+  scan_ms:       3492
+```
+
+### Evolution / Churn (`project/evolution.toon.yaml`)
+
+```toon markpact:analysis path=project/evolution.toon.yaml
+# code2llm/evolution | 302 func | 44f | 2026-04-18
+
+NEXT[5] (ranked by impact):
+  [1] !! SPLIT-FUNC      parseStep  CC=47  fan=8
+      WHY: CC=47 exceeds 15
+      EFFORT: ~1h  IMPACT: 376
+
+  [2] !! SPLIT-FUNC      parseOqlToSteps  CC=37  fan=8
+      WHY: CC=37 exceeds 15
+      EFFORT: ~1h  IMPACT: 296
+
+  [3] !! SPLIT-FUNC      currentGoal  CC=36  fan=7
+      WHY: CC=36 exceeds 15
+      EFFORT: ~1h  IMPACT: 252
+
+  [4] !! SPLIT-FUNC      currentFunc  CC=36  fan=7
+      WHY: CC=36 exceeds 15
+      EFFORT: ~1h  IMPACT: 252
+
+  [5] !  SPLIT-FUNC      toReportJson  CC=19  fan=6
+      WHY: CC=19 exceeds 15
+      EFFORT: ~1h  IMPACT: 114
+
+
+RISKS[0]: none
+
+METRICS-TARGET:
+  CC̄:          3.4 → ≤2.4
+  max-CC:      47 → ≤20
+  god-modules: 0 → 0
+  high-CC(≥15): 9 → ≤4
+  hub-types:   0 → ≤0
+
+PATTERNS (language parser shared logic):
+  _extract_declarations() in base.py — unified extraction for:
+    - TypeScript: interfaces, types, classes, functions, arrow funcs
+    - PHP: namespaces, traits, classes, functions, includes
+    - Ruby: modules, classes, methods, requires
+    - C++: classes, structs, functions, #includes
+    - C#: classes, interfaces, methods, usings
+    - Java: classes, interfaces, methods, imports
+    - Go: packages, functions, structs
+    - Rust: modules, functions, traits, use statements
+
+  Shared regex patterns per language:
+    - import: language-specific import/require/using patterns
+    - class: class/struct/trait declarations with inheritance
+    - function: function/method signatures with visibility
+    - brace_tracking: for C-family languages ({ })
+    - end_keyword_tracking: for Ruby (module/class/def...end)
+
+  Benefits:
+    - Consistent extraction logic across all languages
+    - Reduced code duplication (~70% reduction in parser LOC)
+    - Easier maintenance: fix once, apply everywhere
+    - Standardized FunctionInfo/ClassInfo models
+
+HISTORY:
+  prev CC̄=2.7 → now CC̄=3.4
+```
+
+### Validation (`project/validation.toon.yaml`)
+
+```toon markpact:analysis path=project/validation.toon.yaml
+# vallm batch | 111f | 42✓ 34⚠ 1✗ | 2026-04-16
+
+SUMMARY:
+  scanned: 111  passed: 42 (37.8%)  warnings: 34  errors: 1  unsupported: 36
+
+WARNINGS[34]{path,score}:
+  src/hooks/useAuth.js,0.67
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'react-router-dom' not found,1
+  src/utils/logger.js,0.67
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'loglevel' not found,1
+  vitest.config.js,0.67
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'vitest/config' not found,1
+  src/pages/Demo.jsx,0.74
+    issues[2]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+      complexity.lizard_cc,warning,(anonymous): CC=17 exceeds limit 15,33
+  src/App.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/ArchDiagram.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/CodeEditor.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/ErrorBoundary.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/LangSwitch.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/LoadingSpinner.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/PricingCards.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/ProtectedRoute.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/SharedNav.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/TerminalSim.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/components/ThemeToggle.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/i18n/I18nProvider.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/main.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Academy.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Account.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Billing.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/CaseStudies.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Dashboard.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Landing.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Login.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/NlpConsole.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/RoiCalculator.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Scenarios.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/Status.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/account/DangerZoneSection.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/account/PaymentHistorySection.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/account/ProfileSection.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/pages/account/SubscriptionSection.jsx,0.78
+    issues[1]{rule,severity,message,line}:
+      syntax.unsupported,warning,"Could not parse jsx: Download error: Language 'jsx' not available for download. Available groups: [""all""]",
+  src/utils/logger.spec.js,0.83
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'vitest' not found,1
+  vite.config.js,0.83
+    issues[1]{rule,severity,message,line}:
+      js.import.resolvable,warning,Module 'vite' not found,1
+
+ERRORS[1]{path,score}:
+  infra/docker/dev/init-test-data.sql,0.00
+    issues[1]{rule,severity,message,line}:
+      syntax.tree_sitter,error,tree-sitter found 3 parse error(s) in sql,
+
+UNSUPPORTED[5]{bucket,count}:
+  *.md,9
+  Dockerfile*,1
+  *.txt,1
+  *.yml,5
+  other,20
+```
 
 ## Intent
 

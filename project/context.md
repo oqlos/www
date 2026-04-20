@@ -85,13 +85,13 @@
 - **Functions**: 6
 - **File**: `useAuth.js`
 
-### e2e.demo-user.spec
-- **Functions**: 6
-- **File**: `demo-user.spec.js`
-
 ### e2e.billing-payment.spec
 - **Functions**: 6
 - **File**: `billing-payment.spec.js`
+
+### e2e.demo-user.spec
+- **Functions**: 6
+- **File**: `demo-user.spec.js`
 
 ## Key Entry Points
 
@@ -142,14 +142,14 @@ Main execution flows into the system:
 ### src.components.OqlReportRenderer._downloadJson
 - **Calls**: src.components.OqlReportRenderer.Blob, src.components.OqlReportRenderer.stringify, src.components.OqlReportRenderer.createObjectURL, src.components.OqlReportRenderer.createElement, src.components.OqlReportRenderer.replace, src.components.OqlReportRenderer.click, src.components.OqlReportRenderer.revokeObjectURL
 
+### src.pages.Login.data
+- **Calls**: src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t, src.pages.Login.setTimeout, src.pages.Login.navigate, src.pages.Login.setEmail
+
 ### src.components.parseOqlToSteps.currentGoal
 - **Calls**: src.components.parseOqlToSteps.trim, src.components.parseOqlToSteps.startsWith, src.components.parseOqlToSteps.push, src.components.parseOqlToSteps.replace, src.components.parseOqlToSteps.match, src.components.parseOqlToSteps.commands, src.components.parseOqlToSteps.parseStep
 
 ### src.components.parseOqlToSteps.currentFunc
 - **Calls**: src.components.parseOqlToSteps.trim, src.components.parseOqlToSteps.startsWith, src.components.parseOqlToSteps.push, src.components.parseOqlToSteps.replace, src.components.parseOqlToSteps.match, src.components.parseOqlToSteps.commands, src.components.parseOqlToSteps.parseStep
-
-### src.pages.Login.data
-- **Calls**: src.pages.Login.setItem, src.pages.Login.stringify, src.pages.Login.setMsg, src.pages.Login.t, src.pages.Login.setTimeout, src.pages.Login.navigate, src.pages.Login.setEmail
 
 ### src.pages.Status.status
 - **Calls**: src.pages.Status.Date, src.pages.Status.toISOString, src.pages.Status.entries, src.pages.Status.forEach, src.pages.Status.writeText, src.pages.Status.setCopied, src.pages.Status.setTimeout
@@ -287,9 +287,9 @@ Functions exposed as public API (no underscore prefix):
 - `src.pages.Billing.handleSubscribe` - 8 calls
 - `e2e.demo-user.spec.mockBackendRoutes` - 8 calls
 - `src.components.TerminalSim.parseScenarioCode` - 7 calls
+- `src.pages.Login.data` - 7 calls
 - `src.components.parseOqlToSteps.currentGoal` - 7 calls
 - `src.components.parseOqlToSteps.currentFunc` - 7 calls
-- `src.pages.Login.data` - 7 calls
 - `src.pages.Status.status` - 7 calls
 - `src.pages.Status.getStatusColor` - 7 calls
 - `src.pages.Status.getStatusBg` - 7 calls
