@@ -12,14 +12,14 @@ services:
       - "--accesslog=true"
     ports:
       - "80:80"
-      - "8080:8080"
+      - "8081:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
     networks:
       - oqlos-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`traefik.oqlos.localhost`)"
+      - "traefik.http.routers.dashboard.rule=Host(`${DOCKER_DOMAIN_TRAEFIK}`)"
       - "traefik.http.routers.dashboard.service=api@internal"
 
   # ── WWW Portal (React/Vite) ──
@@ -37,9 +37,24 @@ services:
       - oqlos-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.portal.rule=Host(`oqlos.localhost`)"
+      - "traefik.http.routers.portal.rule=Host(`${DOCKER_DOMAIN_PORTAL}`)"
       - "traefik.http.routers.portal.entrypoints=web"
       - "traefik.http.services.portal.loadbalancer.server.port=80"
+
+  # ── CQL Editor Service ──
+  cql:
+    build:
+      context: ../../../../cql/
+      dockerfile: Dockerfile
+    ports:
+      - "8091:80"
+    networks:
+      - oqlos-net
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cql.rule=Host(`${DOCKER_DOMAIN_CQL}`)"
+      - "traefik.http.routers.cql.entrypoints=web"
+      - "traefik.http.services.cql.loadbalancer.server.port=80"
 
   # ── Mailpit (dev SMTP) ──
   mailpit:
@@ -48,7 +63,7 @@ services:
       - oqlos-net
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.mail.rule=Host(`mail.oqlos.localhost`)"
+      - "traefik.http.routers.mail.rule=Host(`${DOCKER_DOMAIN_MAILPIT}`)"
       - "traefik.http.services.mail.loadbalancer.server.port=8025"
 
 networks:

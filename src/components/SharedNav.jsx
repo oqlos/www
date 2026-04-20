@@ -10,7 +10,7 @@ export default function SharedNav({ user, onLogout }) {
       <Link to="/" className="nav-logo"><em>OqlOS</em></Link>
       <div className="nav-links">
         <Link to="/dashboard">{t("nav.dashboard")}</Link>
-        <Link to="/scenarios">{t("nav.scenarios")}</Link>
+        <a href={`http://${import.meta.env.VITE_DOMAIN_CQL || 'cql.oqlos.localhost'}`} target="_blank" rel="noopener noreferrer">{t("nav.scenarios")} ↗</a>
         <Link to="/nlp">{t("nav.nlp")}</Link>
         <Link to="/billing">{t("nav.billing")}</Link>
         <Link to="/demo">{t("nav.demo")}</Link>

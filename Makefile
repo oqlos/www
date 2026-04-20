@@ -26,6 +26,17 @@ help:
 
 # Development
 dev:
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  Port Configuration (from .env)"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  VITE_DEV_PORT:      $$(grep VITE_DEV_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_NGINX_PORT:    $$(grep VITE_NGINX_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_TRAEFIK_PORT:  $$(grep VITE_TRAEFIK_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_API_PORT:      $$(grep VITE_API_PORT .env | cut -d'=' -f2)"
+	@echo ""
+	@echo "  Starting Vite dev server on port $$(grep VITE_DEV_PORT .env | cut -d'=' -f2)"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo ""
 	npm run dev
 
 build:
@@ -97,34 +108,89 @@ docker-run:
 	docker run -p 80:80 -e NGINX_PORT=80 -e BACKEND_URL=http://host.docker.internal:8101 oqlos-portal:latest
 
 dev-docker:
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  Port Configuration (from .env)"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  VITE_DEV_PORT:      $$(grep VITE_DEV_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_NGINX_PORT:    $$(grep VITE_NGINX_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_TRAEFIK_PORT:  $$(grep VITE_TRAEFIK_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_API_PORT:      $$(grep VITE_API_PORT .env | cut -d'=' -f2)"
+	@echo ""
+	@echo "  Domain Configuration (from .env)"
+	@echo "  ─────────────────────────────────────────────────────────"
+	@echo "  DOCKER_DOMAIN_PORTAL:   $$(grep DOCKER_DOMAIN_PORTAL .env | cut -d'=' -f2)"
+	@echo "  DOCKER_DOMAIN_TRAEFIK:  $$(grep DOCKER_DOMAIN_TRAEFIK .env | cut -d'=' -f2)"
+	@echo "  DOCKER_DOMAIN_MAILPIT:  $$(grep DOCKER_DOMAIN_MAILPIT .env | cut -d'=' -f2)"
+	@echo "  DOCKER_DOMAIN_CQL:      $$(grep DOCKER_DOMAIN_CQL .env | cut -d'=' -f2)"
+	@echo ""
+	@echo "  Docker Port Mappings:"
+	@echo "  ─────────────────────────────────────────────────────────"
+	@echo "    Traefik Dashboard:  8081 → 8080 (container)"
+	@echo "    Portal (HTTP):        80 → 80 (container)"
+	@echo "    Portal (Direct):      8090 → 80 (container)"
+	@echo "    CQL Editor:           8091 → 80 (container)"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo ""
 	@echo "Restarting dev Docker stack..."
-	docker compose -f infra/docker/dev/docker-compose.dev.yml down
-	docker compose -f infra/docker/dev/docker-compose.dev.yml up -d --build
+	docker compose -f infra/docker/dev/docker-compose.dev.yml --env-file .env down
+	docker compose -f infra/docker/dev/docker-compose.dev.yml --env-file .env up -d --build
+	@echo ""
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  Services available at:"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo "  🌐 Portal:        http://$$(grep DOCKER_DOMAIN_PORTAL .env | cut -d'=' -f2)"
+	@echo "  📊 Traefik:       http://$$(grep DOCKER_DOMAIN_TRAEFIK .env | cut -d'=' -f2) (port 8081)"
+	@echo "  📧 Mailpit:       http://$$(grep DOCKER_DOMAIN_MAILPIT .env | cut -d'=' -f2)"
+	@echo "  ⚙️  CQL Editor:    http://$$(grep DOCKER_DOMAIN_CQL .env | cut -d'=' -f2)"
+	@echo "══════════════════════════════════════════════════════════════"
 	@echo "Dev Docker stack restarted"
 
 dev-docker-down:
-	docker compose -f infra/docker/dev/docker-compose.dev.yml down
+	docker compose -f infra/docker/dev/docker-compose.dev.yml --env-file .env down
 
 dev-open:
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo "  OqlOS Portal - Development Environment"
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo ""
+	@echo "  Port Configuration (from .env)"
+	@echo "  ─────────────────────────────────────────────────────────"
+	@echo "  VITE_DEV_PORT:      $$(grep VITE_DEV_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_NGINX_PORT:    $$(grep VITE_NGINX_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_TRAEFIK_PORT:  $$(grep VITE_TRAEFIK_PORT .env | cut -d'=' -f2)"
+	@echo "  VITE_API_PORT:      $$(grep VITE_API_PORT .env | cut -d'=' -f2)"
+	@echo ""
+	@echo "  Domain Configuration (from .env)"
+	@echo "  ─────────────────────────────────────────────────────────"
+	@echo "  DOCKER_DOMAIN_PORTAL:   $$(grep DOCKER_DOMAIN_PORTAL .env | cut -d'=' -f2)"
+	@echo "  DOCKER_DOMAIN_TRAEFIK:  $$(grep DOCKER_DOMAIN_TRAEFIK .env | cut -d'=' -f2)"
+	@echo "  DOCKER_DOMAIN_MAILPIT:  $$(grep DOCKER_DOMAIN_MAILPIT .env | cut -d'=' -f2)"
+	@echo "  DOCKER_DOMAIN_CQL:      $$(grep DOCKER_DOMAIN_CQL .env | cut -d'=' -f2)"
+	@echo ""
+	@echo "  Docker Port Mappings:"
+	@echo "  ─────────────────────────────────────────────────────────"
+	@echo "    Traefik Dashboard:  8081 → 8080 (container)"
+	@echo "    Portal (HTTP):        80 → 80 (container)"
+	@echo "    Portal (Direct):      8090 → 80 (container)"
+	@echo "    CQL Editor:           8091 → 80 (container)"
+	@echo "══════════════════════════════════════════════════════════════"
+	@echo ""
 	@echo "Starting Docker containers..."
-	@docker compose -f infra/docker/dev/docker-compose.dev.yml up -d --build
+	@docker compose -f infra/docker/dev/docker-compose.dev.yml --env-file .env up -d --build
 	@echo ""
 	@echo "Checking /etc/hosts..."
-	@grep -q "oqlos.localhost" /etc/hosts && echo "✓ Domains already configured" || echo "⚠ Run: echo '127.0.0.1 oqlos.localhost traefik.oqlos.localhost mail.oqlos.localhost' | sudo tee -a /etc/hosts"
+	@grep -q "$$(grep DOCKER_DOMAIN_PORTAL .env | cut -d'=' -f2)" /etc/hosts && echo "✓ Domains already configured" || echo "⚠ Run: echo '127.0.0.1 $$(grep DOCKER_DOMAIN_PORTAL .env | cut -d'=' -f2) $$(grep DOCKER_DOMAIN_TRAEFIK .env | cut -d'=' -f2) $$(grep DOCKER_DOMAIN_MAILPIT .env | cut -d'=' -f2) $$(grep DOCKER_DOMAIN_CQL .env | cut -d'=' -f2)' | sudo tee -a /etc/hosts"
 	@echo ""
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo "  Services available at:"
 	@echo "══════════════════════════════════════════════════════════════"
-	@echo "  🌐 Portal:        http://oqlos.localhost"
-	@echo "  📊 Traefik:       http://traefik.oqlos.localhost"
-	@echo "  📧 Mailpit:       http://mail.oqlos.localhost"
+	@echo "  🌐 Portal:        http://$$(grep DOCKER_DOMAIN_PORTAL .env | cut -d'=' -f2)"
+	@echo "  📊 Traefik:       http://$$(grep DOCKER_DOMAIN_TRAEFIK .env | cut -d'=' -f2) (port 8081)"
+	@echo "  📧 Mailpit:       http://$$(grep DOCKER_DOMAIN_MAILPIT .env | cut -d'=' -f2)"
+	@echo "  ⚙️  CQL Editor:    http://$$(grep DOCKER_DOMAIN_CQL .env | cut -d'=' -f2)"
 	@echo "══════════════════════════════════════════════════════════════"
 	@echo ""
-	@echo "Open in browser: http://oqlos.localhost"
+	@echo "Open in browser: http://$$(grep DOCKER_DOMAIN_PORTAL .env | cut -d'=' -f2)"
 	@echo ""
 	@echo "To stop containers, run: make dev-docker-down"
 	@echo "══════════════════════════════════════════════════════════════"

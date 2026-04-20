@@ -5,7 +5,8 @@ ENV VITE_FORCE_MOCK_API=${VITE_FORCE_MOCK_API}
 COPY package.json package-lock.json* ./
 RUN npm install
 COPY . .
-RUN npm run build
+# Ensure ENV is set for Vite build
+RUN echo "VITE_FORCE_MOCK_API=${VITE_FORCE_MOCK_API}" && npm run build
 
 FROM nginx:alpine
 COPY --from=build /app/dist /usr/share/nginx/html

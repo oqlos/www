@@ -2,13 +2,14 @@
 const FORCE_MOCK_ALL = import.meta.env.VITE_FORCE_MOCK_API === 'true';
 
 // Individual mock controls (selective mocking)
+// When FORCE_MOCK_ALL is true, enable all mocks regardless of individual flags
 const MOCK_CONFIG = {
-  auth: import.meta.env.VITE_MOCK_AUTH === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_AUTH !== 'false'),
-  userApi: import.meta.env.VITE_MOCK_USER_API === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_USER_API !== 'false'),
-  scenarios: import.meta.env.VITE_MOCK_SCENARIOS === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_SCENARIOS !== 'false'),
-  billing: import.meta.env.VITE_MOCK_BILLING === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_BILLING !== 'false'),
-  nlp: import.meta.env.VITE_MOCK_NLP === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_NLP !== 'false'),
-  integrations: import.meta.env.VITE_MOCK_INTEGRATIONS === 'true' || (FORCE_MOCK_ALL && import.meta.env.VITE_MOCK_INTEGRATIONS !== 'false'),
+  auth: FORCE_MOCK_ALL || import.meta.env.VITE_MOCK_AUTH === 'true',
+  userApi: FORCE_MOCK_ALL || import.meta.env.VITE_MOCK_USER_API === 'true',
+  scenarios: FORCE_MOCK_ALL || import.meta.env.VITE_MOCK_SCENARIOS === 'true',
+  billing: FORCE_MOCK_ALL || import.meta.env.VITE_MOCK_BILLING === 'true',
+  nlp: FORCE_MOCK_ALL || import.meta.env.VITE_MOCK_NLP === 'true',
+  integrations: FORCE_MOCK_ALL || import.meta.env.VITE_MOCK_INTEGRATIONS === 'true',
 };
 
 // Any mocking enabled?

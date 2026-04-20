@@ -1,8 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { OQL_EXAMPLES } from "../components/oql-examples";
-import CodeEditor from "../components/CodeEditor";
-import TerminalSim from "../components/TerminalSim";
 import PricingCards from "../components/PricingCards";
 import LangSwitch from "../components/LangSwitch";
 import logger from "../utils/logger";
@@ -12,10 +9,8 @@ import { useI18n } from "../i18n/I18nProvider";
 
 export default function Landing() {
   const { t, lang } = useI18n();
-  const [activeExample, setActiveExample] = useState("pump-test");
   const [activeTab, setActiveTab] = useState("docker");
   const [copiedTab, setCopiedTab] = useState(null);
-  const exampleKeys = Object.keys(OQL_EXAMPLES);
 
   // A/B test: hero subtitle variant (a/b/c/d or random)
   const getVariant = () => {
@@ -32,13 +27,8 @@ export default function Landing() {
   const heroSubtitle = t(`landing.hero_subtitle_variant_${variant}`) || t("landing.hero_subtitle");
 
   useEffect(() => {
-    logger.info("Landing page loaded", "Landing", { exampleCount: exampleKeys.length });
-  }, [exampleKeys.length]);
-
-  const handleExampleChange = (key) => {
-    setActiveExample(key);
-    logger.debug(`Example changed to: ${key}`, "Landing", { key });
-  };
+    logger.info("Landing page loaded", "Landing");
+  }, []);
 
   const handleTabChange = (tabId) => {
     setActiveTab(tabId);
@@ -172,29 +162,23 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* ═══ LIVE EDITOR ═══ */}
+      {/* ═══ CQL EDITOR LINK ═══ */}
       <section className="section" id="editor">
         <div className="section-label">{t("landing.editor_label")}</div>
         <h2>{t("landing.editor_title")}</h2>
         <p className="section-desc">
           {t("landing.editor_desc")}
         </p>
-        <div className="editor-section">
-          <div className="editor-columns">
-            <div className="example-tabs">
-              {exampleKeys.map((k) => (
-                <button
-                  key={k}
-                  className={`example-tab ${activeExample === k ? "active" : ""}`}
-                  onClick={() => handleExampleChange(k)}
-                >
-                  {t(`landing.example_${k}`)}
-                </button>
-              ))}
-            </div>
-            <CodeEditor example={OQL_EXAMPLES[activeExample]} />
-            <TerminalSim />
-          </div>
+        <div style={{textAlign: 'center', marginTop: 32}}>
+          <a 
+            href={`http://${import.meta.env.VITE_DOMAIN_CQL || 'cql.oqlos.localhost'}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+            style={{fontSize: 16, padding: '12px 24px'}}
+          >
+            {lang === 'pl' ? 'Otwórz edytor CQL →' : 'Open CQL Editor →'}
+          </a>
         </div>
       </section>
 
