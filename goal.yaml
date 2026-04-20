@@ -1,5 +1,5 @@
 # goal.yaml - Goal configuration file
-# Generated: 2026-04-15 21:38:18
+# Generated: 2026-04-20 19:44:25
 # Documentation: https://github.com/wronai/goal#configuration
 #
 # This file configures Goal's behavior for:
@@ -15,12 +15,14 @@ version: '1.0'
 project:
   name: oqlos-portal
   type:
+  - python
   - nodejs
   description: ''
 versioning:
   strategy: semver
   files:
   - VERSION
+  - pyproject.toml:version
   - package.json:version
   - venv/lib/python3.13/site-packages/matplotlib/__init__.py:__version__
   bump_rules:

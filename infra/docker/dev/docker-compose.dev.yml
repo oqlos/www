@@ -41,21 +41,6 @@ services:
       - "traefik.http.routers.portal.entrypoints=web"
       - "traefik.http.services.portal.loadbalancer.server.port=80"
 
-  # ── CQL Editor Service ──
-  cql:
-    build:
-      context: ../../../../cql/
-      dockerfile: Dockerfile
-    ports:
-      - "8091:80"
-    networks:
-      - oqlos-net
-    labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.cql.rule=Host(`${DOCKER_DOMAIN_CQL}`)"
-      - "traefik.http.routers.cql.entrypoints=web"
-      - "traefik.http.services.cql.loadbalancer.server.port=80"
-
   # ── Mailpit (dev SMTP) ──
   mailpit:
     image: axllent/mailpit:latest
