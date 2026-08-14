@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OqlOS — Offline</title>
+  <style>
+    body {
+      font-family: 'Sora', system-ui, sans-serif;
+      background: #0a0f1a; color: #e2e8f0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 100vh; margin: 0; text-align: center;
+    }
+    h1 { font-size: 2rem; margin-bottom: 12px; }
+    p { color: #94a3b8; max-width: 400px; line-height: 1.6; }
+    button {
+      margin-top: 24px; padding: 10px 24px;
+      background: #3b82f6; color: #fff; border: none;
+      border-radius: 8px; font-size: 15px; cursor: pointer;
+    }
+    button:hover { background: #2563eb; }
+  </style>
+</head>
+<body>
+  <h1>You're offline</h1>
+  <p>OqlOS Portal requires a network connection. Please check your connection and try again.</p>
+  <button onclick="window.location.reload()">Retry</button>
+</body>
+</html>

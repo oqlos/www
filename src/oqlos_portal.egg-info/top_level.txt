@@ -1,0 +1,8 @@
+components
+data
+hooks
+i18n
+mocks
+pages
+styles
+utils
