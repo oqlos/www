@@ -17,14 +17,45 @@ $parentDirName = basename(dirname($currentDir));
 $grandParentDir = dirname(dirname($currentDir));
 $baseGithubDir = is_dir($grandParentDir) ? $grandParentDir : dirname(__DIR__);
 
-// Pobierz parametry z URL
+$invalidOrgs = ['www', 'work', '_actions', '_temp', '_PipelineMapping'];
+
+// 1. Pobierz org z URL jeśli podano
 $selectedOrg = isset($_GET['org']) ? preg_replace('/[^a-zA-Z0-9_-]/', '', $_GET['org']) : '';
-if (!$selectedOrg) {
-    if (basename($currentDir) === 'www' && is_dir(dirname($currentDir))) {
-        $selectedOrg = basename(dirname($currentDir));
-    } else {
-        $selectedOrg = 'digitaltwin-run';
+
+// 2. Jeśli brak, sprawdź zmienną środowiskową GITHUB_REPOSITORY z GitHub Actions
+if (!$selectedOrg || in_array($selectedOrg, $invalidOrgs)) {
+    $ghRepoEnv = getenv('GITHUB_REPOSITORY');
+    if ($ghRepoEnv && strpos($ghRepoEnv, '/') !== false) {
+        $parts = explode('/', $ghRepoEnv);
+        if (!empty($parts[0]) && !in_array($parts[0], $invalidOrgs)) {
+            $selectedOrg = $parts[0];
+        }
     }
+}
+
+// 3. Jeśli nadal brak, sprawdź URL git remote origin
+if (!$selectedOrg || in_array($selectedOrg, $invalidOrgs)) {
+    $gitRemote = @shell_exec('git remote get-url origin 2>/dev/null');
+    if ($gitRemote && preg_match('/[:\/]([a-zA-Z0-9_-]+)\/([a-zA-Z0-9_-]+)(\.git)?/', trim($gitRemote), $matches)) {
+        if (!empty($matches[1]) && !in_array($matches[1], $invalidOrgs)) {
+            $selectedOrg = $matches[1];
+        }
+    }
+}
+
+// 4. Jeśli nadal brak, sprawdź katalog nadrzędny
+if (!$selectedOrg || in_array($selectedOrg, $invalidOrgs)) {
+    $dirParts = array_filter(explode('/', str_replace('\\', '/', $currentDir)));
+    foreach (array_reverse($dirParts) as $part) {
+        if (!in_array($part, $invalidOrgs) && strpos($part, '_') !== 0 && strpos($part, '.') !== 0) {
+            $selectedOrg = $part;
+            break;
+        }
+    }
+}
+
+if (!$selectedOrg || in_array($selectedOrg, $invalidOrgs)) {
+    $selectedOrg = 'wellmanifest'; // Domyślna organizacja
 }
 
 if ($selectedOrg === $parentDirName) {
@@ -43,6 +74,9 @@ $isCli = (php_sapi_name() === 'cli');
 $isExport = $isCli || (isset($_GET['export']) && $_GET['export'] == '1') || (isset($argv[1]) && in_array($argv[1], ['--export', 'export', '-e', 'build']));
 
 if ($isExport) {
+    if (file_exists($cacheFile)) {
+        @unlink($cacheFile);
+    }
     ob_start();
 }
 
@@ -60,17 +94,25 @@ if (isset($_GET['api'])) {
 }
 
 function fetchGitHubOrgRepos($orgName) {
-    $url = "https://api.github.com/orgs/{$orgName}/repos?per_page=100";
-    $opts = ["http" => ["method" => "GET", "header" => "User-Agent: WebOrg-PHP/1.0\r\n"]];
+    $opts = [
+        "http" => [
+            "method" => "GET",
+            "header" => "User-Agent: WebOrg-PHP-AutoDiscovery/1.0\r\n",
+            "ignore_errors" => true
+        ]
+    ];
     $context = stream_context_create($opts);
+
+    $url = "https://api.github.com/orgs/{$orgName}/repos?per_page=100";
     $json = @file_get_contents($url, false, $context);
-    if (!$json) {
+    $data = json_decode($json, true);
+    if (!is_array($data) || isset($data['message']) || count($data) <= 1) {
         $url = "https://api.github.com/users/{$orgName}/repos?per_page=100";
         $json = @file_get_contents($url, false, $context);
-    }
-    if ($json) {
         $data = json_decode($json, true);
-        if (is_array($data)) return $data;
+    }
+    if (is_array($data) && !isset($data['message'])) {
+        return $data;
     }
     return [];
 }
@@ -102,6 +144,22 @@ function getOrGenerateProjectsCache($orgName, $orgPath, $cacheFile) {
 
     $projects = [];
 
+    // Pobierz prawdziwe statystyki z GitHub REST API
+    $ghStatsMap = [];
+    $apiRepos = fetchGitHubOrgRepos($orgName);
+    foreach ($apiRepos as $repo) {
+        if (!empty($repo['name'])) {
+            $ghStatsMap[$repo['name']] = [
+                'stars' => $repo['stargazers_count'] ?? 0,
+                'forks' => $repo['forks_count'] ?? 0,
+                'issues' => $repo['open_issues_count'] ?? 0,
+                'language' => $repo['language'] ?? 'Python',
+                'description' => $repo['description'] ?? '',
+                'html_url' => $repo['html_url'] ?? "https://github.com/$orgName/{$repo['name']}"
+            ];
+        }
+    }
+
     if (!empty($subdirs)) {
         foreach ($subdirs as $projId) {
             $projPath = $orgPath . '/' . $projId;
@@ -131,6 +189,12 @@ function getOrGenerateProjectsCache($orgName, $orgPath, $cacheFile) {
             if (preg_match('/(lifecycle|state)/i', $projId)) $tags[] = 'lifecycle';
             if (preg_match('/(sec|auth|guard|identity)/i', $projId)) $tags[] = 'security';
 
+            $ghData = $ghStatsMap[$projId] ?? [];
+            $realStars = $ghData['stars'] ?? 0;
+            $realForks = $ghData['forks'] ?? 0;
+            $realIssues = $ghData['issues'] ?? 0;
+            $realLang = $ghData['language'] ?? (preg_match('/(ts|js|web)/i', $projId) ? 'TypeScript' : 'Python');
+
             $projects[$projId] = [
                 'id' => $projId,
                 'name' => (strlen($title) < 45) ? $title : $projId,
@@ -138,10 +202,10 @@ function getOrGenerateProjectsCache($orgName, $orgPath, $cacheFile) {
                 'category' => 'Moduły & Usługi',
                 'tags' => array_values(array_unique($tags)),
                 'status' => 'Aktywny Moduł',
-                'stars' => (strlen($projId) * 11 + 7) % 120 + 15,
-                'forks' => (strlen($projId) * 3 + 2) % 25 + 2,
-                'issues' => strlen($projId) % 4,
-                'language' => preg_match('/(py|nlp|ai)/i', $projId) ? 'Python' : (preg_match('/(ts|js|web)/i', $projId) ? 'TypeScript' : 'Python'),
+                'stars' => $realStars,
+                'forks' => $realForks,
+                'issues' => $realIssues,
+                'language' => $realLang,
                 'owner' => $orgName,
                 'readme' => $readmeContent,
                 'github_url' => "https://github.com/$orgName/$projId",
@@ -151,7 +215,6 @@ function getOrGenerateProjectsCache($orgName, $orgPath, $cacheFile) {
         }
     } else {
         // Fallback do GitHub REST API jeśli brak lokalnych subkatalogów
-        $apiRepos = fetchGitHubOrgRepos($orgName);
         foreach ($apiRepos as $repo) {
             $projId = $repo['name'] ?? '';
             if (!$projId || $projId === 'www') continue;
@@ -219,14 +282,15 @@ function getOrGenerateProjectsCache($orgName, $orgPath, $cacheFile) {
 
 $cacheData = getOrGenerateProjectsCache($selectedOrg, $orgPath, $cacheFile);
 
-// Pobierz listę wszystkich dostępnych organizacji na serwerze
-$allAvailableOrgs = [];
-if (is_dir($baseGithubDir)) {
-    foreach (scandir($baseGithubDir) as $d) {
-        if ($d !== '.' && $d !== '..' && strpos($d, '.') !== 0 && is_dir($baseGithubDir . '/' . $d)) {
-            $allAvailableOrgs[] = $d;
-        }
-    }
+// Zawsze udostępniaj pełną listę zdefiniowanych, aktywnych serwisów WWW
+$allAvailableOrgs = [
+    'autogrammar', 'bioxfoundry', 'digitaltwin-run', 'emllm', 'fin-officer',
+    'founder-pl', 'oqlos', 'semcod', 'stream-ware', 'tom-sapletta-com',
+    'urirun-connectors', 'wellmanifest', 'wronai'
+];
+
+if (!in_array($selectedOrg, $allAvailableOrgs) && !in_array($selectedOrg, $invalidOrgs)) {
+    $allAvailableOrgs[] = $selectedOrg;
 }
 sort($allAvailableOrgs);
 ?>
