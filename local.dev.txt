@@ -1,8 +1,0 @@
-# local.dev.txt — locally developed dependencies of this project (generated 2026-07-04)
-# by ~/github/local.dev.sh — DO NOT EDIT; see ~/github/local.dev.md
-# project: oqlos-portal 0.1.1 (python+js) at /home/tom/github/oqlos/www
-# deps declared: 14 | with local source: 0
-
-## LOCAL DEPS: none — all dependencies are external
-
-## EXTERNAL DEPS (no local source, 14): @playwright/test, @testing-library/jest-dom, @testing-library/react, @vitejs/plugin-react, @vitest/coverage-v8, @vitest/ui, happy-dom, jsdom, loglevel, react, react-dom, react-router-dom, vite, vitest

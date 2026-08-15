@@ -1,3 +1,6 @@
-# 🌐 OQLOS Process OS — Landing Page (`www`)
+# oqlos — Projects Hub (Single-File index.php Engine)
 
-Official landing page and interactive projects dashboard for **oqlos**.
+Pure single-file PHP landing page and ecosystem dependency hub for .
+
+## Quickstart
+
